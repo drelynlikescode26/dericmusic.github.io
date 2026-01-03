@@ -1,0 +1,7 @@
+PLACEHOLDER: Optional WebP alternative. Replace with optimized webp file named hero.webp for better performance.
+
+You can generate a webp with:
+
+cwebp assets/hero.jpg -o assets/hero.webp
+
+Or use an online converter and save as `assets/hero.webp`.

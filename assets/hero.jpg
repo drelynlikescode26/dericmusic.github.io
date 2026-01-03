@@ -1,0 +1,13 @@
+PLACEHOLDER: This file is a placeholder for the hero image.
+
+Replace this file with the attached portrait image and name it exactly `hero.jpg`.
+
+To replace from macOS Finder or terminal:
+
+mv /path/to/your/downloaded/image.jpg "assets/hero.jpg"
+
+Or from terminal where the repo is located:
+
+cp /Users/you/Downloads/portrait.jpg "assets/hero.jpg"
+
+If you'd like, upload the image here and I will replace this placeholder with the real image for you.
