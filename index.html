@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deric Music | Official Hub</title>
+    <title>Deric Music — Official Site</title>
+    <meta property="og:title" content="Deric Music — Official Site">
+    <meta name="twitter:title" content="Deric Music — Official Site">
+    <meta property="og:description" content="Producer // Artist // Visionary">
+    <meta name="twitter:description" content="Producer // Artist // Visionary">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hero.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -12,6 +16,8 @@
 <body>
 
     <div class="hero-bg"></div>
+    <div class="grain-overlay"></div>
+    <button class="minimal-mode-toggle" id="minimalToggle" title="Toggle Minimal Mode (M)">◐</button>
     <div class="hud-panel">
         <div class="artist-block">
             <h1>DERIC</h1>
@@ -30,6 +36,10 @@
                 <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/artist/08nIFJLOyYWc5eWJCa4S8X?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
         </div>
+        <form class="email-capture" id="emailForm">
+            <input type="email" placeholder="Stay tapped in." required id="emailInput">
+            <button type="submit">→</button>
+        </form>
     </div>
         <script>
         // Spotify dropdown logic
@@ -61,8 +71,82 @@
         }
         window.addEventListener('resize', adjustSpotifyHeight);
         adjustSpotifyHeight();
+        
+        // Subtle parallax on hero image
+        const heroBg = document.querySelector('.hero-bg');
+        let ticking = false;
+        window.addEventListener('scroll', function() {
+          if (!ticking) {
+            window.requestAnimationFrame(function() {
+              const scrolled = window.pageYOffset;
+              const parallax = scrolled * 0.15; // Very subtle movement
+              if (heroBg) {
+                heroBg.style.transform = `translateY(${parallax}px) scale(1.02)`;
+              }
+              ticking = false;
+            });
+            ticking = true;
+          }
+        });
         </script>
     </div>
+
+    <script>
+    // Minimal mode toggle for clean screenshots/sharing
+    const toggleBtn = document.getElementById('minimalToggle');
+    const hudPanel = document.querySelector('.hud-panel');
+    const spotifyWrap = document.querySelector('.spotify-toggle-wrap');
+    let minimalMode = localStorage.getItem('minimalMode') === 'true';
+    
+    function applyMinimalMode(minimal) {
+      minimalMode = minimal;
+      localStorage.setItem('minimalMode', minimal);
+      if (minimal) {
+        hudPanel.classList.add('minimal-hidden');
+        if (spotifyWrap) spotifyWrap.classList.add('minimal-hidden');
+        toggleBtn.classList.add('active');
+      } else {
+        hudPanel.classList.remove('minimal-hidden');
+        if (spotifyWrap) spotifyWrap.classList.remove('minimal-hidden');
+        toggleBtn.classList.remove('active');
+      }
+    }
+    
+    // Apply saved state
+    applyMinimalMode(minimalMode);
+    
+    // Toggle button click
+    toggleBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      applyMinimalMode(!minimalMode);
+    });
+    
+    // Keyboard shortcut: M key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'm' || e.key === 'M') {
+        applyMinimalMode(!minimalMode);
+      }
+    });
+    
+    // Email capture form
+    const emailForm = document.getElementById('emailForm');
+    const emailInput = document.getElementById('emailInput');
+    emailForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const email = emailInput.value.trim();
+      if (email) {
+        // Store email (you can later integrate with Mailchimp, ConvertKit, etc.)
+        console.log('Email captured:', email);
+        // Show success feedback
+        emailInput.value = '';
+        emailInput.placeholder = 'You\'re in. ✓';
+        setTimeout(function() {
+          emailInput.placeholder = 'Stay tapped in.';
+        }, 3000);
+        // TODO: Send to your email service (Mailchimp, ConvertKit, etc.)
+      }
+    });
+    </script>
 
     <script>
     (function(){
