@@ -17,13 +17,51 @@
             <h1>DERIC</h1>
         </div>
         <div class="hud-links">
-            <a href="#" class="music-link spotify" title="Spotify"><i class="fab fa-spotify"></i></a>
-            <a href="#" class="music-link apple" title="Apple Music"><i class="fab fa-apple"></i></a>
-            <a href="#" class="music-link soundcloud" title="SoundCloud"><i class="fab fa-soundcloud"></i></a>
-            <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://tiktok.com" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+            <a href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" class="music-link spotify" title="Spotify" target="_blank" rel="noopener"><i class="fab fa-spotify"></i></a>
+            <a href="https://music.apple.com/us/artist/deric/1529542054" class="music-link apple" title="Apple Music" target="_blank" rel="noopener"><i class="fab fa-apple"></i></a>
+            <a href="https://on.soundcloud.com/Sp7ba1spJzejJtwVZi" class="music-link soundcloud" title="SoundCloud" target="_blank" rel="noopener"><i class="fab fa-soundcloud"></i></a>
+            <a href="https://www.instagram.com/envyderic/" class="music-link instagram" title="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@ihatederic" class="music-link tiktok" title="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
+            <a href="https://youtube.com/@envyderic" class="music-link youtube" title="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
         </div>
+        <div class="spotify-toggle-wrap">
+            <button class="spotify-toggle-btn" id="spotifyToggleBtn">Listen</button>
+            <div class="spotify-dropdown" id="spotifyDropdown">
+                <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/artist/08nIFJLOyYWc5eWJCa4S8X?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+        <script>
+        // Spotify dropdown logic
+        const btn = document.getElementById('spotifyToggleBtn');
+        const dropdown = document.getElementById('spotifyDropdown');
+        let open = false;
+        function closeDropdown() {
+            dropdown.classList.remove('open');
+            open = false;
+        }
+        btn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            open = !open;
+            dropdown.classList.toggle('open', open);
+        });
+        document.addEventListener('click', function(e) {
+            if (open && !dropdown.contains(e.target) && e.target !== btn) closeDropdown();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (open && (e.key === 'Escape' || e.key === 'Esc')) closeDropdown();
+        });
+        // Mobile: adjust height
+        function adjustSpotifyHeight() {
+            if (window.innerWidth < 600) {
+                dropdown.querySelector('iframe').style.height = '220px';
+            } else {
+                dropdown.querySelector('iframe').style.height = '352px';
+            }
+        }
+        window.addEventListener('resize', adjustSpotifyHeight);
+        adjustSpotifyHeight();
+        </script>
     </div>
 
     <script>

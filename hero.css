@@ -1,3 +1,147 @@
+/* Spotify dropdown styles */
+.spotify-toggle-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 32px;
+}
+.spotify-toggle-btn {
+    background: rgba(255,255,255,0.13);
+    color: #1DB954;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 32px;
+    font-size: 1.08rem;
+    font-family: 'Poppins', Arial, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+    cursor: pointer;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+    margin-bottom: 0.5rem;
+}
+.spotify-toggle-btn:hover {
+    background: rgba(29,185,84,0.18);
+    color: #fff;
+    box-shadow: 0 4px 24px 0 rgba(29,185,84,0.13);
+    transform: scale(1.04);
+}
+.spotify-dropdown {
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.10);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 18px 0 0 0;
+    display: none;
+    opacity: 0;
+    transform: translateY(-24px);
+    transition: opacity 0.5s cubic-bezier(.2,.9,.2,1), transform 0.5s cubic-bezier(.2,.9,.2,1);
+    z-index: 20;
+}
+.spotify-dropdown.open {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+.spotify-dropdown iframe {
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
+    border: none;
+    background: transparent;
+    box-shadow: 0 2px 18px 0 rgba(0,0,0,0.08);
+    border-radius: 12px;
+}
+@media (max-width: 600px) {
+    .spotify-dropdown {
+        max-width: 98vw;
+        padding: 10px 0 0 0;
+    }
+    .spotify-dropdown iframe {
+        min-width: 0;
+        height: 220px !important;
+    }
+}
+/* Spotify embed reveal section below hero */
+.spotify-embed-reveal {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 48px;
+        min-height: 400px;
+}
+.spotify-embed-section {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255,255,255,0.10);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        padding: 18px 0 0 0;
+        opacity: 0;
+        transform: translateY(32px);
+        transition: opacity 0.7s cubic-bezier(.2,.9,.2,1), transform 0.7s cubic-bezier(.2,.9,.2,1);
+}
+.spotify-embed-section.reveal-spotify {
+        opacity: 1;
+        transform: translateY(0);
+}
+.spotify-embed-section iframe {
+        width: 100%;
+        min-width: 280px;
+        max-width: 100%;
+        border: none;
+        background: transparent;
+        box-shadow: 0 2px 18px 0 rgba(0,0,0,0.08);
+        border-radius: 12px;
+}
+/* Reveal animation on scroll */
+window.addEventListener('scroll', function() {
+    var embed = document.querySelector('.spotify-embed-section');
+    if (!embed) return;
+    var rect = embed.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+        embed.classList.add('reveal-spotify');
+    }
+});
+/* Spotify embed section styling */
+.spotify-embed-section {
+    width: 100%;
+    max-width: 600px;
+    margin: 32px auto 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.10);
+    border-radius: 18px;
+    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: 18px 0 0 0;
+}
+.spotify-embed-section iframe {
+    width: 100%;
+    min-width: 280px;
+    max-width: 100%;
+    border: none;
+    background: transparent;
+    box-shadow: 0 2px 18px 0 rgba(0,0,0,0.08);
+}
 .hero-bg {
     position: fixed;
     inset: 0;
