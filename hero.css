@@ -1,15 +1,14 @@
-/* Spotify dropdown styles */
-.spotify-toggle-wrap {
-    width: 100%;
+/* Mode Trigger Buttons (Listen & Watch) */
+.hud-actions {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    margin-top: 32px;
+    gap: 12px;
+    margin-top: 20px;
 }
-.spotify-toggle-btn {
-    background: rgba(255,255,255,0.18);
+.mode-trigger {
+    background: rgba(255, 255, 255, 0.18);
     color: #e8e8e8;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: none;
     border-radius: 999px;
     padding: 10px 32px;
@@ -17,57 +16,398 @@
     font-family: 'Poppins', Arial, sans-serif;
     font-weight: 600;
     letter-spacing: 0.08em;
-    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.10);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+    transition: all 0.2s ease;
     cursor: pointer;
-    transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
-    margin-bottom: 0.5rem;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    outline: none;
 }
-.spotify-toggle-btn:hover {
+.mode-trigger:hover, .mode-trigger:focus {
     background: rgba(255,255,255,0.32);
     color: #fff;
-    box-shadow: 0 4px 24px 0 rgba(0,0,0,0.14);
-    transform: scale(1.04) translateY(-1px);
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.14);
 }
-.spotify-dropdown {
+
+/* Listen Mode Overlay */
+.listen-mode-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 520px;
-    margin: 0 auto;
-    background: rgba(255,255,255,0.10);
-    border-radius: 18px;
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.13);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    padding: 18px 0 0 0;
-    display: none;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     opacity: 0;
-    transform: translateY(-24px);
-    transition: opacity 0.5s cubic-bezier(.2,.9,.2,1), transform 0.5s cubic-bezier(.2,.9,.2,1);
-    z-index: 20;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
 }
-.spotify-dropdown.open {
-    display: block;
+.listen-mode-overlay.active {
     opacity: 1;
-    transform: translateY(0);
+    visibility: visible;
 }
-.spotify-dropdown iframe {
+
+/* Listen Mode Content */
+.listen-mode-content {
+    transform: scale(0.9) translateY(30px);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+    max-width: 90%;
+    width: 600px;
+}
+.listen-mode-overlay.active .listen-mode-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Listen Mode Card */
+.listen-mode-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.1),
+        0 0 60px rgba(29, 185, 84, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.listen-mode-card iframe {
+    border-radius: 12px;
+    display: block;
+}
+
+/* Close Button */
+.listen-mode-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10000;
+}
+.listen-mode-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* Blur effect on hero when Listen Mode active */
+.hero-bg.listen-mode-blur,
+.hud-panel.listen-mode-blur {
+    filter: blur(12px);
+    transform: scale(0.96);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+/* Watch Mode Overlay */
+.watch-mode-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    min-width: 280px;
-    max-width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.90);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+.watch-mode-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Watch Mode Content */
+.watch-mode-content {
+    transform: scale(0.92) translateY(40px);
+    opacity: 0;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    width: 95%;
+    max-width: 1400px;
+    max-height: 85vh;
+    overflow: hidden;
+}
+.watch-mode-overlay.active .watch-mode-content {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* Watch Loading State */
+.watch-loading {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    text-align: center;
+    padding: 60px 20px;
+    font-family: 'Poppins', Arial, sans-serif;
+    letter-spacing: 0.05em;
+}
+
+/* Watch Carousel */
+.watch-carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 20px 40px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+.watch-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+/* Watch Navigation Arrows */
+.watch-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10001;
+}
+.watch-arrow:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+.watch-arrow-left {
+    left: 32px;
+}
+.watch-arrow-right {
+    right: 32px;
+}
+
+/* Video Card */
+.video-card {
+    flex: 0 0 380px;
+    scroll-snap-align: center;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        0 0 0 1px rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.video-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.4),
+        0 0 80px rgba(255, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Video Thumbnail */
+.video-thumbnail {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    background: #000;
+    overflow: hidden;
+}
+.video-thumbnail img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.08);
+}
+
+/* Play Icon Overlay */
+.video-thumbnail::after {
+    content: '▶';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+.video-card:hover .video-thumbnail::after {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.15);
+}
+
+/* Video Info */
+.video-info {
+    padding: 16px 18px;
+}
+.video-title {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 8px 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    letter-spacing: 0.01em;
+}
+.video-stats {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Video Modal (for playing inline) */
+.video-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.video-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+.video-modal-content {
+    width: 90%;
+    max-width: 1200px;
+    aspect-ratio: 16 / 9;
+}
+.video-modal iframe {
+    width: 100%;
+    height: 100%;
     border: none;
-    background: transparent;
-    box-shadow: 0 2px 18px 0 rgba(0,0,0,0.08);
     border-radius: 12px;
 }
+
+/* Close Button for Watch Mode */
+.watch-mode-close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 50%;
+    color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10000;
+}
+.watch-mode-close:hover {
+    background: rgba(255, 255, 255, 0.22);
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* Blur effect on hero when Watch Mode active */
+.hero-bg.watch-mode-blur,
+.hud-panel.watch-mode-blur {
+    filter: blur(14px);
+    transform: scale(0.95);
+    transition: filter 0.6s ease, transform 0.6s ease;
+}
+
+/* Mobile adjustments */
 @media (max-width: 600px) {
-    .spotify-dropdown {
-        max-width: 98vw;
-        padding: 10px 0 0 0;
+    .hud-actions {
+        flex-direction: column;
+        gap: 8px;
     }
-    .spotify-dropdown iframe {
-        min-width: 0;
-        height: 220px !important;
+    .mode-trigger {
+        width: 100%;
+        padding: 10px 24px;
+    }
+    .listen-mode-content {
+        width: 95%;
+    }
+    .listen-mode-card {
+        padding: 16px;
+    }
+    .listen-mode-card iframe {
+        height: 280px !important;
+    }
+    .listen-mode-close,
+    .watch-mode-close {
+        top: 20px;
+        right: 20px;
+        width: 38px;
+        height: 38px;
+    }
+    .watch-carousel {
+        padding: 20px;
+    }
+    .video-card {
+        flex: 0 0 280px;
+    }
+    .watch-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 28px;
+    }
+    .watch-arrow-left {
+        left: 16px;
+    }
+    .watch-arrow-right {
+        right: 16px;
     }
 }
 /* Spotify embed reveal section below hero */
@@ -194,7 +534,7 @@ window.addEventListener('scroll', function() {
 /* Hidden state for minimal mode */
 .hud-panel.minimal-hidden .hud-links,
 .hud-panel.minimal-hidden .email-capture,
-.spotify-toggle-wrap.minimal-hidden {
+.hud-panel.minimal-hidden .listen-mode-trigger {
     opacity: 0;
     pointer-events: none;
     transform: translateY(10px);
@@ -202,7 +542,7 @@ window.addEventListener('scroll', function() {
 }
 .hud-panel .hud-links,
 .hud-panel .email-capture,
-.spotify-toggle-wrap {
+.hud-panel .listen-mode-trigger {
     opacity: 1;
     pointer-events: auto;
     transform: translateY(0);
