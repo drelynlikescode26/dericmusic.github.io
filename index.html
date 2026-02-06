@@ -7,13 +7,14 @@
     <meta property="og:title" content="Deric — Official">
     <meta property="og:site_name" content="Deric">
     <meta name="twitter:title" content="Deric — Official">
-    <meta property="og:description" content="Producer // Artist // Visionary">
-    <meta name="twitter:description" content="Producer // Artist // Visionary">
+    <meta property="og:description" content="Singer • Songwriter • Artist">
+    <meta name="twitter:description" content="Singer • Songwriter • Artist">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hero.css">
     <link rel="stylesheet" href="css/listen-portal.css">
+    <link rel="stylesheet" href="css/watch-portal.css">
     <link rel="stylesheet" href="css/hero-refresh.css">
     <link rel="stylesheet" href="css/hero-video.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -32,6 +33,8 @@
                 preload="metadata"
                 poster="assets/hero/hero-poster.jpg"
             >
+                <source src="assets/hero/glass%208%20sec%20loop.webm" type="video/webm" />
+                <source src="assets/hero/glass%208%20sec%20loop.mp4" type="video/mp4" />
                 <source src="assets/hero/glass%208%20sec%20loop.mov" type="video/quicktime" />
             </video>
             <div class="hero-overlay"></div>
@@ -113,429 +116,31 @@
     </div>
 
         <script>
-        // Wait for DOM to fully load
+        // Minimal inline script - most logic moved to external modules
         document.addEventListener('DOMContentLoaded', function() {
-            // YouTube API Configuration
-            const YOUTUBE_API_KEY = 'AIzaSyCsbg4IqmFkgteGXWOTu5B4N13QXh2ugkQ';
-            const CHANNEL_ID = 'UCvMVDYpt5z-5MCPyIMtlT9A';
-            const CACHE_KEY = 'youtube_videos_cache';
-            const CACHE_DURATION = 3600000; // 1 hour in milliseconds
-            
-            // Elements
-            const listenTrigger = document.getElementById('open-listen-portal');
-            const listenOverlay = document.getElementById('listenModeOverlay');
-            const listenContent = document.getElementById('listenModeContent');
-            const listenClose = document.getElementById('listenModeClose');
-            const watchTrigger = document.getElementById('open-watch-portal');
-            const watchOverlay = document.getElementById('watchModeOverlay');
-            const watchContent = document.getElementById('watchModeContent');
-            const watchClose = document.getElementById('watchModeClose');
-            const watchCarousel = document.getElementById('watchCarousel');
-            const watchArrowLeft = document.getElementById('watchArrowLeft');
-            const watchArrowRight = document.getElementById('watchArrowRight');
-            const heroBg = document.querySelector('.hero-bg');
-            const hudPanel = document.querySelector('.hud-panel');
-            
-            // Debug: Check if Watch elements exist
-            console.log('Watch Debug:', {
-                watchOverlay: !!watchOverlay,
-                watchContent: !!watchContent,
-                watchClose: !!watchClose,
-                watchCarousel: !!watchCarousel,
-                watchArrowLeft: !!watchArrowLeft,
-                watchArrowRight: !!watchArrowRight
-            });
-            
-            let listenModeActive = false;
-            let watchModeActive = false;
-            let videosLoaded = false;
-            let currentVideoIndex = 0;
-            let totalVideos = 0;
-            
-            // YouTube API Functions
-            function getCachedVideos() {
-                try {
-                    const cache = localStorage.getItem(CACHE_KEY);
-                    if (!cache) return null;
-                    
-                    const { timestamp, videos } = JSON.parse(cache);
-                    const now = Date.now();
-                    
-                    if (now - timestamp < CACHE_DURATION) {
-                        return videos;
-                    }
-                    return null;
-                } catch (e) {
-                    return null;
-                }
-            }
-            
-            function cacheVideos(videos) {
-                try {
-                    const cache = {
-                        timestamp: Date.now(),
-                        videos: videos
-                    };
-                    localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
-                } catch (e) {
-                    console.warn('Could not cache videos');
-                }
-            }
-            
-            async function fetchYouTubeVideos() {
-                // Check cache first
-                const cached = getCachedVideos();
-                if (cached) {
-                    return cached;
-                }
-                
-                // Fetch from API (get more results to filter)
-                const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&channelId=${CHANNEL_ID}&part=snippet,id&order=date&maxResults=15&type=video`;
-                
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) throw new Error('API request failed');
-                    
-                    const data = await response.json();
-                    const videos = data.items.map(item => ({
-                        id: item.id.videoId,
-                        title: item.snippet.title,
-                        thumbnail: item.snippet.thumbnails.high.url,
-                        publishedAt: item.snippet.publishedAt
-                    }));
-                    
-                    // Get video statistics and duration to filter out Shorts
-                    const videoIds = videos.map(v => v.id).join(',');
-                    const statsUrl = `https://www.googleapis.com/youtube/v3/videos?key=${YOUTUBE_API_KEY}&id=${videoIds}&part=statistics,contentDetails`;
-                    const statsResponse = await fetch(statsUrl);
-                    const statsData = await statsResponse.json();
-                    
-                    // Filter out Shorts (videos under 90 seconds) and merge stats
-                    const filteredVideos = [];
-                    videos.forEach((video, index) => {
-                        const videoData = statsData.items[index];
-                        if (videoData) {
-                            // Parse duration (ISO 8601 format like PT1M30S)
-                            const duration = videoData.contentDetails.duration;
-                            const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?/);
-                            const hours = parseInt(match[1] || 0);
-                            const minutes = parseInt(match[2] || 0);
-                            const seconds = parseInt(match[3] || 0);
-                            const totalSeconds = hours * 3600 + minutes * 60 + seconds;
-                            
-                            // Only include videos 90 seconds or longer (exclude Shorts)
-                            if (totalSeconds >= 90) {
-                                filteredVideos.push(video);
-                            }
-                        }
-                    });
-                    
-                    // Return only first 5 filtered videos
-                    const finalVideos = filteredVideos.slice(0, 5);
-                    cacheVideos(finalVideos);
-                    return finalVideos;
-                } catch (error) {
-                    console.error('Failed to fetch YouTube videos:', error);
-                    return [];
-                }
-            }
-            
-            function formatTimeAgo(dateString) {
-                const date = new Date(dateString);
-                const now = new Date();
-                const seconds = Math.floor((now - date) / 1000);
-                
-                if (seconds < 60) return 'just now';
-                if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
-                if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
-                if (seconds < 604800) return `${Math.floor(seconds / 86400)}d ago`;
-                if (seconds < 2592000) return `${Math.floor(seconds / 604800)}w ago`;
-                return `${Math.floor(seconds / 2592000)}mo ago`;
-            }
-            
-            function renderVideos(videos) {
-                watchCarousel.innerHTML = '';
-                totalVideos = videos.length;
-                currentVideoIndex = 0;
-                
-                if (videos.length === 0) {
-                    watchCarousel.innerHTML = '<div class="watch-loading">No videos available</div>';
-                    return;
-                }
-                
-                videos.forEach(video => {
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
-                    card.innerHTML = `
-                        <div class="video-thumbnail">
-                            <img src="${video.thumbnail}" alt="${video.title}">
-                        </div>
-                        <div class="video-info">
-                            <h3 class="video-title">${video.title}</h3>
-                        </div>
-                    `;
-                    
-                    card.addEventListener('click', () => {
-                        openVideoModal(video.id);
-                    });
-                    
-                    watchCarousel.appendChild(card);
-                });
-                
-                updateArrowVisibility();
-            }
-            
-            function updateArrowVisibility() {
-                if (currentVideoIndex === 0) {
-                    watchArrowLeft.style.opacity = '0.3';
-                    watchArrowLeft.style.pointerEvents = 'none';
-                } else {
-                    watchArrowLeft.style.opacity = '1';
-                    watchArrowLeft.style.pointerEvents = 'auto';
-                }
-                
-                if (currentVideoIndex >= totalVideos - 1) {
-                    watchArrowRight.style.opacity = '0.3';
-                    watchArrowRight.style.pointerEvents = 'none';
-                } else {
-                    watchArrowRight.style.opacity = '1';
-                    watchArrowRight.style.pointerEvents = 'auto';
-                }
-            }
-            
-            function scrollToVideo(index) {
-                const cards = watchCarousel.querySelectorAll('.video-card');
-                if (cards[index]) {
-                    cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-                    currentVideoIndex = index;
-                    updateArrowVisibility();
-                }
-            }
-            
-            // Listen Mode Functions
-            function enterListenMode() {
-                listenModeActive = true;
-                
-                // Trigger transition
-                listenOverlay.classList.add('active');
-                if (heroBg) heroBg.classList.add('listen-mode-blur');
-                if (hudPanel) hudPanel.classList.add('listen-mode-blur');
-                
-                // Prevent body scroll
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function exitListenMode() {
-                listenModeActive = false;
-                
-                listenOverlay.classList.remove('active');
-                if (heroBg) heroBg.classList.remove('listen-mode-blur');
-                if (hudPanel) hudPanel.classList.remove('listen-mode-blur');
-                
-                // Restore body scroll
-                document.body.style.overflow = '';
-            }
-            
-            // Watch Mode Functions
-            async function enterWatchMode() {
-                console.log('enterWatchMode called!');
-                
-                if (!watchOverlay) {
-                    console.error('watchOverlay element not found!');
-                    return;
-                }
-                
-                if (!watchFeaturedPlayer) {
-                    console.error('watchFeaturedPlayer element not found!');
-                    return;
-                }
-                
-                watchModeActive = true;
-                
-                // Load videos if not loaded
-                if (!videosLoaded) {
-                    console.log('Loading videos...');
-                    const videos = await fetchYouTubeVideos();
-                    renderVideos(videos);
-                    videosLoaded = true;
-                }
-                
-                // Trigger transition
-                watchOverlay.classList.add('active');
-                if (heroBg) heroBg.classList.add('watch-mode-blur');
-                if (hudPanel) hudPanel.classList.add('watch-mode-blur');
-                
-                // Prevent body scroll
-                document.body.style.overflow = 'hidden';
-            }
-            
-            function exitWatchMode() {
-                watchModeActive = false;
-                
-                watchOverlay.classList.remove('active');
-                if (heroBg) heroBg.classList.remove('watch-mode-blur');
-                if (hudPanel) hudPanel.classList.remove('watch-mode-blur');
-                
-                // Restore body scroll
-                document.body.style.overflow = '';
-            }
-            
-            // Video Modal Functions
-            let videoModal = null;
-            
-            function createVideoModal() {
-                if (videoModal) return videoModal;
-                
-                const modal = document.createElement('div');
-                modal.className = 'video-modal';
-                modal.innerHTML = `
-                    <div class="video-modal-content">
-                        <iframe id="videoPlayer" frameborder="0" allowfullscreen allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                    </div>
-                `;
-                document.body.appendChild(modal);
-                
-                modal.addEventListener('click', function(e) {
-                    if (e.target === modal) {
-                        closeVideoModal();
-                    }
-                });
-                
-                videoModal = modal;
-                return modal;
-            }
-            
-            function openVideoModal(videoId) {
-                const modal = createVideoModal();
-                const iframe = modal.querySelector('#videoPlayer');
-                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-                modal.classList.add('active');
-            }
-            
-            function closeVideoModal() {
-                if (!videoModal) return;
-                const iframe = videoModal.querySelector('#videoPlayer');
-                iframe.src = '';
-                videoModal.classList.remove('active');
-            }
-            
-            // Event Listeners
-            // Trigger button
-            if (listenTrigger) {
-                listenTrigger.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    enterListenMode();
-                });
-            }
-            
-            // Close button
-            if (listenClose) {
-                listenClose.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    exitListenMode();
-                });
-            }
-            
-            // Click outside to close (but not on the embed itself)
-            if (listenOverlay) {
-                listenOverlay.addEventListener('click', function(e) {
-                    if (e.target === listenOverlay) {
-                        exitListenMode();
-                    }
-                });
-            }
-            
-            // Watch Mode event listeners
-            if (watchTrigger) {
-                watchTrigger.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    enterWatchMode();
-                });
-            }
-            
-            if (watchClose) {
-                watchClose.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    exitWatchMode();
-                });
-            }
-            
-            if (watchOverlay) {
-                watchOverlay.addEventListener('click', function(e) {
-                    if (e.target === watchOverlay) {
-                        exitWatchMode();
-                    }
-                });
-            }
-            
-            // Arrow navigation
-            if (watchArrowLeft) {
-                watchArrowLeft.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (currentVideoIndex > 0) {
-                        scrollToVideo(currentVideoIndex - 1);
-                    }
-                });
-            }
-            
-            if (watchArrowRight) {
-                watchArrowRight.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    if (currentVideoIndex < totalVideos - 1) {
-                        scrollToVideo(currentVideoIndex + 1);
-                    }
-                });
-            }
-            
-            // ESC key to close both modes and video modal
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' || e.key === 'Esc') {
-                    if (videoModal && videoModal.classList.contains('active')) {
-                        closeVideoModal();
-                    } else if (listenModeActive) {
-                        exitListenMode();
-                    } else if (watchModeActive) {
-                        exitWatchMode();
-                    }
-                }
-            });
-            
-            // Expose enterWatchMode globally for external scripts
-            window.enterWatchMode = enterWatchMode;
-            
-            // Direct Watch button handler (backup for hero-refresh.js)
-            const watchBtn = document.getElementById('open-watch-portal');
-            if (watchBtn) {
-                watchBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    console.log('Watch button clicked!');
-                    enterWatchMode();
-                });
-            } else {
-                console.error('Watch button not found!');
-            }
-            
-            // Subtle parallax on hero image
+            // Subtle parallax on hero image (only if .hero-bg exists)
             let ticking = false;
-            window.addEventListener('scroll', function() {
-              if (!ticking) {
-                window.requestAnimationFrame(function() {
-                  const scrolled = window.pageYOffset;
-                  const parallax = scrolled * 0.15; // Very subtle movement
-                  if (heroBg) {
-                    heroBg.style.transform = `translateY(${parallax}px) scale(1.02)`;
+            const heroBg = document.querySelector('.hero-bg');
+            
+            if (heroBg) {
+                window.addEventListener('scroll', function() {
+                  if (!ticking) {
+                    window.requestAnimationFrame(function() {
+                      const scrolled = window.pageYOffset;
+                      const parallax = scrolled * 0.15; // Very subtle movement
+                      heroBg.style.transform = `translateY(${parallax}px) scale(1.02)`;
+                      ticking = false;
+                    });
+                    ticking = true;
                   }
-                  ticking = false;
                 });
-                ticking = true;
-              }
-            });
+            }
         });
         </script>
     </div>
 
     <!-- Watch Mode Overlay (kept for compatibility) -->
-    <div class="watch-mode-overlay" id="watchModeOverlay">
+    <div class="watch-mode-overlay" id="watchModeOverlay" hidden>
         <button class="watch-mode-close" id="watchModeClose">✕</button>
         <button class="watch-arrow watch-arrow-left" id="watchArrowLeft">‹</button>
         <button class="watch-arrow watch-arrow-right" id="watchArrowRight">›</button>
@@ -591,6 +196,7 @@
 
     <script src="js/featuredRelease.js"></script>
     <script src="js/listen-portal.js"></script>
+    <script src="js/watch-portal.js"></script>
     <script src="js/hero-refresh.js"></script>
     <script src="js/hero-video.js"></script>
 

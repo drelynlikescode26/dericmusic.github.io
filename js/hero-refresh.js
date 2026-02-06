@@ -43,23 +43,15 @@
       });
     }
 
-    // Watch portal - triggers old watch mode overlay
+    // Watch portal - uses new WatchPortal module
     const watchCard = document.getElementById('open-watch-portal');
     if (watchCard) {
       watchCard.addEventListener('click', (e) => {
         e.preventDefault();
-        // Call the enterWatchMode function from the inline script
-        if (typeof window.enterWatchMode === 'function') {
-          window.enterWatchMode();
+        if (window.WatchPortal && typeof window.WatchPortal.open === 'function') {
+          window.WatchPortal.open();
         } else {
-          // Fallback: wait a bit and try again
-          setTimeout(() => {
-            if (typeof window.enterWatchMode === 'function') {
-              window.enterWatchMode();
-            } else {
-              console.error('enterWatchMode function not found');
-            }
-          }, 100);
+          console.error('[HERO] Watch Portal not available');
         }
       });
     }

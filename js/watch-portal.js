@@ -1,310 +1,371 @@
 /**
- * Watch Portal Module
+ * Watch Portal Module (Simplified Carousel)
  * 
- * Reliable video viewer for GitHub Pages static hosting.
- * Uses curated videos.json instead of YouTube API.
+ * Handles the existing watch-mode-overlay with carousel layout.
+ * Loads videos from data/videos.json.
+ * Zero dependencies, 100% reliable on GitHub Pages.
  */
 
 (function() {
   'use strict';
 
-  const VIDEOS_URL = './data/videos.json';
-  const YOUTUBE_THUMBNAIL_URL = 'https://i.ytimg.com/vi/{VIDEO_ID}/hqdefault.jpg';
-  const YOUTUBE_EMBED_URL = 'https://www.youtube-nocookie.com/embed/{VIDEO_ID}?autoplay=1&rel=0';
+  // ========== CONFIGURATION ==========
+  const CONFIG = {
+    videoJsonUrl: './data/videos.json',
+    youtubeEmbed: 'https://www.youtube-nocookie.com/embed',
+    youtubeThumb: 'https://i.ytimg.com/vi',
+  };
 
-  let portal = null;
-  let playerWrapper = null;
-  let thumbnailsTrack = null;
-  let videos = [];
-  let currentVideoIndex = 0;
-  let lastFocusedElement = null;
+  // ========== STATE ==========
+  let watchState = {
+    isActive: false,
+    isLoaded: false,
+    currentIndex: 0,
+    totalVideos: 0,
+    videos: [],
+    videoModal: null,
+  };
 
-  /**
-   * Initialize Watch Portal
-   */
+  // ========== DOM ELEMENTS ==========
+  const elements = {
+    button: null,
+    overlay: null,
+    content: null,
+    closeBtn: null,
+    carousel: null,
+    arrowLeft: null,
+    arrowRight: null,
+    loading: null,
+  };
+
+  // ========== INITIALIZATION ==========
   function init() {
-    createPortalHTML();
+    console.log('[WATCH] Initializing Watch Portal...');
+    
     cacheElements();
+    
+    if (!validateElements()) {
+      console.error('[WATCH] Missing critical elements. Aborting.');
+      return false;
+    }
+
     attachEventListeners();
+    console.log('[WATCH] Watch Portal ready.');
+    
+    // Expose API globally
+    window.WatchPortal = {
+      open: open,
+      close: close,
+    };
+
+    return true;
   }
 
-  /**
-   * Create portal HTML structure
-   */
-  function createPortalHTML() {
-    const portalHTML = `
-      <div class="watch-portal" id="watchPortal">
-        <div class="watch-portal-container">
-          <button class="watch-portal-close" id="watchPortalClose" aria-label="Close Watch Portal">✕</button>
-          
-          <div class="watch-player-area">
-            <div class="watch-player-wrapper" id="watchPlayerWrapper">
-              <div class="watch-player-loading">Select a video to watch</div>
-            </div>
-          </div>
-          
-          <div class="watch-thumbnails">
-            <button class="watch-nav-arrow watch-nav-prev" id="watchNavPrev" aria-label="Previous videos">‹</button>
-            <div class="watch-thumbnails-track" id="watchThumbnailsTrack"></div>
-            <button class="watch-nav-arrow watch-nav-next" id="watchNavNext" aria-label="Next videos">›</button>
-          </div>
-        </div>
-      </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', portalHTML);
-  }
-
-  /**
-   * Cache DOM elements
-   */
+  // ========== ELEMENT CACHING ==========
   function cacheElements() {
-    portal = document.getElementById('watchPortal');
-    playerWrapper = document.getElementById('watchPlayerWrapper');
-    thumbnailsTrack = document.getElementById('watchThumbnailsTrack');
+    elements.button = document.getElementById('open-watch-portal');
+    elements.overlay = document.getElementById('watchModeOverlay');
+    elements.content = document.getElementById('watchModeContent');
+    elements.closeBtn = document.getElementById('watchModeClose');
+    elements.carousel = document.getElementById('watchCarousel');
+    elements.arrowLeft = document.getElementById('watchArrowLeft');
+    elements.arrowRight = document.getElementById('watchArrowRight');
+    elements.loading = elements.overlay?.querySelector('.watch-loading');
+
+    console.log('[WATCH] Elements cached:', {
+      button: !!elements.button,
+      overlay: !!elements.overlay,
+      carousel: !!elements.carousel,
+      closeBtn: !!elements.closeBtn,
+      arrowLeft: !!elements.arrowLeft,
+      arrowRight: !!elements.arrowRight,
+    });
   }
 
-  /**
-   * Attach event listeners
-   */
+  // ========== VALIDATION ==========
+  function validateElements() {
+    const required = ['button', 'overlay', 'carousel', 'closeBtn'];
+    const missing = required.filter(key => !elements[key]);
+
+    if (missing.length > 0) {
+      console.error('[WATCH] Missing elements:', missing);
+      return false;
+    }
+
+    return true;
+  }
+
+  // ========== EVENT LISTENERS ==========
   function attachEventListeners() {
-    const closeBtn = document.getElementById('watchPortalClose');
-    const prevBtn = document.getElementById('watchNavPrev');
-    const nextBtn = document.getElementById('watchNavNext');
-
-    if (closeBtn) {
-      closeBtn.addEventListener('click', close);
+    // Button click → open overlay
+    if (elements.button) {
+      elements.button.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('[WATCH] Button clicked');
+        open();
+      });
     }
 
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => scrollThumbnails(-1));
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => scrollThumbnails(1));
-    }
-
-    // Close on overlay click
-    portal.addEventListener('click', (e) => {
-      if (e.target === portal) close();
-    });
-
-    // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && portal.classList.contains('active')) {
+    // Close button
+    if (elements.closeBtn) {
+      elements.closeBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        console.log('[WATCH] Close button clicked');
         close();
+      });
+    }
+
+    // Click outside content to close
+    if (elements.overlay) {
+      elements.overlay.addEventListener('click', (e) => {
+        if (e.target === elements.overlay) {
+          console.log('[WATCH] Overlay background clicked');
+          close();
+        }
+      });
+    }
+
+    // Arrow navigation
+    if (elements.arrowLeft) {
+      elements.arrowLeft.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (watchState.currentIndex > 0) {
+          scrollToVideo(watchState.currentIndex - 1);
+        }
+      });
+    }
+
+    if (elements.arrowRight) {
+      elements.arrowRight.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (watchState.currentIndex < watchState.totalVideos - 1) {
+          scrollToVideo(watchState.currentIndex + 1);
+        }
+      });
+    }
+
+    // ESC key
+    document.addEventListener('keydown', (e) => {
+      if ((e.key === 'Escape' || e.key === 'Esc') && watchState.isActive) {
+        // Close video modal first if open
+        if (watchState.videoModal?.classList.contains('active')) {
+          closeVideoModal();
+        } else {
+          close();
+        }
       }
     });
-
-    // Update arrow visibility on scroll
-    thumbnailsTrack.addEventListener('scroll', updateArrowStates);
   }
 
-  /**
-   * Open Watch Portal
-   */
+  // ========== MAIN FUNCTIONS ==========
   async function open() {
-    lastFocusedElement = document.activeElement;
-    
-    portal.style.display = 'flex';
-    requestAnimationFrame(() => {
-      portal.classList.add('active');
-    });
+    console.log('[WATCH] Opening Watch Portal...');
 
-    document.body.classList.add('portal-open');
-    document.body.style.overflow = 'hidden';
-
-    // Load videos if not already loaded
-    if (videos.length === 0) {
+    if (!watchState.isLoaded) {
+      console.log('[WATCH] Loading videos for first time...');
       await loadVideos();
     }
+
+    watchState.isActive = true;
+    elements.overlay.hidden = false;
+    elements.overlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    console.log('[WATCH] Watch Portal opened. Videos loaded:', watchState.totalVideos);
   }
 
-  /**
-   * Close Watch Portal
-   */
   function close() {
-    portal.classList.remove('active');
-    
-    setTimeout(() => {
-      portal.style.display = 'none';
-      clearPlayer();
-    }, 400);
+    console.log('[WATCH] Closing Watch Portal...');
 
-    document.body.classList.remove('portal-open');
+    watchState.isActive = false;
+    elements.overlay.classList.remove('active');
+    elements.overlay.hidden = true;
     document.body.style.overflow = '';
 
-    if (lastFocusedElement) {
-      lastFocusedElement.focus();
+    // Close video modal if open
+    if (watchState.videoModal?.classList.contains('active')) {
+      closeVideoModal();
     }
   }
 
-  /**
-   * Load videos from JSON
-   */
+  // ========== VIDEO LOADING ==========
   async function loadVideos() {
-    showLoadingSkeleton();
-
     try {
-      const response = await fetch(VIDEOS_URL);
-      
+      console.log('[WATCH] Fetching videos from:', CONFIG.videoJsonUrl);
+
+      const response = await fetch(CONFIG.videoJsonUrl);
+
       if (!response.ok) {
-        throw new Error('Failed to load videos');
+        throw new Error(`HTTP ${response.status}`);
       }
 
       const data = await response.json();
-      videos = data.videos || [];
+      watchState.videos = data.videos || [];
 
-      if (videos.length === 0) {
-        showError('No videos available');
-        return;
+      if (watchState.videos.length === 0) {
+        throw new Error('No videos in JSON');
       }
 
-      renderThumbnails();
-      updateArrowStates();
-
+      console.log('[WATCH] Videos loaded:', watchState.videos.length);
+      renderVideos();
+      watchState.isLoaded = true;
     } catch (error) {
-      console.error('Error loading videos:', error);
-      showError('Unable to load videos. <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">Visit YouTube</a>');
+      console.error('[WATCH] Failed to load videos:', error.message);
+      renderErrorState(error.message);
     }
   }
 
-  /**
-   * Show loading skeleton
-   */
-  function showLoadingSkeleton() {
-    thumbnailsTrack.innerHTML = `
-      <div class="watch-thumbnails-skeleton">
-        ${Array(5).fill(0).map(() => `
-          <div class="watch-thumbnail-skeleton">
-            <div class="watch-thumbnail-skeleton-image"></div>
-          </div>
-        `).join('')}
-      </div>
-    `;
+  // ========== RENDERING ==========
+  function renderVideos() {
+    console.log('[WATCH] Rendering', watchState.videos.length, 'videos...');
+
+    elements.carousel.innerHTML = '';
+    watchState.totalVideos = watchState.videos.length;
+    watchState.currentIndex = 0;
+
+    watchState.videos.forEach((video, index) => {
+      const card = createVideoCard(video);
+      elements.carousel.appendChild(card);
+    });
+
+    // Hide loading indicator
+    if (elements.loading) {
+      elements.loading.style.display = 'none';
+    }
+
+    updateArrowState();
+    console.log('[WATCH] Rendered', watchState.totalVideos, 'video cards');
   }
 
-  /**
-   * Render video thumbnails
-   */
-  function renderThumbnails() {
-    thumbnailsTrack.innerHTML = videos.map((video, index) => {
-      const thumbnailUrl = YOUTUBE_THUMBNAIL_URL.replace('{VIDEO_ID}', video.id);
-      
-      return `
-        <div class="watch-thumbnail ${index === currentVideoIndex ? 'active' : ''}" data-index="${index}">
-          <div class="watch-thumbnail-image">
-            <img src="${thumbnailUrl}" alt="${video.title}" loading="lazy">
-          </div>
-          <div class="watch-thumbnail-title">${video.title}</div>
+  function createVideoCard(video) {
+    const card = document.createElement('div');
+    card.className = 'video-card';
+
+    const thumbnail = `${CONFIG.youtubeThumb}/${video.id}/hqdefault.jpg`;
+
+    card.innerHTML = `
+      <div class="video-thumbnail">
+        <img src="${thumbnail}" alt="${video.title}" loading="lazy">
+      </div>
+      <div class="video-info">
+        <h3 class="video-title">${video.title}</h3>
+      </div>
+    `;
+
+    card.addEventListener('click', () => {
+      console.log('[WATCH] Video clicked:', video.id, video.title);
+      openVideoModal(video.id);
+    });
+
+    return card;
+  }
+
+  function renderErrorState(message) {
+    console.error('[WATCH] Rendering error state:', message);
+
+    elements.carousel.innerHTML = `
+      <div class="watch-error">
+        <div>Unable to load videos</div>
+        <div style="font-size: 0.9em; opacity: 0.7; margin-top: 0.5rem;">
+          ${message}
         </div>
-      `;
-    }).join('');
-
-    // Attach click handlers
-    const thumbnails = thumbnailsTrack.querySelectorAll('.watch-thumbnail');
-    thumbnails.forEach((thumb, index) => {
-      thumb.addEventListener('click', () => playVideo(index));
-    });
-  }
-
-  /**
-   * Play video by index
-   */
-  function playVideo(index) {
-    if (index < 0 || index >= videos.length) return;
-
-    currentVideoIndex = index;
-    const video = videos[index];
-
-    // Update active thumbnail
-    const thumbnails = thumbnailsTrack.querySelectorAll('.watch-thumbnail');
-    thumbnails.forEach((thumb, i) => {
-      thumb.classList.toggle('active', i === index);
-    });
-
-    // Load video in iframe
-    const embedUrl = YOUTUBE_EMBED_URL.replace('{VIDEO_ID}', video.id);
-    playerWrapper.innerHTML = `
-      <iframe 
-        src="${embedUrl}"
-        allow="autoplay; encrypted-media; picture-in-picture"
-        allowfullscreen
-        title="${video.title}">
-      </iframe>
-    `;
-
-    // Scroll thumbnail into view
-    const activeThumbnail = thumbnails[index];
-    if (activeThumbnail) {
-      activeThumbnail.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-  }
-
-  /**
-   * Clear player
-   */
-  function clearPlayer() {
-    playerWrapper.innerHTML = '<div class="watch-player-loading">Select a video to watch</div>';
-  }
-
-  /**
-   * Show error message
-   */
-  function showError(message) {
-    playerWrapper.innerHTML = `
-      <div class="watch-player-error">
-        <p>${message}</p>
-        <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" class="watch-player-error-btn">
-          Visit YouTube Channel
-        </a>
       </div>
     `;
 
-    thumbnailsTrack.innerHTML = '';
+    if (elements.loading) {
+      elements.loading.style.display = 'none';
+    }
   }
 
-  /**
-   * Scroll thumbnails
-   */
-  function scrollThumbnails(direction) {
-    const scrollAmount = 220; // thumbnail width + gap
-    thumbnailsTrack.scrollBy({
-      left: direction * scrollAmount,
-      behavior: 'smooth'
+  // ========== CAROUSEL NAVIGATION ==========
+  function updateArrowState() {
+    if (!elements.arrowLeft || !elements.arrowRight) return;
+
+    const isFirstVideo = watchState.currentIndex === 0;
+    const isLastVideo = watchState.currentIndex >= watchState.totalVideos - 1;
+
+    elements.arrowLeft.style.opacity = isFirstVideo ? '0.3' : '1';
+    elements.arrowLeft.style.pointerEvents = isFirstVideo ? 'none' : 'auto';
+
+    elements.arrowRight.style.opacity = isLastVideo ? '0.3' : '1';
+    elements.arrowRight.style.pointerEvents = isLastVideo ? 'none' : 'auto';
+  }
+
+  function scrollToVideo(index) {
+    console.log('[WATCH] Scrolling to video', index);
+
+    const cards = elements.carousel.querySelectorAll('.video-card');
+    if (!cards[index]) return;
+
+    watchState.currentIndex = index;
+    cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    updateArrowState();
+  }
+
+  // ========== VIDEO MODAL ==========
+  function createVideoModal() {
+    if (watchState.videoModal) return;
+
+    console.log('[WATCH] Creating video modal...');
+
+    const modal = document.createElement('div');
+    modal.className = 'video-modal';
+    modal.innerHTML = `
+      <div class="video-modal-content">
+        <button class="video-modal-close" aria-label="Close video">✕</button>
+        <iframe
+          id="videoPlayer"
+          frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+    `;
+
+    document.body.appendChild(modal);
+
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeVideoModal();
+      }
     });
+
+    // Close button
+    modal.querySelector('.video-modal-close')?.addEventListener('click', closeVideoModal);
+
+    watchState.videoModal = modal;
   }
 
-  /**
-   * Update arrow button states
-   */
-  function updateArrowStates() {
-    const prevBtn = document.getElementById('watchNavPrev');
-    const nextBtn = document.getElementById('watchNavNext');
+  function openVideoModal(videoId) {
+    console.log('[WATCH] Opening video modal:', videoId);
 
-    if (!prevBtn || !nextBtn) return;
+    createVideoModal();
 
-    const isAtStart = thumbnailsTrack.scrollLeft <= 0;
-    const isAtEnd = thumbnailsTrack.scrollLeft + thumbnailsTrack.clientWidth >= thumbnailsTrack.scrollWidth - 1;
+    const iframe = watchState.videoModal.querySelector('#videoPlayer');
+    const embedUrl = `${CONFIG.youtubeEmbed}/${videoId}?autoplay=1&rel=0`;
 
-    prevBtn.classList.toggle('disabled', isAtStart);
-    nextBtn.classList.toggle('disabled', isAtEnd);
+    iframe.src = embedUrl;
+    watchState.videoModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
 
-  /**
-   * Initialize on DOM ready
-   */
+  function closeVideoModal() {
+    if (!watchState.videoModal) return;
+
+    console.log('[WATCH] Closing video modal');
+
+    const iframe = watchState.videoModal.querySelector('#videoPlayer');
+    iframe.src = '';
+    watchState.videoModal.classList.remove('active');
+    document.body.style.overflow = 'hidden'; // Keep hidden since overlay is still open
+  }
+
+  // ========== STARTUP ==========
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
     init();
   }
-
-  /**
-   * Public API
-   */
-  window.WatchPortal = {
-    open,
-    close
-  };
 })();
