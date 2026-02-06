@@ -356,6 +356,7 @@
 @media (max-width: 600px) {
   .hero-refresh {
     padding: 2rem 1rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
     min-height: auto;
     padding-top: 2rem;
   }
@@ -395,6 +396,14 @@
     padding: 0.65rem 1.2rem;
     font-size: 0.85rem;
   }
+  
+  /* Move minimal toggle on mobile to prevent overlap */
+  .minimal-mode-toggle {
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+  }
 }
 
 /* ==================== ACCESSIBILITY ==================== */
@@ -417,5 +426,32 @@
   .portal-button,
   .hero-social a {
     border-width: 2px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices */
+  .portal-button:hover {
+    transform: none;
+  }
+  
+  .hero-social a:hover {
+    transform: none;
+  }
+  
+  /* Add active state for touch feedback */
+  .portal-button:active {
+    transform: scale(0.96);
+    opacity: 0.8;
+  }
+  
+  .hero-social a:active {
+    transform: scale(0.92);
+    opacity: 0.7;
+  }
+  
+  .stay-tapped-pill:active {
+    transform: scale(0.96);
   }
 }

@@ -58,7 +58,8 @@ body {
     max-width: 90vw;
     width: 100%;
     margin: 0 auto;
-    padding: 1.2rem 1rem 1.2rem 1rem;
+    padding: 1.2rem 1rem;
+    padding-bottom: calc(1.2rem + env(safe-area-inset-bottom));
     margin-top: 5vh;
     /* REMOVED: Old dark rounded panel background that was blocking the video */
     /* was: background: rgba(10,10,10,0.60); border-radius: 24px; box-shadow: 0 4px 32px 0 rgba(0,0,0,0.22); */
@@ -190,8 +191,28 @@ footer {
 /* MOBILE FIXES */
 @media (max-width: 600px) {
     .hero h1 { font-size: 1.1rem; }
-    .hero .hero-content { padding: 0.7rem 0.1rem; border-radius: 10px; }
-    .container { padding: 1rem 0.1rem; }
+    .hero .hero-content { 
+        padding: 1rem 0.75rem;
+        padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+        margin-top: 2vh;
+    }
+    .container { padding: 1rem 0.75rem; }
+}
+
+/* Landscape mobile optimization */
+@media (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
+    .hero-refresh {
+        padding: 1rem;
+        min-height: 100vh;
+    }
+    
+    .hero-center {
+        gap: 1rem;
+    }
+    
+    .hero-name {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
 }
 
 /* Reveal scroll animations */
