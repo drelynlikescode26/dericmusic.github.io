@@ -247,9 +247,9 @@
     card.innerHTML = `
       <div class="video-thumbnail">
         <img src="${thumbnail}" alt="${video.title}" loading="lazy">
-      </div>
-      <div class="video-info">
-        <h3 class="video-title">${video.title}</h3>
+        <div class="video-play-overlay">
+          <div class="play-icon"></div>
+        </div>
       </div>
     `;
 
