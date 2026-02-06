@@ -122,11 +122,11 @@
             const CACHE_DURATION = 3600000; // 1 hour in milliseconds
             
             // Elements
-            const listenTrigger = document.getElementById('listenTrigger');
+            const listenTrigger = document.getElementById('open-listen-portal');
             const listenOverlay = document.getElementById('listenModeOverlay');
             const listenContent = document.getElementById('listenModeContent');
             const listenClose = document.getElementById('listenModeClose');
-            const watchTrigger = document.getElementById('watchTrigger');
+            const watchTrigger = document.getElementById('open-watch-portal');
             const watchOverlay = document.getElementById('watchModeOverlay');
             const watchContent = document.getElementById('watchModeContent');
             const watchClose = document.getElementById('watchModeClose');
@@ -141,8 +141,9 @@
                 watchOverlay: !!watchOverlay,
                 watchContent: !!watchContent,
                 watchClose: !!watchClose,
-                watchFeaturedPlayer: !!watchFeaturedPlayer,
-                watchThumbnailsScroll: !!watchThumbnailsScroll
+                watchCarousel: !!watchCarousel,
+                watchArrowLeft: !!watchArrowLeft,
+                watchArrowRight: !!watchArrowRight
             });
             
             let listenModeActive = false;
@@ -420,55 +421,71 @@
             
             // Event Listeners
             // Trigger button
-            listenTrigger.addEventListener('click', function(e) {
-                e.stopPropagation();
-                enterListenMode();
-            });
+            if (listenTrigger) {
+                listenTrigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    enterListenMode();
+                });
+            }
             
             // Close button
-            listenClose.addEventListener('click', function(e) {
-                e.stopPropagation();
-                exitListenMode();
-            });
+            if (listenClose) {
+                listenClose.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    exitListenMode();
+                });
+            }
             
             // Click outside to close (but not on the embed itself)
-            listenOverlay.addEventListener('click', function(e) {
-                if (e.target === listenOverlay) {
-                    exitListenMode();
-                }
-            });
+            if (listenOverlay) {
+                listenOverlay.addEventListener('click', function(e) {
+                    if (e.target === listenOverlay) {
+                        exitListenMode();
+                    }
+                });
+            }
             
             // Watch Mode event listeners
-            watchTrigger.addEventListener('click', function(e) {
-                e.stopPropagation();
-                enterWatchMode();
-            });
+            if (watchTrigger) {
+                watchTrigger.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    enterWatchMode();
+                });
+            }
             
-            watchClose.addEventListener('click', function(e) {
-                e.stopPropagation();
-                exitWatchMode();
-            });
-            
-            watchOverlay.addEventListener('click', function(e) {
-                if (e.target === watchOverlay) {
+            if (watchClose) {
+                watchClose.addEventListener('click', function(e) {
+                    e.stopPropagation();
                     exitWatchMode();
-                }
-            });
+                });
+            }
+            
+            if (watchOverlay) {
+                watchOverlay.addEventListener('click', function(e) {
+                    if (e.target === watchOverlay) {
+                        exitWatchMode();
+                    }
+                });
+            }
             
             // Arrow navigation
-            watchArrowLeft.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (currentVideoIndex > 0) {
-                    scrollToVideo(currentVideoIndex - 1);
-                }
-            });
+            if (watchArrowLeft) {
+                watchArrowLeft.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (currentVideoIndex > 0) {
+                        scrollToVideo(currentVideoIndex - 1);
+                    }
+                });
+            }
             
-            watchArrowRight.addEventListener('click', function(e) {
-                e.stopPropagation();
-                if (currentVideoIndex < totalVideos - 1) {
-                    scrollToVideo(currentVideoIndex + 1);
-                }
-            });
+            if (watchArrowRight) {
+                watchArrowRight.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (currentVideoIndex < totalVideos - 1) {
+                        scrollToVideo(currentVideoIndex + 1);
+                    }
+                });
+            }
             
             // ESC key to close both modes and video modal
             document.addEventListener('keydown', function(e) {
