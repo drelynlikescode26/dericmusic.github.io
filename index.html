@@ -135,6 +135,15 @@
             const heroBg = document.querySelector('.hero-bg');
             const hudPanel = document.querySelector('.hud-panel');
             
+            // Debug: Check if Watch elements exist
+            console.log('Watch Debug:', {
+                watchOverlay: !!watchOverlay,
+                watchContent: !!watchContent,
+                watchClose: !!watchClose,
+                watchFeaturedPlayer: !!watchFeaturedPlayer,
+                watchThumbnailsScroll: !!watchThumbnailsScroll
+            });
+            
             let listenModeActive = false;
             let watchModeActive = false;
             let videosLoaded = false;
@@ -315,10 +324,23 @@
             
             // Watch Mode Functions
             async function enterWatchMode() {
+                console.log('enterWatchMode called!');
+                
+                if (!watchOverlay) {
+                    console.error('watchOverlay element not found!');
+                    return;
+                }
+                
+                if (!watchFeaturedPlayer) {
+                    console.error('watchFeaturedPlayer element not found!');
+                    return;
+                }
+                
                 watchModeActive = true;
                 
                 // Load videos if not loaded
                 if (!videosLoaded) {
+                    console.log('Loading videos...');
                     const videos = await fetchYouTubeVideos();
                     renderVideos(videos);
                     videosLoaded = true;
