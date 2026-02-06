@@ -436,6 +436,18 @@
             // Expose enterWatchMode globally for external scripts
             window.enterWatchMode = enterWatchMode;
             
+            // Direct Watch button handler (backup for hero-refresh.js)
+            const watchBtn = document.getElementById('open-watch-portal');
+            if (watchBtn) {
+                watchBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    console.log('Watch button clicked!');
+                    enterWatchMode();
+                });
+            } else {
+                console.error('Watch button not found!');
+            }
+            
             // Subtle parallax on hero image
             let ticking = false;
             window.addEventListener('scroll', function() {
