@@ -38,8 +38,6 @@
         </div>
         <div class="grain-overlay"></div>
         <div class="hero-content">
-            <button class="minimal-mode-toggle" id="minimalToggle" title="Toggle Minimal Mode (M)">◐</button>
-            
             <!-- Minimal Cinematic Hero -->
             <div class="hero-refresh">
                 <div class="hero-center">
@@ -499,60 +497,26 @@
     </div>
 
     <script>
-    // Minimal mode toggle for clean screenshots/sharing
-    const toggleBtn = document.getElementById('minimalToggle');
-    const hudPanel = document.querySelector('.hud-panel');
-    const spotifyWrap = document.querySelector('.spotify-toggle-wrap');
-    let minimalMode = localStorage.getItem('minimalMode') === 'true';
-    
-    function applyMinimalMode(minimal) {
-      minimalMode = minimal;
-      localStorage.setItem('minimalMode', minimal);
-      if (minimal) {
-        hudPanel.classList.add('minimal-hidden');
-        if (spotifyWrap) spotifyWrap.classList.add('minimal-hidden');
-        toggleBtn.classList.add('active');
-      } else {
-        hudPanel.classList.remove('minimal-hidden');
-        if (spotifyWrap) spotifyWrap.classList.remove('minimal-hidden');
-        toggleBtn.classList.remove('active');
-      }
-    }
-    
-    // Apply saved state
-    applyMinimalMode(minimalMode);
-    
-    // Toggle button click
-    toggleBtn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      applyMinimalMode(!minimalMode);
-    });
-    
-    // Keyboard shortcut: M key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'm' || e.key === 'M') {
-        applyMinimalMode(!minimalMode);
-      }
-    });
-    
     // Email capture form
     const emailForm = document.getElementById('emailForm');
     const emailInput = document.getElementById('emailInput');
-    emailForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = emailInput.value.trim();
-      if (email) {
-        // Store email (you can later integrate with Mailchimp, ConvertKit, etc.)
-        console.log('Email captured:', email);
-        // Show success feedback
-        emailInput.value = '';
-        emailInput.placeholder = 'You\'re in. ✓';
-        setTimeout(function() {
-          emailInput.placeholder = 'Stay tapped in.';
-        }, 3000);
-        // TODO: Send to your email service (Mailchimp, ConvertKit, etc.)
-      }
-    });
+    if (emailForm && emailInput) {
+      emailForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const email = emailInput.value.trim();
+        if (email) {
+          // Store email (you can later integrate with Mailchimp, ConvertKit, etc.)
+          console.log('Email captured:', email);
+          // Show success feedback
+          emailInput.value = '';
+          emailInput.placeholder = 'You\'re in. ✓';
+          setTimeout(function() {
+            emailInput.placeholder = 'Stay tapped in.';
+          }, 3000);
+          // TODO: Send to your email service (Mailchimp, ConvertKit, etc.)
+        }
+      });
+    }
     </script>
 
     <script>
