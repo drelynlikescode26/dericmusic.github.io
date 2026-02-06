@@ -65,15 +65,3 @@
     background-position: center;
   }
 }
-
-/* Mobile performance safeguard */
-@media (max-width: 768px) {
-  .hero-video {
-    display: none;
-  }
-  .hero {
-    background-image: url("assets/hero/hero-poster.jpg");
-    background-size: cover;
-    background-position: center;
-  }
-}
