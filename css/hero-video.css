@@ -1,0 +1,79 @@
+/* ==================== HERO VIDEO BACKGROUND ==================== */
+/* Note: You can replace the .mov with .webm/.mp4 later without changing layout. */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh; /* Small viewport height for mobile (no address bar jump) */
+  overflow: hidden;
+}
+
+.hero-media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  background: #000;
+  background-image: url("assets/hero/hero-poster.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.08);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(0,0,0,0.06), rgba(0,0,0,0.35)),
+    linear-gradient(to bottom, rgba(0,0,0,0.10), rgba(0,0,0,0.25));
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* Fallback when video fails */
+.hero.video-fallback {
+  background-image: url("assets/hero/hero-poster.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero.video-fallback .hero-video {
+  display: none;
+}
+
+/* Reduced motion: disable video and use poster */
+@media (prefers-reduced-motion: reduce) {
+  .hero-video {
+    display: none;
+  }
+  .hero {
+    background-image: url("assets/hero/hero-poster.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}
+
+/* Mobile performance safeguard */
+@media (max-width: 768px) {
+  .hero-video {
+    display: none;
+  }
+  .hero {
+    background-image: url("assets/hero/hero-poster.jpg");
+    background-size: cover;
+    background-position: center;
+  }
+}

@@ -1,0 +1,306 @@
+/* ==================== LISTEN PORTAL OVERLAY ==================== */
+
+/* Portal overlay backdrop */
+.listen-portal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  padding: 1.5rem;
+  cursor: pointer;
+}
+
+.listen-portal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Portal card container */
+.listen-portal-card {
+  background: rgba(20, 20, 20, 0.95);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6),
+              0 0 80px rgba(255, 255, 255, 0.03);
+  max-width: 500px;
+  width: 100%;
+  padding: 2.5rem;
+  position: relative;
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: default;
+}
+
+.listen-portal-overlay.active .listen-portal-card {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Close button */
+.listen-portal-close {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.listen-portal-close:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.listen-portal-close:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* Cover art */
+.listen-portal-cover {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 1.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+
+.listen-portal-cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, 
+    transparent 0%, 
+    transparent 60%, 
+    rgba(0, 0, 0, 0.2) 100%);
+  pointer-events: none;
+}
+
+.listen-portal-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Release info */
+.listen-portal-info {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.listen-portal-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+.listen-portal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.listen-portal-date {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Buttons container */
+.listen-portal-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.listen-portal-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.listen-portal-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.listen-portal-btn:hover::before {
+  opacity: 1;
+}
+
+.listen-portal-btn:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.3);
+  outline-offset: 2px;
+}
+
+/* Spotify button (primary) */
+.listen-portal-btn-spotify {
+  background: linear-gradient(135deg, #1db954 0%, #1ed760 100%);
+  color: #000000;
+  box-shadow: 0 4px 16px rgba(29, 185, 84, 0.35);
+}
+
+.listen-portal-btn-spotify:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(29, 185, 84, 0.5);
+}
+
+.listen-portal-btn-spotify:active {
+  transform: translateY(0);
+}
+
+/* Apple Music button (secondary) */
+.listen-portal-btn-apple {
+  background: linear-gradient(135deg, #fa2c54 0%, #fc3c63 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(250, 44, 84, 0.3);
+}
+
+.listen-portal-btn-apple:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(250, 44, 84, 0.45);
+}
+
+.listen-portal-btn-apple:active {
+  transform: translateY(0);
+}
+
+/* All Platforms button (tertiary) */
+.listen-portal-btn-all {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.listen-portal-btn-all:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
+}
+
+.listen-portal-btn-all:active {
+  transform: translateY(0);
+}
+
+/* Button icons */
+.listen-portal-btn-icon {
+  font-size: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Hidden state */
+.listen-portal-btn[hidden] {
+  display: none;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .listen-portal-overlay {
+    padding: 1rem;
+  }
+  
+  .listen-portal-card {
+    padding: 2rem 1.5rem;
+    border-radius: 20px;
+  }
+  
+  .listen-portal-title {
+    font-size: 1.5rem;
+  }
+  
+  .listen-portal-btn {
+    padding: 0.9rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+/* Prevent body scroll when portal is open */
+body.portal-open {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+/* Loading state */
+.listen-portal-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9rem;
+}
+
+/* Error state */
+.listen-portal-error {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Accessibility: Reduce motion */
+@media (prefers-reduced-motion: reduce) {
+  .listen-portal-overlay,
+  .listen-portal-card,
+  .listen-portal-btn,
+  .listen-portal-close {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .listen-portal-close:hover {
+    transform: none !important;
+  }
+}

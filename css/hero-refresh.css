@@ -1,0 +1,421 @@
+/* ==================== HERO REFRESH - MINIMAL CINEMATIC ==================== */
+
+/* Hero container */
+.hero-refresh {
+  min-height: 100vh;
+  min-height: 100svh; /* Small viewport units for stable mobile height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom)); /* iOS safe area */
+  position: relative;
+  z-index: 10;
+}
+
+/* Centered content block */
+.hero-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  max-width: 600px;
+  text-align: center;
+}
+
+/* ==================== IDENTITY SECTION ==================== */
+
+.hero-identity {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-name {
+  font-size: clamp(2rem, 8vw, 5.5rem); /* Better mobile scaling from 32px to 88px */
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.95;
+  margin: 0;
+  color: #f5f1ea;
+  text-shadow: 0 8px 24px rgba(0,0,0,0.55);
+}
+
+.hero-subline {
+  font-size: clamp(0.75rem, 3.2vw, 0.875rem); /* 12px to 14px responsive */
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(245, 241, 234, 0.65);
+  margin: 0;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+/* Social icons - subtle horizontal row */
+.hero-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.75rem;
+  justify-content: center;
+}
+
+.hero-social a {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(20, 16, 14, 0.25);
+  color: rgba(245, 241, 234, 0.7);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.hero-social a:hover {
+  border-color: rgba(245, 210, 170, 0.4);
+  background: rgba(20, 16, 14, 0.4);
+  color: rgba(245, 241, 234, 0.9);
+  transform: translateY(-2px);
+}
+
+/* ==================== PORTAL BUTTONS ==================== */
+
+.hero-portals {
+  display: flex;
+  gap: 1.25rem;
+  width: 100%;
+  max-width: 400px;
+  justify-content: center;
+}
+
+/* Portal buttons - clean, equal-sized */
+.portal-button {
+  flex: 1;
+  padding: 1.25rem 1.5rem;
+  min-height: 44px; /* iOS tap target minimum */
+  background: rgba(20, 16, 14, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #f5f1ea;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px) saturate(120%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+}
+
+.portal-button i {
+  font-size: 1.1rem;
+}
+
+.portal-button:hover {
+  border-color: rgba(245, 210, 170, 0.35);
+  background: rgba(20, 16, 14, 0.45);
+  box-shadow: 0 8px 24px rgba(245, 210, 170, 0.12);
+  transform: translateY(-2px);
+}
+
+.portal-button:active {
+  transform: translateY(0);
+}
+
+.portal-button:focus-visible {
+  outline: 2px solid rgba(245, 210, 170, 0.5);
+  outline-offset: 3px;
+}
+
+/* Stay tapped in pill - small secondary CTA */
+.stay-tapped-pill {
+  padding: 0.7rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(245, 241, 234, 0.2);
+  background: rgba(20, 16, 14, 0.3);
+  color: rgba(245, 241, 234, 0.75);
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px) saturate(120%);
+}
+
+.stay-tapped-pill:hover {
+  border-color: rgba(245, 210, 170, 0.35);
+  color: rgba(245, 241, 234, 0.9);
+  box-shadow: 0 8px 24px rgba(245, 210, 170, 0.12);
+  transform: translateY(-2px);
+}
+
+.stay-tapped-pill:focus-visible {
+  outline: 2px solid rgba(245, 210, 170, 0.5);
+  outline-offset: 3px;
+}
+
+/* ==================== EMAIL MODAL ==================== */
+
+.email-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 8, 7, 0.6);
+  backdrop-filter: blur(12px);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.email-modal[hidden] {
+  display: none !important;
+}
+
+.email-modal.is-open {
+  display: flex;
+}
+
+.email-card {
+  width: min(420px, 92vw);
+  background: rgba(20, 16, 14, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 18px;
+  padding: 1.5rem 1.5rem 1.75rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+  color: #f5f1ea;
+  position: relative;
+}
+
+.email-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.email-close {
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(245, 241, 234, 0.8);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.email-close:hover {
+  border-color: rgba(245, 210, 170, 0.4);
+  color: #f5f1ea;
+}
+
+.email-form {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+}
+
+.email-input {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  color: #f5f1ea;
+  outline: none;
+  transition: all 0.2s ease;
+}
+
+.email-input:focus {
+  border-color: rgba(245, 210, 170, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.email-input::placeholder {
+  color: rgba(245, 241, 234, 0.45);
+}
+
+.email-submit {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f1ea;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.email-submit:hover {
+  border-color: rgba(245, 210, 170, 0.35);
+  background: rgba(255, 255, 255, 0.18);
+}
+
+/* ==================== FEATURED RELEASE DISMISS ==================== */
+
+.featured-release-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 16, 14, 0.5);
+  color: rgba(245, 241, 234, 0.7);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+}
+
+.featured-release-close:hover {
+  border-color: rgba(245, 210, 170, 0.4);
+  background: rgba(20, 16, 14, 0.7);
+  color: #f5f1ea;
+}
+
+.featured-release.hidden {
+  display: none !important;
+}
+
+/* ==================== HIDE OLD HUD PANEL ==================== */
+
+.hud-panel {
+  display: none !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.artist-block {
+  display: none !important;
+  background: none !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+/* ==================== MOBILE RESPONSIVE ==================== */
+
+@media (max-width: 768px) {
+  .hero-identity {
+    background: rgba(0,0,0,0.28);
+    border: 1px solid rgba(255,255,255,0.10);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 12px 14px;
+  }
+
+  /* Stack portal buttons vertically on mobile */
+  .hero-portals {
+    flex-direction: column;
+    width: min(320px, 88vw);
+    gap: 1rem;
+  }
+
+  .portal-button {
+    width: 100%;
+    min-height: 44px; /* Ensure tap target */
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-center {
+    gap: 2rem;
+  }
+  
+  .hero-name {
+    font-size: clamp(2.8rem, 8vw, 4.5rem);
+  }
+  
+  .hero-portals {
+    flex-direction: column;
+    width: 100%;
+    gap: 1rem;
+  }
+  
+  .portal-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-refresh {
+    padding: 2rem 1rem;
+    min-height: auto;
+    padding-top: 2rem;
+  }
+  
+  .hero-center {
+    gap: 1.75rem;
+  }
+  
+  .hero-name {
+    font-size: clamp(2.2rem, 8vw, 3.5rem);
+  }
+  
+  .hero-subline {
+    font-size: 0.8rem;
+  }
+  
+  .hero-social {
+    gap: 0.75rem;
+  }
+  
+  .hero-social a {
+    width: 36px;
+    height: 36px;
+    font-size: 0.85rem;
+  }
+  
+  .hero-portals {
+    gap: 0.75rem;
+  }
+  
+  .portal-button {
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
+  }
+  
+  .stay-tapped-pill {
+    padding: 0.65rem 1.2rem;
+    font-size: 0.85rem;
+  }
+}
+
+/* ==================== ACCESSIBILITY ==================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-button,
+  .hero-social a,
+  .stay-tapped-pill {
+    transition: none !important;
+  }
+  
+  .portal-button:hover,
+  .hero-social a:hover,
+  .stay-tapped-pill:hover {
+    transform: none !important;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .portal-button,
+  .hero-social a {
+    border-width: 2px;
+  }
+}

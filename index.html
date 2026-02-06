@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Deric — Official</title>
     <meta property="og:title" content="Deric — Official">
     <meta property="og:site_name" content="Deric">
@@ -13,35 +13,107 @@
     <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hero.css">
+    <link rel="stylesheet" href="css/listen-portal.css">
+    <link rel="stylesheet" href="css/hero-refresh.css">
+    <link rel="stylesheet" href="css/hero-video.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="hero-bg"></div>
-    <div class="grain-overlay"></div>
-    <button class="minimal-mode-toggle" id="minimalToggle" title="Toggle Minimal Mode (M)">◐</button>
-    <div class="hud-panel">
-        <div class="artist-block">
-            <h1>DERIC</h1>
+    <section class="hero">
+        <div class="hero-media">
+            <video
+                class="hero-video"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                poster="assets/hero/hero-poster.jpg"
+            >
+                <source src="assets/hero/glass%208%20sec%20loop.mov" type="video/quicktime" />
+            </video>
+            <div class="hero-overlay"></div>
         </div>
-        <div class="hud-links">
-            <a href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" class="music-link spotify" title="Spotify" target="_blank" rel="noopener"><i class="fab fa-spotify"></i></a>
-            <a href="https://music.apple.com/us/artist/deric/1529542054" class="music-link apple" title="Apple Music" target="_blank" rel="noopener"><i class="fab fa-apple"></i></a>
-            <a href="https://on.soundcloud.com/Sp7ba1spJzejJtwVZi" class="music-link soundcloud" title="SoundCloud" target="_blank" rel="noopener"><i class="fab fa-soundcloud"></i></a>
-            <a href="https://www.instagram.com/envyderic/" class="music-link instagram" title="Instagram" target="_blank" rel="noopener"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@ihatederic" class="music-link tiktok" title="TikTok" target="_blank" rel="noopener"><i class="fab fa-tiktok"></i></a>
-            <a href="https://youtube.com/@envyderic" class="music-link youtube" title="YouTube" target="_blank" rel="noopener"><i class="fab fa-youtube"></i></a>
+        <div class="grain-overlay"></div>
+        <div class="hero-content">
+            <button class="minimal-mode-toggle" id="minimalToggle" title="Toggle Minimal Mode (M)">◐</button>
+            
+            <!-- Minimal Cinematic Hero -->
+            <div class="hero-refresh">
+                <div class="hero-center">
+                    <!-- Identity Block -->
+                    <div class="hero-identity">
+                        <h1 class="hero-name">DERIC</h1>
+                        <div class="hero-subline">Singer • Songwriter • Artist</div>
+                        
+                        <!-- Social Icons -->
+                        <div class="hero-social">
+                            <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Portal Buttons -->
+                    <div class="hero-portals">
+                        <button class="portal-button" id="open-listen-portal" aria-label="Open Listen Portal">
+                            <i class="fab fa-spotify"></i>
+                            Listen
+                        </button>
+                        <button class="portal-button" id="open-watch-portal" aria-label="Open Watch Portal">
+                            <i class="fab fa-youtube"></i>
+                            Watch
+                        </button>
+                    </div>
+                    
+                    <!-- Stay Tapped In CTA -->
+                    <button class="stay-tapped-pill" id="open-email" aria-haspopup="dialog" aria-controls="emailModal">
+                        Stay tapped in
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Email Modal -->
+            <div class="email-modal" id="emailModal" hidden>
+                <div class="email-card" role="dialog" aria-modal="true" aria-label="Stay tapped in">
+                    <button class="email-close" id="close-email" aria-label="Close">✕</button>
+                    <div class="email-title">Stay tapped in</div>
+                    <form class="email-form" id="heroEmailForm">
+                        <input type="email" class="email-input" id="heroEmailInput" placeholder="Your email" required aria-label="Email address">
+                        <button type="submit" class="email-submit">→</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="hud-actions">
-            <button class="mode-trigger" id="listenTrigger">Listen</button>
-            <button class="mode-trigger" id="watchTrigger">Watch</button>
+    </section>
+
+    <!-- Featured Release Section -->
+    <div class="featured-release" id="featuredRelease">
+        <div class="featured-release-card">
+            <button class="featured-release-close" id="dismiss-featured-release" aria-label="Dismiss Latest Release">✕</button>
+            <div class="featured-release-cover">
+                <img id="featured-cover" src="" alt="Latest Release">
+            </div>
+            <div class="featured-release-info">
+                <div class="featured-release-label">Latest Release</div>
+                <h2 id="featured-title">Loading...</h2>
+                <div id="featured-date" class="featured-release-date"></div>
+                <div id="featured-mood" class="featured-release-mood"></div>
+                <a id="featured-listen" href="#" class="featured-release-btn" target="_blank" rel="noopener">
+                    Listen on Spotify
+                </a>
+            </div>
         </div>
-        <form class="email-capture" id="emailForm">
-            <input type="email" placeholder="Stay tapped in." required id="emailInput">
-            <button type="submit">→</button>
-        </form>
     </div>
+
         <script>
         // Wait for DOM to fully load
         document.addEventListener('DOMContentLoaded', function() {
@@ -391,6 +463,9 @@
                 }
             });
             
+            // Expose enterWatchMode globally for external scripts
+            window.enterWatchMode = enterWatchMode;
+            
             // Subtle parallax on hero image
             let ticking = false;
             window.addEventListener('scroll', function() {
@@ -410,17 +485,7 @@
         </script>
     </div>
 
-    <!-- Listen Mode Overlay -->
-    <div class="listen-mode-overlay" id="listenModeOverlay">
-        <button class="listen-mode-close" id="listenModeClose">✕</button>
-        <div class="listen-mode-content" id="listenModeContent">
-            <div class="listen-mode-card">
-                <iframe data-testid="embed-iframe" src="https://open.spotify.com/embed/artist/08nIFJLOyYWc5eWJCa4S8X?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-            </div>
-        </div>
-    </div>
-
-    <!-- Watch Mode Overlay -->
+    <!-- Watch Mode Overlay (kept for compatibility) -->
     <div class="watch-mode-overlay" id="watchModeOverlay">
         <button class="watch-mode-close" id="watchModeClose">✕</button>
         <button class="watch-arrow watch-arrow-left" id="watchArrowLeft">‹</button>
@@ -508,6 +573,43 @@
         document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     })();
     </script>
+
+    <script src="js/featuredRelease.js"></script>
+    <script src="js/listen-portal.js"></script>
+    <script src="js/hero-refresh.js"></script>
+    <script src="js/hero-video.js"></script>
+
+    <!-- Listen Portal Modal -->
+    <div id="listen-portal" class="listen-portal-overlay" hidden>
+        <div class="listen-portal-card">
+            <button class="listen-portal-close" aria-label="Close" title="Close (ESC)">✕</button>
+            
+            <div class="listen-portal-cover">
+                <img id="portal-cover" src="" alt="Album Cover">
+            </div>
+            
+            <div class="listen-portal-info">
+                <div class="listen-portal-label">Latest Release</div>
+                <h2 id="portal-title" class="listen-portal-title">Loading...</h2>
+                <div id="portal-date" class="listen-portal-date"></div>
+            </div>
+            
+            <div class="listen-portal-buttons">
+                <a id="portal-btn-spotify" href="#" class="listen-portal-btn listen-portal-btn-spotify" target="_blank" rel="noopener" hidden>
+                    <span class="listen-portal-btn-icon"><i class="fab fa-spotify"></i></span>
+                    <span>Listen on Spotify</span>
+                </a>
+                <a id="portal-btn-apple" href="#" class="listen-portal-btn listen-portal-btn-apple" target="_blank" rel="noopener" hidden>
+                    <span class="listen-portal-btn-icon"><i class="fab fa-apple"></i></span>
+                    <span>Listen on Apple Music</span>
+                </a>
+                <a id="portal-btn-all" href="#" class="listen-portal-btn listen-portal-btn-all" target="_blank" rel="noopener" hidden>
+                    <span class="listen-portal-btn-icon">🎵</span>
+                    <span>All Platforms</span>
+                </a>
+            </div>
+        </div>
+    </div>
 
 </body>
 </html>
