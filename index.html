@@ -130,8 +130,9 @@
             const watchOverlay = document.getElementById('watchModeOverlay');
             const watchContent = document.getElementById('watchModeContent');
             const watchClose = document.getElementById('watchModeClose');
-            const watchFeaturedPlayer = document.getElementById('watchFeaturedPlayer');
-            const watchThumbnailsScroll = document.getElementById('watchThumbnailsScroll');
+            const watchCarousel = document.getElementById('watchCarousel');
+            const watchArrowLeft = document.getElementById('watchArrowLeft');
+            const watchArrowRight = document.getElementById('watchArrowRight');
             const heroBg = document.querySelector('.hero-bg');
             const hudPanel = document.querySelector('.hud-panel');
             
@@ -252,50 +253,62 @@
             }
             
             function renderVideos(videos) {
+                watchCarousel.innerHTML = '';
                 totalVideos = videos.length;
                 currentVideoIndex = 0;
                 
                 if (videos.length === 0) {
-                    watchFeaturedPlayer.innerHTML = '<div class="watch-loading">No videos available</div>';
+                    watchCarousel.innerHTML = '<div class="watch-loading">No videos available</div>';
                     return;
                 }
                 
-                // Load first video in featured player
-                loadFeaturedVideo(videos[0].id);
-                
-                // Render thumbnails
-                watchThumbnailsScroll.innerHTML = '';
-                videos.forEach((video, index) => {
-                    const thumbnail = document.createElement('div');
-                    thumbnail.className = `watch-thumbnail-card ${index === 0 ? 'active' : ''}`;
-                    thumbnail.dataset.index = index;
-                    thumbnail.innerHTML = `
-                        <img src="${video.thumbnail}" alt="${video.title}">
-                        <div class="watch-thumbnail-title">${video.title}</div>
+                videos.forEach(video => {
+                    const card = document.createElement('div');
+                    card.className = 'video-card';
+                    card.innerHTML = `
+                        <div class="video-thumbnail">
+                            <img src="${video.thumbnail}" alt="${video.title}">
+                        </div>
+                        <div class="video-info">
+                            <h3 class="video-title">${video.title}</h3>
+                        </div>
                     `;
                     
-                    thumbnail.addEventListener('click', () => {
-                        // Update active state
-                        document.querySelectorAll('.watch-thumbnail-card').forEach(t => t.classList.remove('active'));
-                        thumbnail.classList.add('active');
-                        // Load video in featured player
-                        loadFeaturedVideo(video.id);
-                        currentVideoIndex = index;
+                    card.addEventListener('click', () => {
+                        openVideoModal(video.id);
                     });
                     
-                    watchThumbnailsScroll.appendChild(thumbnail);
+                    watchCarousel.appendChild(card);
                 });
+                
+                updateArrowVisibility();
             }
             
-            function loadFeaturedVideo(videoId) {
-                watchFeaturedPlayer.innerHTML = `
-                    <iframe 
-                        src="https://www.youtube-nocookie.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1"
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
-                `;
+            function updateArrowVisibility() {
+                if (currentVideoIndex === 0) {
+                    watchArrowLeft.style.opacity = '0.3';
+                    watchArrowLeft.style.pointerEvents = 'none';
+                } else {
+                    watchArrowLeft.style.opacity = '1';
+                    watchArrowLeft.style.pointerEvents = 'auto';
+                }
+                
+                if (currentVideoIndex >= totalVideos - 1) {
+                    watchArrowRight.style.opacity = '0.3';
+                    watchArrowRight.style.pointerEvents = 'none';
+                } else {
+                    watchArrowRight.style.opacity = '1';
+                    watchArrowRight.style.pointerEvents = 'auto';
+                }
+            }
+            
+            function scrollToVideo(index) {
+                const cards = watchCarousel.querySelectorAll('.video-card');
+                if (cards[index]) {
+                    cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+                    currentVideoIndex = index;
+                    updateArrowVisibility();
+                }
             }
             
             // Listen Mode Functions
@@ -442,6 +455,21 @@
                 }
             });
             
+            // Arrow navigation
+            watchArrowLeft.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (currentVideoIndex > 0) {
+                    scrollToVideo(currentVideoIndex - 1);
+                }
+            });
+            
+            watchArrowRight.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (currentVideoIndex < totalVideos - 1) {
+                    scrollToVideo(currentVideoIndex + 1);
+                }
+            });
+            
             // ESC key to close both modes and video modal
             document.addEventListener('keydown', function(e) {
                 if (e.key === 'Escape' || e.key === 'Esc') {
@@ -489,21 +517,15 @@
         </script>
     </div>
 
-    <!-- Watch Mode Overlay - Immersive Video Portal -->
+    <!-- Watch Mode Overlay (kept for compatibility) -->
     <div class="watch-mode-overlay" id="watchModeOverlay">
         <button class="watch-mode-close" id="watchModeClose">✕</button>
-        
+        <button class="watch-arrow watch-arrow-left" id="watchArrowLeft">‹</button>
+        <button class="watch-arrow watch-arrow-right" id="watchArrowRight">›</button>
         <div class="watch-mode-content" id="watchModeContent">
-            <!-- Featured Video Player -->
-            <div class="watch-featured-player" id="watchFeaturedPlayer">
-                <div class="watch-loading">Loading videos...</div>
-            </div>
-            
-            <!-- Video Thumbnails -->
-            <div class="watch-thumbnails-section">
-                <div class="watch-thumbnails-scroll" id="watchThumbnailsScroll">
-                    <!-- Thumbnails will be injected here -->
-                </div>
+            <div class="watch-loading">Loading videos...</div>
+            <div class="watch-carousel" id="watchCarousel">
+                <!-- Videos will be injected here by JS -->
             </div>
         </div>
     </div>

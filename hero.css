@@ -116,162 +116,55 @@
     transition: filter 0.5s ease, transform 0.5s ease;
 }
 
-/* Watch Mode Overlay - Immersive Full Screen */
+/* Watch Mode Overlay */
 .watch-mode-overlay {
     position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.95);
-    backdrop-filter: blur(30px);
-    -webkit-backdrop-filter: blur(30px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.90);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
     z-index: 9999;
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
 }
 .watch-mode-overlay.active {
     opacity: 1;
     visibility: visible;
 }
 
-/* Watch Mode Content Container */
+/* Watch Mode Content */
 .watch-mode-content {
-    width: 100%;
-    max-width: 1400px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    padding: 2rem;
-    transform: scale(0.95) translateY(30px);
+    transform: scale(0.92) translateY(40px);
     opacity: 0;
-    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.6s ease;
+    width: 95%;
+    max-width: 1400px;
+    max-height: 85vh;
+    overflow: hidden;
 }
 .watch-mode-overlay.active .watch-mode-content {
     transform: scale(1) translateY(0);
     opacity: 1;
 }
 
-/* Featured Video Player */
-.watch-featured-player {
-    flex: 1;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-}
-
-.watch-featured-player iframe {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
 /* Watch Loading State */
 .watch-loading {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
     text-align: center;
+    padding: 60px 20px;
     font-family: 'Poppins', Arial, sans-serif;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
 }
 
-/* Video Thumbnails Section */
-.watch-thumbnails-section {
-    height: 160px;
-    position: relative;
-}
-
-.watch-thumbnails-scroll {
-    display: flex;
-    gap: 1rem;
-    overflow-x: auto;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-    scroll-snap-type: x mandatory;
-    padding: 0.5rem 0;
-    height: 100%;
-    -webkit-overflow-scrolling: touch;
-}
-
-.watch-thumbnails-scroll::-webkit-scrollbar {
-    height: 6px;
-}
-
-.watch-thumbnails-scroll::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 3px;
-}
-
-.watch-thumbnails-scroll::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
-}
-
-.watch-thumbnails-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
-
-/* Video Thumbnail Card */
-.watch-thumbnail-card {
-    flex: 0 0 240px;
-    height: 135px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    overflow: hidden;
-    cursor: pointer;
-    scroll-snap-align: start;
-    transition: all 0.3s ease;
-    position: relative;
-    border: 2px solid transparent;
-}
-
-.watch-thumbnail-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-}
-
-.watch-thumbnail-card.active {
-    border-color: rgba(255, 255, 255, 0.5);
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
-}
-
-.watch-thumbnail-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.3s ease;
-}
-
-.watch-thumbnail-card:hover img {
-    opacity: 0.8;
-}
-
-.watch-thumbnail-title {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 0.75rem 0.5rem 0.5rem;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    color: white;
-    font-size: 0.75rem;
-    line-height: 1.2;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-/* Old carousel styles (keep for backward compatibility) */
+/* Watch Carousel */
 .watch-carousel {
     display: flex;
     gap: 24px;
@@ -494,35 +387,32 @@
     }
     .listen-mode-close,
     .watch-mode-close {
-        top: 12px;
-        right: 12px;
+        top: 16px;
+        right: 16px;
         width: 40px;
         height: 40px;
     }
-    
-    /* Watch Portal Mobile */
     .watch-mode-content {
-        padding: 1rem;
-        height: 95vh;
-        gap: 1rem;
+        width: 100%;
+        max-height: 80vh;
     }
-    
-    .watch-featured-player {
-        border-radius: 12px;
+    .watch-carousel {
+        padding: 16px;
+        gap: 16px;
     }
-    
-    .watch-thumbnails-section {
-        height: 120px;
+    .video-card {
+        flex: 0 0 260px;
     }
-    
-    .watch-thumbnail-card {
-        flex: 0 0 180px;
-        height: 100px;
+    .watch-arrow {
+        width: 44px;
+        height: 44px;
+        font-size: 24px;
     }
-    
-    .watch-thumbnail-title {
-        font-size: 0.7rem;
-        padding: 0.5rem 0.4rem 0.4rem;
+    .watch-arrow-left {
+        left: 12px;
+    }
+    .watch-arrow-right {
+        right: 12px;
     }
 }
 /* Spotify embed reveal section below hero */
