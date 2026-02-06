@@ -295,8 +295,8 @@
                 
                 // Trigger transition
                 listenOverlay.classList.add('active');
-                heroBg.classList.add('listen-mode-blur');
-                hudPanel.classList.add('listen-mode-blur');
+                if (heroBg) heroBg.classList.add('listen-mode-blur');
+                if (hudPanel) hudPanel.classList.add('listen-mode-blur');
                 
                 // Prevent body scroll
                 document.body.style.overflow = 'hidden';
@@ -306,8 +306,8 @@
                 listenModeActive = false;
                 
                 listenOverlay.classList.remove('active');
-                heroBg.classList.remove('listen-mode-blur');
-                hudPanel.classList.remove('listen-mode-blur');
+                if (heroBg) heroBg.classList.remove('listen-mode-blur');
+                if (hudPanel) hudPanel.classList.remove('listen-mode-blur');
                 
                 // Restore body scroll
                 document.body.style.overflow = '';
@@ -326,8 +326,8 @@
                 
                 // Trigger transition
                 watchOverlay.classList.add('active');
-                heroBg.classList.add('watch-mode-blur');
-                hudPanel.classList.add('watch-mode-blur');
+                if (heroBg) heroBg.classList.add('watch-mode-blur');
+                if (hudPanel) hudPanel.classList.add('watch-mode-blur');
                 
                 // Prevent body scroll
                 document.body.style.overflow = 'hidden';
@@ -337,8 +337,8 @@
                 watchModeActive = false;
                 
                 watchOverlay.classList.remove('active');
-                heroBg.classList.remove('watch-mode-blur');
-                hudPanel.classList.remove('watch-mode-blur');
+                if (heroBg) heroBg.classList.remove('watch-mode-blur');
+                if (hudPanel) hudPanel.classList.remove('watch-mode-blur');
                 
                 // Restore body scroll
                 document.body.style.overflow = '';
