@@ -22,6 +22,7 @@
     setupPortalCards();
     setupEmailCapture();
     setupFeaturedReleaseDismiss();
+    setupMicroStory();
     preventHashNavigation();
     setupEscapeHandler();
   }
@@ -36,6 +37,7 @@
       listenCard.addEventListener('click', (e) => {
         e.preventDefault();
         if (window.ListenPortal && typeof window.ListenPortal.open === 'function') {
+          trackEvent('listen_open');
           window.ListenPortal.open();
         } else {
           console.warn('Listen Portal not available');
@@ -49,6 +51,7 @@
       watchCard.addEventListener('click', (e) => {
         e.preventDefault();
         if (window.WatchPortal && typeof window.WatchPortal.open === 'function') {
+          trackEvent('watch_open');
           window.WatchPortal.open();
         } else {
           console.error('[HERO] Watch Portal not available');
@@ -67,10 +70,13 @@
     const emailCard = document.querySelector('.email-card');
     const form = document.getElementById('heroEmailForm');
     const input = document.getElementById('heroEmailInput');
+    const success = document.getElementById('emailSuccess');
+    const copy = document.querySelector('.email-copy');
 
     if (!openEmail || !emailModal || !closeEmail || !form || !input) return;
 
     openEmail.addEventListener('click', () => {
+      trackEvent('email_open');
       openModal(emailModal, closeEmail);
     });
 
@@ -90,11 +96,51 @@
       const email = input.value.trim();
 
       if (email && validateEmail(email)) {
+        trackEvent('email_submit');
         console.log('Email captured:', email);
         input.value = '';
-        closeModal(emailModal);
+        if (copy) copy.classList.add('is-hidden');
+        form.classList.add('is-hidden');
+        if (success) {
+          success.hidden = false;
+          success.classList.add('is-visible');
+        }
+        setTimeout(() => {
+          if (success) {
+            success.classList.remove('is-visible');
+            success.hidden = true;
+          }
+          form.classList.remove('is-hidden');
+          if (copy) copy.classList.remove('is-hidden');
+          closeModal(emailModal);
+        }, 1600);
       }
     });
+  }
+
+  /**
+   * Setup micro story rotating lines
+   */
+  function setupMicroStory() {
+    const microStory = document.getElementById('microStory');
+    if (!microStory) return;
+
+    const raw = microStory.getAttribute('data-lines') || '';
+    const lines = raw.split('|').map((line) => line.trim()).filter(Boolean);
+    const lineEl = microStory.querySelector('.micro-story-line');
+    if (!lineEl || lines.length === 0) return;
+
+    let index = 0;
+    const rotate = () => {
+      index = (index + 1) % lines.length;
+      lineEl.classList.remove('is-visible');
+      setTimeout(() => {
+        lineEl.textContent = lines[index];
+        lineEl.classList.add('is-visible');
+      }, 300);
+    };
+
+    setInterval(rotate, 3600);
   }
 
   /**
@@ -166,6 +212,14 @@
     document.body.classList.remove('portal-open');
     if (lastFocusedElement) {
       lastFocusedElement.focus();
+    }
+  }
+
+  function trackEvent(name) {
+    if (typeof window.plausible === 'function') {
+      window.plausible(name);
+    } else {
+      console.log('[TRACK]', name);
     }
   }
 

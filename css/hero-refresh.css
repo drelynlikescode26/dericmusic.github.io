@@ -53,6 +53,27 @@
   text-shadow: 0 6px 18px rgba(0,0,0,0.45);
 }
 
+.micro-story {
+  min-height: 1.25rem;
+  font-size: clamp(0.85rem, 3.6vw, 1rem);
+  color: rgba(245, 241, 234, 0.85);
+  letter-spacing: 0.02em;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  margin-top: 0.25rem;
+}
+
+.micro-story-line {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.micro-story-line.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Social icons - subtle horizontal row */
 .hero-social {
   display: flex;
@@ -261,6 +282,36 @@
   background: rgba(255, 255, 255, 0.18);
 }
 
+.email-copy {
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: rgba(245, 241, 234, 0.65);
+  letter-spacing: 0.01em;
+}
+
+.email-from {
+  color: rgba(245, 241, 234, 0.95);
+}
+
+.email-success {
+  margin-top: 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #f5f1ea;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.email-success.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.is-hidden {
+  display: none !important;
+}
+
 /* ==================== FEATURED RELEASE DISMISS ==================== */
 
 .featured-release-close {
@@ -286,6 +337,106 @@
 
 .featured-release.hidden {
   display: none !important;
+}
+
+/* ==================== PROOF OF LIFE STRIP ==================== */
+
+.proof-strip {
+  width: min(1100px, 92vw);
+  margin: 2.5rem auto 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.proof-strip-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(245, 241, 234, 0.8);
+}
+
+.proof-strip-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.proof-strip-link {
+  font-size: 0.9rem;
+  color: rgba(245, 210, 170, 0.9);
+  text-decoration: none;
+}
+
+.proof-strip-link:hover {
+  color: #f5f1ea;
+}
+
+.proof-strip-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.proof-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: 14px;
+  background: linear-gradient(140deg, rgba(20,16,14,0.8), rgba(6,6,6,0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.proof-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.proof-placeholder {
+  font-size: 0.75rem;
+  color: rgba(245, 241, 234, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ==================== FOOTER LINKS ==================== */
+
+.site-footer {
+  width: min(1100px, 92vw);
+  margin: 3rem auto 3.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  color: rgba(245, 241, 234, 0.55);
+}
+
+.site-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  justify-content: center;
+}
+
+.site-footer-links a {
+  color: rgba(245, 241, 234, 0.75);
+  text-decoration: none;
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+}
+
+.site-footer-links a:hover {
+  color: #f5f1ea;
+}
+
+.site-footer-meta {
+  font-size: 0.8rem;
 }
 
 /* ==================== HIDE OLD HUD PANEL ==================== */
@@ -330,6 +481,14 @@
   .portal-button {
     width: 100%;
     min-height: 44px; /* Ensure tap target */
+  }
+
+  .proof-strip {
+    margin: 2rem auto 2.5rem;
+  }
+
+  .proof-strip-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -390,6 +549,10 @@
   .portal-button {
     padding: 1rem 1rem;
     font-size: 0.95rem;
+  }
+
+  .proof-strip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   
   .stay-tapped-pill {

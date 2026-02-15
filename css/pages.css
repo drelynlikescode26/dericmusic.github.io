@@ -1,0 +1,131 @@
+/* ==================== GLOBAL PAGE STYLES ==================== */
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+  background: #0b0a0a;
+  color: #f5f1ea;
+}
+
+a {
+  color: inherit;
+}
+
+.page-shell {
+  min-height: 100vh;
+  padding: 2.5rem 1.5rem 4rem;
+}
+
+.page-header {
+  width: min(1100px, 92vw);
+  margin: 0 auto 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  margin: 0;
+}
+
+.page-kicker {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: rgba(245, 241, 234, 0.55);
+}
+
+.page-nav a {
+  text-decoration: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.85rem;
+  color: rgba(245, 241, 234, 0.8);
+}
+
+.page-section {
+  width: min(1100px, 92vw);
+  margin: 0 auto 2.5rem;
+  padding: 1.5rem 1.75rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(20, 16, 14, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.section-title {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: rgba(245, 241, 234, 0.7);
+}
+
+.section-copy {
+  margin: 0;
+  color: rgba(245, 241, 234, 0.8);
+  line-height: 1.6;
+}
+
+.grid-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.tile {
+  padding: 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(10, 8, 7, 0.6);
+  min-height: 120px;
+}
+
+.tile-title {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+}
+
+.tile-meta {
+  font-size: 0.85rem;
+  color: rgba(245, 241, 234, 0.6);
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.form-grid input,
+.form-grid textarea {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #f5f1ea;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+}
+
+.form-grid button {
+  align-self: flex-start;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
+  color: #f5f1ea;
+  padding: 0.6rem 1.4rem;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .page-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+}
