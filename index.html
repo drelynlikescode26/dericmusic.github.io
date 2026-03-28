@@ -105,20 +105,19 @@
 
     <!-- Featured Release Section -->
     <div class="featured-release" id="featuredRelease">
-        <div class="featured-release-card">
+        <div class="featured-release-card featured-release-embed">
             <button class="featured-release-close" id="dismiss-featured-release" aria-label="Dismiss Latest Release">✕</button>
-            <div class="featured-release-cover">
-                <img id="featured-cover" src="" alt="Latest Release">
-            </div>
-            <div class="featured-release-info">
-                <div class="featured-release-label">Latest Release</div>
-                <h2 id="featured-title">Loading...</h2>
-                <div id="featured-date" class="featured-release-date"></div>
-                <div id="featured-mood" class="featured-release-mood"></div>
-                <a id="featured-listen" href="#" class="featured-release-btn" target="_blank" rel="noopener">
-                    Listen on Spotify
-                </a>
-            </div>
+            <iframe
+                id="featured-spotify-embed"
+                src=""
+                width="100%"
+                height="152"
+                frameborder="0"
+                allowtransparency="true"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="lazy"
+                style="border-radius:12px;"
+            ></iframe>
         </div>
     </div>
 

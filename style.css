@@ -381,3 +381,8 @@ footer {
 .featured-release.minimal-hidden {
     display: none;
 }
+
+.featured-release-embed {
+    position: relative;
+    padding-top: 2.5rem;
+}

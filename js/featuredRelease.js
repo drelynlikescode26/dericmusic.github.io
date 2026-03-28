@@ -23,11 +23,7 @@
     // Get DOM elements
     elements = {
       container: document.getElementById('featuredRelease'),
-      cover: document.getElementById('featured-cover'),
-      title: document.getElementById('featured-title'),
-      date: document.getElementById('featured-date'),
-      mood: document.getElementById('featured-mood'),
-      listenBtn: document.getElementById('featured-listen'),
+      embed: document.getElementById('featured-spotify-embed'),
     };
 
     // Check if featured release section exists
@@ -97,39 +93,29 @@
   }
 
   /**
+   * Build Spotify embed URL from a track or album URL
+   */
+  function buildEmbedUrl(spotifyUrl) {
+    try {
+      const url = new URL(spotifyUrl);
+      // Convert open.spotify.com/track/ID → open.spotify.com/embed/track/ID
+      const embedPath = url.pathname.replace(/^\/(track|album|playlist)/, '/embed/$1');
+      return 'https://open.spotify.com' + embedPath;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
    * Update DOM with release data
    */
   function updateDOM(release) {
-    // Update cover art
-    if (elements.cover && release.coverArt) {
-      elements.cover.src = release.coverArt;
-      elements.cover.alt = release.title;
-    }
-
-    // Update title
-    if (elements.title) {
-      elements.title.textContent = release.title;
-    }
-
-    // Update date
-    if (elements.date && release.releaseDate) {
-      const formattedDate = formatDate(release.releaseDate, release.releaseDatePrecision);
-      elements.date.textContent = formattedDate;
-    }
-
-    // Update mood line (if exists)
-    if (elements.mood) {
-      if (release.moodLine && release.moodLine.trim() !== '') {
-        elements.mood.textContent = release.moodLine;
-        elements.mood.style.display = 'block';
-      } else {
-        elements.mood.style.display = 'none';
+    // Set Spotify embed iframe
+    if (elements.embed && release.spotifyUrl) {
+      const embedUrl = buildEmbedUrl(release.spotifyUrl);
+      if (embedUrl) {
+        elements.embed.src = embedUrl;
       }
-    }
-
-    // Update listen button
-    if (elements.listenBtn && release.spotifyUrl) {
-      elements.listenBtn.href = release.spotifyUrl;
     }
 
     // Show the section

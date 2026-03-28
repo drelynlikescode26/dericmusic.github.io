@@ -1,13 +1,14 @@
 {
   "artistId": "08nIFJLOyYWc5eWJCa4S8X",
-  "title": "Mood Swings & Melodies III",
-  "releaseDate": "2026",
-  "releaseDatePrecision": "year",
-  "coverArt": "assets/Untitled design.PNG",
-  "spotifyUrl": "https://open.spotify.com/album/1iQduM0gfK4kNMISrSrwIR",
-  "type": "EP",
-  "updatedAt": "2026-02-05T00:00:00.000Z",
+  "title": "Latest Release",
+  "releaseDate": "2026-03-28",
+  "releaseDatePrecision": "day",
+  "coverArt": "",
+  "spotifyUrl": "https://open.spotify.com/track/29geA12P55ef324Nhxt5ad",
+  "spotifyTrackId": "29geA12P55ef324Nhxt5ad",
+  "type": "single",
+  "updatedAt": "2026-03-28T00:00:00.000Z",
   "moodLine": "",
   "appleMusicUrl": "",
-  "albumLink": "https://album.link/us/i/1871631282"
+  "albumLink": ""
 }
