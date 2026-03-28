@@ -353,6 +353,37 @@
   text-transform: uppercase;
 }
 
+/* ── Projects grid (compact embed 2-col) ── */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.project-embed-card {
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.2s ease;
+}
+
+.project-embed-card:hover {
+  border-color: rgba(245, 241, 234, 0.18);
+}
+
+.project-embed-card iframe {
+  display: block;
+  border-radius: 0;
+}
+
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Series row (MS&M) ── */
 .series-row {
   display: flex;
