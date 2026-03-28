@@ -33,6 +33,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.85rem;
+  text-align: left;
 }
 
 .hero-name {
@@ -146,18 +147,41 @@
   color: rgba(245, 241, 234, 0.75);
 }
 
-/* Mobile: stack vertically */
-@media (max-width: 640px) {
+/* ── Mobile ── */
+@media (max-width: 768px) {
   .hero-floor {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 8rem 1.5rem 2.5rem;
+    padding: 10rem 1.75rem 2.5rem;
     padding-bottom: calc(2.5rem + env(safe-area-inset-bottom));
     gap: 2rem;
   }
 
+  .hero-name {
+    font-size: clamp(2.6rem, 13vw, 4rem);
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-floor {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 8rem 1.25rem 2rem;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+    gap: 1.75rem;
+  }
+
+  .hero-name {
+    font-size: clamp(2.4rem, 14vw, 3.5rem);
+  }
+
   .hero-floor-right {
     align-items: flex-start;
+    width: 100%;
+  }
+
+  .hero-btn-listen,
+  .hero-btn-watch {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -167,33 +191,10 @@
 /* Centered content block (legacy) */
 /* .hero-center - hidden above */
 
-/* ==================== IDENTITY SECTION ==================== */
+/* ==================== IDENTITY SECTION (legacy — not rendered) ==================== */
 
 .hero-identity {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-
-.hero-name {
-  font-size: clamp(2rem, 8vw, 5.5rem); /* Better mobile scaling from 32px to 88px */
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  line-height: 0.95;
-  margin: 0;
-  color: #f5f1ea;
-  text-shadow: 0 8px 24px rgba(0,0,0,0.55);
-}
-
-.hero-subline {
-  font-size: clamp(0.75rem, 3.2vw, 0.875rem); /* 12px to 14px responsive */
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245, 241, 234, 0.65);
-  margin: 0;
-  text-shadow: 0 6px 18px rgba(0,0,0,0.45);
+  display: none;
 }
 
 .micro-story {
@@ -553,6 +554,8 @@
 .social-follow-strip {
   width: min(1100px, 92vw);
   margin: 3rem auto 0;
+  /* Explicit dark bg so tiles are always visible */
+  background: #0b0a0a;
 }
 
 .social-follow-inner {
@@ -571,10 +574,10 @@
   justify-content: center;
   gap: 0.6rem;
   padding: 2.25rem 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.04);
   border-right: 1px solid rgba(255, 255, 255, 0.07);
   text-decoration: none;
-  color: rgba(245, 241, 234, 0.6);
+  color: rgba(245, 241, 234, 0.75);
   transition: background 0.25s ease, color 0.25s ease;
 }
 
