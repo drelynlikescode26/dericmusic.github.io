@@ -15,14 +15,38 @@
     <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hero.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/listen-portal.css">
     <link rel="stylesheet" href="css/watch-portal.css">
     <link rel="stylesheet" href="css/hero-refresh.css">
     <link rel="stylesheet" href="css/hero-video.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Global Navigation -->
+    <nav class="site-nav" id="siteNav" aria-label="Site navigation">
+      <a href="index.html" class="nav-logo">Deric</a>
+      <div class="nav-links">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="nav-mobile" id="navMobile" aria-hidden="true">
+      <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+      <a href="music.html">Music</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html">About</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html">Contact</a>
+    </div>
 
     <section class="hero">
         <div class="hero-media">
@@ -121,30 +145,28 @@
         </div>
     </div>
 
-    <!-- Proof-of-Life Strip -->
-    <section class="proof-strip" id="proofStrip">
-        <div class="proof-strip-header">
-            <div class="proof-strip-title">Proof of life</div>
-            <a class="proof-strip-link" href="https://instagram.com/envyderic" target="_blank" rel="noopener">See more</a>
-        </div>
-        <div class="proof-strip-grid">
-            <a class="proof-tile" href="https://instagram.com/envyderic" target="_blank" rel="noopener" aria-label="Instagram visual 1">
-                <span class="proof-placeholder">Add visual 1</span>
+    <!-- Social Follow Strip -->
+    <section class="social-follow-strip">
+        <div class="social-follow-inner">
+            <a class="social-follow-tile" href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span class="social-follow-name">Instagram</span>
+                <span class="social-follow-handle">@envyderic</span>
             </a>
-            <a class="proof-tile" href="https://instagram.com/envyderic" target="_blank" rel="noopener" aria-label="Instagram visual 2">
-                <span class="proof-placeholder">Add visual 2</span>
+            <a class="social-follow-tile" href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                <i class="fab fa-tiktok"></i>
+                <span class="social-follow-name">TikTok</span>
+                <span class="social-follow-handle">@envyderic</span>
             </a>
-            <a class="proof-tile" href="https://instagram.com/envyderic" target="_blank" rel="noopener" aria-label="Instagram visual 3">
-                <span class="proof-placeholder">Add visual 3</span>
+            <a class="social-follow-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+                <span class="social-follow-name">YouTube</span>
+                <span class="social-follow-handle">@envyderic</span>
             </a>
-            <a class="proof-tile" href="https://tiktok.com/@envyderic" target="_blank" rel="noopener" aria-label="TikTok visual 4">
-                <span class="proof-placeholder">Add visual 4</span>
-            </a>
-            <a class="proof-tile" href="https://tiktok.com/@envyderic" target="_blank" rel="noopener" aria-label="TikTok visual 5">
-                <span class="proof-placeholder">Add visual 5</span>
-            </a>
-            <a class="proof-tile" href="https://tiktok.com/@envyderic" target="_blank" rel="noopener" aria-label="TikTok visual 6">
-                <span class="proof-placeholder">Add visual 6</span>
+            <a class="social-follow-tile" href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                <i class="fab fa-spotify"></i>
+                <span class="social-follow-name">Spotify</span>
+                <span class="social-follow-handle">Deric</span>
             </a>
         </div>
     </section>
@@ -228,6 +250,7 @@
     })();
     </script>
 
+    <script src="js/nav.js"></script>
     <script src="js/featuredRelease.js"></script>
     <script src="js/listen-portal.js"></script>
     <script src="js/watch-portal.js"></script>

@@ -4,37 +4,131 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Deric — About</title>
-  <meta name="description" content="About Deric.">
+  <meta name="description" content="About Deric — singer, songwriter, and producer.">
   <meta property="og:title" content="Deric — About">
-  <meta property="og:description" content="About Deric.">
+  <meta property="og:description" content="Singer, songwriter, and producer crafting cinematic R&B.">
   <meta property="og:image" content="assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <div>
-        <div class="page-kicker">About</div>
-        <h1 class="page-title">Deric — About</h1>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="index.html" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="music.html">Music</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html" aria-current="page">About</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="music.html">Music</a>
+    <a href="videos.html">Videos</a>
+    <a href="about.html" aria-current="page">About</a>
+    <a href="press.html">Press</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="page-kicker">Deric</div>
+        <h1 class="page-title">About</h1>
       </div>
-      <nav class="page-nav">
-        <a href="index.html">Back to Home</a>
-      </nav>
     </header>
 
-    <section class="page-section">
-      <h2 class="section-title">Short Bio</h2>
-      <p class="section-copy">Add a tight 80–120 word bio here.</p>
-    </section>
+    <main class="page-main">
 
-    <section class="page-section">
-      <h2 class="section-title">Long Bio</h2>
-      <p class="section-copy">Add a 250–400 word bio here. Include influences, identity notes, and narrative.</p>
-    </section>
+      <!-- Bio -->
+      <section class="p-section">
+        <div class="p-label">Bio</div>
+        <div class="bio-layout">
+          <div class="bio-photo">
+            <img src="assets/gallery1.JPG" alt="Deric" loading="lazy">
+          </div>
+          <div class="bio-text">
+            <p>
+              Deric is a singer, songwriter, and producer crafting cinematic R&B from the quiet side of midnight.
+              His music moves through late-night emotion and real-life stories — built for the moments that are
+              hard to put into words.
+            </p>
+            <p>
+              His 2026 project, <em>Mood Swings &amp; Melodies III</em>, marked the arrival of a distinct artistic
+              identity: introspective lyricism layered over immersive soundscapes. Each release is a document of
+              a specific emotional state, crafted with the kind of patience that only comes from making music you
+              actually mean.
+            </p>
+            <p>
+              Deric writes, records, and produces on his own terms — choosing feeling over formula, atmosphere over
+              noise. The music follows no rules except honesty.
+            </p>
+            <div style="margin-top: 0.5rem;">
+              <a class="btn-outline" href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-spotify"></i>
+                Listen on Spotify
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Connect -->
+      <section class="p-section">
+        <div class="p-label">Follow</div>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a class="btn-outline" href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a class="btn-outline" href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-tiktok"></i> TikTok
+          </a>
+          <a class="btn-outline" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i> YouTube
+          </a>
+        </div>
+      </section>
+
+    </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>

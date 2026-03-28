@@ -4,50 +4,126 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Deric — Videos</title>
-  <meta name="description" content="Featured videos from Deric.">
+  <meta name="description" content="Official videos from Deric.">
   <meta property="og:title" content="Deric — Videos">
-  <meta property="og:description" content="Featured videos from Deric.">
+  <meta property="og:description" content="Official videos from Deric.">
   <meta property="og:image" content="assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <div>
-        <div class="page-kicker">Videos</div>
-        <h1 class="page-title">Deric — Videos</h1>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="index.html" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="music.html">Music</a>
+      <a href="videos.html" aria-current="page">Videos</a>
+      <a href="about.html">About</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="music.html">Music</a>
+    <a href="videos.html" aria-current="page">Videos</a>
+    <a href="about.html">About</a>
+    <a href="press.html">Press</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="page-kicker">Deric</div>
+        <h1 class="page-title">Videos</h1>
       </div>
-      <nav class="page-nav">
-        <a href="index.html">Back to Home</a>
-      </nav>
     </header>
 
-    <section class="page-section">
-      <h2 class="section-title">Featured Video</h2>
-      <p class="section-copy">Embed your featured video here (no autoplay).</p>
-    </section>
+    <main class="page-main">
 
-    <section class="page-section">
-      <h2 class="section-title">Video Library</h2>
-      <div class="grid-tiles">
-        <div class="tile">
-          <div class="tile-title">Video Title</div>
-          <div class="tile-meta">YouTube • 2024</div>
+      <!-- YouTube Channel -->
+      <section class="p-section">
+        <div class="p-label">YouTube</div>
+        <p class="p-body">
+          Watch official visuals, sessions, and behind-the-scenes content on YouTube.
+        </p>
+        <div>
+          <a class="btn-outline" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i>
+            View channel &nbsp;@envyderic
+          </a>
         </div>
-        <div class="tile">
-          <div class="tile-title">Video Title</div>
-          <div class="tile-meta">YouTube • 2023</div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Video Library -->
+      <section class="p-section">
+        <div class="p-label">Videos</div>
+        <div class="video-grid">
+          <!-- Add YouTube video tiles below. Replace VIDEO_ID with the actual YouTube video ID.
+               Example thumbnail URL: https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg -->
+          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-name">Add video title</div>
+            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+          </a>
+          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-name">Add video title</div>
+            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+          </a>
+          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+            <div class="video-thumb">
+              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+            </div>
+            <div class="video-name">Add video title</div>
+            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+          </a>
         </div>
-        <div class="tile">
-          <div class="tile-title">Video Title</div>
-          <div class="tile-meta">YouTube • 2023</div>
-        </div>
-      </div>
-    </section>
+      </section>
+
+    </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>

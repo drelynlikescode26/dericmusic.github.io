@@ -11,53 +11,153 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <div>
-        <div class="page-kicker">Press / EPK</div>
-        <h1 class="page-title">Deric — Press / EPK</h1>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="index.html" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="music.html">Music</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html">About</a>
+      <a href="press.html" aria-current="page">Press</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="music.html">Music</a>
+    <a href="videos.html">Videos</a>
+    <a href="about.html">About</a>
+    <a href="press.html" aria-current="page">Press</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="page-kicker">Deric</div>
+        <h1 class="page-title">Press&nbsp;/&nbsp;EPK</h1>
       </div>
-      <nav class="page-nav">
-        <a href="index.html">Back to Home</a>
-      </nav>
     </header>
 
-    <section class="page-section">
-      <h2 class="section-title">Positioning</h2>
-      <p class="section-copy">Add a one-sentence positioning statement here.</p>
-    </section>
+    <main class="page-main">
 
-    <section class="page-section">
-      <h2 class="section-title">Stats</h2>
-      <div class="grid-tiles">
-        <div class="tile">
-          <div class="tile-title">Monthly Listeners</div>
-          <div class="tile-meta">Add number</div>
-        </div>
-        <div class="tile">
-          <div class="tile-title">Total Streams</div>
-          <div class="tile-meta">Add number</div>
-        </div>
-        <div class="tile">
-          <div class="tile-title">Press Highlights</div>
-          <div class="tile-meta">Add outlets</div>
-        </div>
-      </div>
-    </section>
+      <!-- Positioning -->
+      <section class="p-section">
+        <div class="p-label">Artist Statement</div>
+        <p class="p-body" style="font-size: 1.2rem; color: var(--text); max-width: 760px; line-height: 1.7;">
+          "Cinematic R&amp;B for people who feel things deeply — late-night music built from real experience."
+        </p>
+      </section>
 
-    <section class="page-section">
-      <h2 class="section-title">Downloadable Photos</h2>
-      <p class="section-copy">Link to high-res press photos (Google Drive or direct download).</p>
-    </section>
+      <hr class="p-rule">
 
-    <section class="page-section">
-      <h2 class="section-title">Contact</h2>
-      <p class="section-copy">Booking: hello@dericmusic.com (replace if different).</p>
-    </section>
+      <!-- Stats -->
+      <section class="p-section">
+        <div class="p-label">By the Numbers</div>
+        <div class="stats-row">
+          <div class="stat-item">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Monthly Listeners</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Total Streams</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">—</div>
+            <div class="stat-label">Social Followers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value">2026</div>
+            <div class="stat-label">Active Since</div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Short Bio -->
+      <section class="p-section">
+        <div class="p-label">Short Bio (80 words)</div>
+        <p class="p-body">
+          Deric is a singer, songwriter, and producer crafting cinematic R&amp;B from the quiet side of midnight.
+          His music moves through late-night emotion and real-life stories — built for the moments that are hard
+          to put into words. His 2026 debut project, <em>Mood Swings &amp; Melodies III</em>, established his voice
+          as one of measured vulnerability and sonic depth. Based independently, Deric writes and produces everything
+          himself, releasing music on his own terms.
+        </p>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Press Photos -->
+      <section class="p-section">
+        <div class="p-label">Press Photos</div>
+        <p class="p-body">High-resolution press photos available upon request.</p>
+        <div style="margin-top: 0.5rem;">
+          <a class="btn-outline" href="mailto:hello@dericmusic.com?subject=Press Photo Request">
+            <i class="fas fa-download"></i>
+            Request Photos
+          </a>
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Contact -->
+      <section class="p-section">
+        <div class="p-label">Booking &amp; Inquiries</div>
+        <div class="contact-info">
+          <div class="contact-info-item">
+            <div class="contact-info-label">General &amp; Booking</div>
+            <div class="contact-info-value">
+              <a href="mailto:hello@dericmusic.com">hello@dericmusic.com</a>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="contact-info-label">Management</div>
+            <div class="contact-info-value" style="color: var(--text-muted);">Independent</div>
+          </div>
+        </div>
+      </section>
+
+    </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>

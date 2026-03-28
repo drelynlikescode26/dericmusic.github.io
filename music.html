@@ -11,43 +11,126 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <div>
-        <div class="page-kicker">Music</div>
-        <h1 class="page-title">Deric — Music</h1>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="index.html" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="music.html" aria-current="page">Music</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html">About</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="music.html" aria-current="page">Music</a>
+    <a href="videos.html">Videos</a>
+    <a href="about.html">About</a>
+    <a href="press.html">Press</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="page-kicker">Deric</div>
+        <h1 class="page-title">Music</h1>
       </div>
-      <nav class="page-nav">
-        <a href="index.html">Back to Home</a>
-      </nav>
     </header>
 
-    <section class="page-section">
-      <h2 class="section-title">Latest Release</h2>
-      <p class="section-copy">Pin your latest release here with cover art, year, and smartlink.</p>
-    </section>
+    <main class="page-main">
 
-    <section class="page-section">
-      <h2 class="section-title">Discography</h2>
-      <div class="grid-tiles">
-        <div class="tile">
-          <div class="tile-title">Project Title</div>
-          <div class="tile-meta">Year • Mood • Smartlink</div>
+      <!-- Latest Single -->
+      <section class="p-section">
+        <div class="p-label">Latest Single</div>
+        <div class="embed-card">
+          <iframe
+            src="https://open.spotify.com/embed/track/29geA12P55ef324Nhxt5ad?utm_source=generator&theme=0"
+            width="100%"
+            height="152"
+            frameborder="0"
+            allowtransparency="true"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Latest Single">
+          </iframe>
         </div>
-        <div class="tile">
-          <div class="tile-title">Single Title</div>
-          <div class="tile-meta">Year • Mood • Smartlink</div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Latest Project -->
+      <section class="p-section">
+        <div class="p-label">Latest Project</div>
+        <div class="embed-card">
+          <iframe
+            src="https://open.spotify.com/embed/album/1iQduM0gfK4kNMISrSrwIR?utm_source=generator&theme=0"
+            width="100%"
+            height="352"
+            frameborder="0"
+            allowtransparency="true"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            loading="lazy"
+            title="Mood Swings & Melodies III">
+          </iframe>
         </div>
-        <div class="tile">
-          <div class="tile-title">Single Title</div>
-          <div class="tile-meta">Year • Mood • Smartlink</div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- Discography -->
+      <section class="p-section">
+        <div class="p-label">Discography</div>
+        <div class="release-grid">
+          <a class="release-tile" href="https://open.spotify.com/album/1iQduM0gfK4kNMISrSrwIR" target="_blank" rel="noopener noreferrer">
+            <div class="release-cover">
+              <img src="assets/mood-swings-melodies-iii.jpg" alt="Mood Swings & Melodies III" loading="lazy">
+            </div>
+            <div class="release-name">Mood Swings &amp; Melodies III</div>
+            <div class="release-meta">EP &nbsp;·&nbsp; 2026</div>
+          </a>
+          <!-- Add more releases below as they come out -->
         </div>
-      </div>
-    </section>
+      </section>
+
+    </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>

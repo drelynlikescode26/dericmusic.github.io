@@ -6,47 +6,148 @@
   <title>Deric — Contact</title>
   <meta name="description" content="Contact Deric for fan or business inquiries.">
   <meta property="og:title" content="Deric — Contact">
-  <meta property="og:description" content="Contact Deric for fan or business inquiries.">
+  <meta property="og:description" content="Get in touch with Deric.">
   <meta property="og:image" content="assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/nav.css">
   <link rel="stylesheet" href="css/pages.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="page-shell">
-    <header class="page-header">
-      <div>
-        <div class="page-kicker">Contact</div>
-        <h1 class="page-title">Deric — Contact</h1>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="index.html" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="music.html">Music</a>
+      <a href="videos.html">Videos</a>
+      <a href="about.html">About</a>
+      <a href="press.html">Press</a>
+      <a href="contact.html" aria-current="page">Contact</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="music.html">Music</a>
+    <a href="videos.html">Videos</a>
+    <a href="about.html">About</a>
+    <a href="press.html">Press</a>
+    <a href="contact.html" aria-current="page">Contact</a>
+  </div>
+
+  <div class="page-wrap">
+
+    <!-- Page Hero -->
+    <header class="page-hero">
+      <div class="page-hero-inner">
+        <div class="page-kicker">Deric</div>
+        <h1 class="page-title">Contact</h1>
       </div>
-      <nav class="page-nav">
-        <a href="index.html">Back to Home</a>
-      </nav>
     </header>
 
-    <section class="page-section">
-      <h2 class="section-title">Fan Message</h2>
-      <form class="form-grid" action="#" method="post">
-        <input type="text" name="fan-name" placeholder="Your name">
-        <input type="email" name="fan-email" placeholder="Your email">
-        <textarea name="fan-message" rows="4" placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-      </form>
-    </section>
+    <main class="page-main">
 
-    <section class="page-section">
-      <h2 class="section-title">Business / Booking</h2>
-      <form class="form-grid" action="#" method="post">
-        <input type="text" name="biz-name" placeholder="Your name">
-        <input type="email" name="biz-email" placeholder="Your email">
-        <input type="text" name="biz-subject" placeholder="Project or booking inquiry">
-        <textarea name="biz-message" rows="4" placeholder="Message"></textarea>
-        <button type="submit">Send</button>
-      </form>
-      <p class="section-copy" style="margin-top: 1rem;">Auto-reply can be set up via ConvertKit (recommended) using hello@dericmusic.com.</p>
-    </section>
+      <section class="p-section">
+        <div class="contact-cols">
+
+          <!-- Fan Message -->
+          <div>
+            <span class="contact-col-label">Fan Message</span>
+            <form class="form" action="#" method="post">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="fan-name">Name</label>
+                  <input type="text" id="fan-name" name="fan-name" placeholder="Your name" autocomplete="name">
+                </div>
+                <div class="form-field">
+                  <label for="fan-email">Email</label>
+                  <input type="email" id="fan-email" name="fan-email" placeholder="your@email.com" autocomplete="email">
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="fan-message">Message</label>
+                <textarea id="fan-message" name="fan-message" rows="5" placeholder="Say something..."></textarea>
+              </div>
+              <button type="submit" class="form-submit">Send Message</button>
+            </form>
+          </div>
+
+          <!-- Business / Booking -->
+          <div>
+            <span class="contact-col-label">Business &amp; Booking</span>
+            <form class="form" action="#" method="post">
+              <div class="form-row">
+                <div class="form-field">
+                  <label for="biz-name">Name</label>
+                  <input type="text" id="biz-name" name="biz-name" placeholder="Your name" autocomplete="name">
+                </div>
+                <div class="form-field">
+                  <label for="biz-email">Email</label>
+                  <input type="email" id="biz-email" name="biz-email" placeholder="your@email.com" autocomplete="email">
+                </div>
+              </div>
+              <div class="form-field">
+                <label for="biz-type">Inquiry Type</label>
+                <select id="biz-type" name="biz-type">
+                  <option value="" disabled selected>Select inquiry type</option>
+                  <option value="booking">Booking / Performance</option>
+                  <option value="sync">Sync Licensing</option>
+                  <option value="feature">Feature / Collaboration</option>
+                  <option value="press">Press / Media</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="biz-message">Details</label>
+                <textarea id="biz-message" name="biz-message" rows="5" placeholder="Tell me about the project or opportunity..."></textarea>
+              </div>
+              <button type="submit" class="form-submit">Send Inquiry</button>
+            </form>
+
+            <div class="contact-info" style="margin-top: 2.5rem;">
+              <div class="contact-info-item">
+                <div class="contact-info-label">Direct Email</div>
+                <div class="contact-info-value">
+                  <a href="mailto:hello@dericmusic.com">hello@dericmusic.com</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </main>
   </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="music.html">Music</a>
+        <a href="videos.html">Videos</a>
+        <a href="about.html">About</a>
+        <a href="press.html">Press</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/nav.js"></script>
+
 </body>
 </html>
