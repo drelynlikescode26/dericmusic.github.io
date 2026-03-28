@@ -99,7 +99,7 @@
   position: fixed;
   inset: 0;
   background: #0b0a0a;
-  z-index: 199;
+  z-index: 201;
   display: flex;
   flex-direction: column;
   align-items: center;

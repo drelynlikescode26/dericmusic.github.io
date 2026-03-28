@@ -67,47 +67,46 @@
         </div>
         <div class="grain-overlay"></div>
         <div class="hero-content">
-            <!-- Minimal Cinematic Hero -->
             <div class="hero-refresh">
-                <div class="hero-center">
-                    <!-- Identity Block -->
-                    <div class="hero-identity">
+                <!-- Hidden: keeps micro-story JS working -->
+                <div class="micro-story" id="microStory" data-lines="Cinematic R&B with a heartbeat.|Late-night melodies, real life stories.|Songs for the after-hours.|Built for the quiet hours." style="display:none">
+                    <span class="micro-story-line is-visible">Cinematic R&B with a heartbeat.</span>
+                </div>
+
+                <!-- Cinematic floor layout -->
+                <div class="hero-floor">
+                    <!-- Left: Identity + socials -->
+                    <div class="hero-floor-left">
                         <h1 class="hero-name">DERIC</h1>
-                        <div class="hero-subline">Singer • Songwriter • Artist</div>
-                        <div class="micro-story" id="microStory" data-lines="Cinematic R&B with a heartbeat.|Late-night melodies, real life stories.|Songs for the after-hours.|Built for the quiet hours.">
-                            <span class="micro-story-line is-visible">Cinematic R&B with a heartbeat.</span>
-                        </div>
-                        
-                        <!-- Social Icons -->
-                        <div class="hero-social">
-                            <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram">
+                        <div class="hero-subline">Singer · Songwriter · Artist</div>
+                        <div class="hero-social-row">
+                            <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                                 <i class="fab fa-instagram"></i>
                             </a>
-                            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" aria-label="Twitter" title="Twitter">
-                                <i class="fab fa-twitter"></i>
+                            <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+                                <i class="fab fa-tiktok"></i>
                             </a>
-                            <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube">
+                            <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                                 <i class="fab fa-youtube"></i>
+                            </a>
+                            <a href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer" aria-label="Spotify">
+                                <i class="fab fa-spotify"></i>
                             </a>
                         </div>
                     </div>
-                    
-                    <!-- Portal Buttons -->
-                    <div class="hero-portals">
-                        <button class="portal-button" id="open-listen-portal" aria-label="Open Listen Portal">
-                            <i class="fab fa-spotify"></i>
-                            Listen
+
+                    <!-- Right: CTAs -->
+                    <div class="hero-floor-right">
+                        <button class="hero-btn-listen" id="open-listen-portal" aria-label="Listen">
+                            <i class="fab fa-spotify"></i> Listen
                         </button>
-                        <button class="portal-button" id="open-watch-portal" aria-label="Open Watch Portal">
-                            <i class="fab fa-youtube"></i>
-                            Watch
+                        <button class="hero-btn-watch" id="open-watch-portal" aria-label="Watch">
+                            <i class="fab fa-youtube"></i> Watch
+                        </button>
+                        <button class="hero-btn-email" id="open-email" aria-haspopup="dialog" aria-controls="emailModal">
+                            Stay tapped in
                         </button>
                     </div>
-                    
-                    <!-- Stay Tapped In CTA -->
-                    <button class="stay-tapped-pill" id="open-email" aria-haspopup="dialog" aria-controls="emailModal">
-                        Stay tapped in
-                    </button>
                 </div>
             </div>
             
