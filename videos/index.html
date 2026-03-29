@@ -69,8 +69,8 @@
       flex-direction: column;
       gap: 0.9rem;
       cursor: pointer;
-      text-decoration: none;
       color: var(--text);
+      user-select: none;
     }
 
     .vtile-thumb {
@@ -371,49 +371,49 @@
         <div class="p-label">All Videos</div>
         <div class="vgrid">
 
-          <a class="vtile" data-id="xafQDH1rF_o" href="https://www.youtube.com/watch?v=xafQDH1rF_o" target="_blank" rel="noopener noreferrer">
+          <div class="vtile" data-id="xafQDH1rF_o" role="button" tabindex="0" aria-label="Watch Official Video">
             <div class="vtile-thumb">
               <img src="https://img.youtube.com/vi/xafQDH1rF_o/maxresdefault.jpg" alt="Official Video" loading="lazy">
               <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="vtile-info">
               <div class="vtile-title">Official Video</div>
-              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Official</div>
+              <div class="vtile-sub">Music Video</div>
             </div>
-          </a>
+          </div>
 
-          <a class="vtile" data-id="ZmvONgjQeg0" href="https://www.youtube.com/watch?v=ZmvONgjQeg0" target="_blank" rel="noopener noreferrer">
+          <div class="vtile" data-id="ZmvONgjQeg0" role="button" tabindex="0" aria-label="Watch Visualizer">
             <div class="vtile-thumb">
               <img src="https://img.youtube.com/vi/ZmvONgjQeg0/maxresdefault.jpg" alt="Visualizer" loading="lazy">
               <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="vtile-info">
               <div class="vtile-title">Visualizer</div>
-              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Visual</div>
+              <div class="vtile-sub">Music Video</div>
             </div>
-          </a>
+          </div>
 
-          <a class="vtile" data-id="MYxM4NjVzes" href="https://www.youtube.com/watch?v=MYxM4NjVzes" target="_blank" rel="noopener noreferrer">
+          <div class="vtile" data-id="MYxM4NjVzes" role="button" tabindex="0" aria-label="Watch Live Session">
             <div class="vtile-thumb">
               <img src="https://img.youtube.com/vi/MYxM4NjVzes/maxresdefault.jpg" alt="Live Session" loading="lazy">
               <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="vtile-info">
               <div class="vtile-title">Live Session</div>
-              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Session</div>
+              <div class="vtile-sub">Music Video</div>
             </div>
-          </a>
+          </div>
 
-          <a class="vtile" data-id="reAf570guMw" href="https://www.youtube.com/watch?v=reAf570guMw" target="_blank" rel="noopener noreferrer">
+          <div class="vtile" data-id="reAf570guMw" role="button" tabindex="0" aria-label="Watch Music Video">
             <div class="vtile-thumb">
               <img src="https://img.youtube.com/vi/reAf570guMw/maxresdefault.jpg" alt="Music Video" loading="lazy">
               <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
             <div class="vtile-info">
               <div class="vtile-title">Music Video</div>
-              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Official</div>
+              <div class="vtile-sub">Music Video</div>
             </div>
-          </a>
+          </div>
 
         </div>
       </section>
@@ -477,14 +477,22 @@
       var iframe   = document.getElementById('lightboxIframe');
       var closeBtn = document.getElementById('lightboxClose');
 
-      // Click tile — open lightbox
+      // Click or keyboard — open lightbox
+      function openVideo(id) {
+        iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
       document.querySelectorAll('.vtile').forEach(function (tile) {
-        tile.addEventListener('click', function (e) {
-          e.preventDefault();
-          var id = tile.dataset.id;
-          iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
-          lightbox.classList.add('open');
-          document.body.style.overflow = 'hidden';
+        tile.addEventListener('click', function () {
+          openVideo(tile.dataset.id);
+        });
+        tile.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openVideo(tile.dataset.id);
+          }
         });
       });
 
