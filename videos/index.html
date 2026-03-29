@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Deric — Videos</title>
-  <meta name="description" content="Official videos from Deric.">
+  <meta name="description" content="Official videos, visuals, and sessions from Deric.">
   <meta property="og:title" content="Deric — Videos">
-  <meta property="og:description" content="Official videos from Deric.">
+  <meta property="og:description" content="Official videos, visuals, and sessions from Deric.">
   <meta property="og:image" content="/assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="/assets/hero/hero-poster.jpg">
@@ -15,6 +15,290 @@
   <link rel="stylesheet" href="/css/pages.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Video page specific ── */
+
+    .video-featured-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .video-featured-embed {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #000;
+      border: 1px solid var(--border);
+    }
+
+    .video-featured-embed iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-featured-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .video-featured-title {
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin: 0;
+    }
+
+    /* ── Video grid ── */
+
+    .vgrid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .vtile {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .vtile-thumb {
+      aspect-ratio: 16 / 9;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111;
+      border: 1px solid var(--border);
+      position: relative;
+      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1),
+                  box-shadow 0.3s ease;
+    }
+
+    .vtile:hover .vtile-thumb {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.55);
+    }
+
+    .vtile-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .vtile:hover .vtile-thumb img {
+      transform: scale(1.04);
+    }
+
+    .vtile-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.3);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .vtile:hover .vtile-overlay {
+      opacity: 1;
+    }
+
+    .vtile-play {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #ff0000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: #fff;
+      transform: scale(0.85);
+      transition: transform 0.2s ease;
+      box-shadow: 0 4px 20px rgba(255,0,0,0.45);
+    }
+
+    .vtile:hover .vtile-play {
+      transform: scale(1);
+    }
+
+    .vtile-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .vtile-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .vtile-sub {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── Lightbox ── */
+
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.88);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox-inner {
+      position: relative;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .lightbox-embed {
+      aspect-ratio: 16 / 9;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .lightbox-embed iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: -44px;
+      right: 0;
+      background: none;
+      border: none;
+      color: rgba(245,241,234,0.7);
+      font-size: 1.4rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      transition: color 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .lightbox-close:hover {
+      color: var(--text);
+    }
+
+    .lightbox-close i {
+      font-size: 1rem;
+    }
+
+    /* ── Subscribe strip ── */
+
+    .sub-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 2rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      flex-wrap: wrap;
+    }
+
+    .sub-strip-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .sub-strip-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .sub-strip-handle {
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .sub-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      background: #ff0000;
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .sub-btn:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .vgrid {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+      .sub-strip {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .vgrid {
+        grid-template-columns: 1fr;
+      }
+      .sub-strip {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .vtile-thumb, .vtile-thumb img, .vtile-overlay, .vtile-play { transition: none !important; transform: none !important; }
+    }
+  </style>
 </head>
 <body>
 
@@ -53,53 +337,115 @@
 
     <main class="page-main">
 
-      <!-- YouTube Channel -->
+      <!-- ── Featured Video ── -->
       <section class="p-section">
-        <div class="p-label">YouTube</div>
-        <p class="p-body">
-          Watch official visuals, sessions, and behind-the-scenes content on YouTube.
-        </p>
-        <div>
-          <a class="btn-outline" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-youtube"></i>
-            View channel &nbsp;@envyderic
-          </a>
+        <div class="p-label">Featured</div>
+        <div class="video-featured-wrap">
+          <div class="video-featured-embed">
+            <iframe
+              src="https://www.youtube.com/embed/xafQDH1rF_o?rel=0&modestbranding=1"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              loading="lazy"
+              title="Deric — Official Video">
+            </iframe>
+          </div>
+          <div class="video-featured-meta">
+            <h2 class="video-featured-title">Official Video</h2>
+            <a class="btn-outline" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
+              <i class="fab fa-youtube"></i> View Channel
+            </a>
+          </div>
         </div>
       </section>
 
       <hr class="p-rule">
 
-      <!-- Video Library -->
+      <!-- ── Video Grid ──
+           To add a new video:
+           1. Copy one <a class="vtile"> block below
+           2. Replace VIDEO_ID with the YouTube video ID (the part after ?v= in the URL)
+           3. Update the title and category text
+      -->
       <section class="p-section">
-        <div class="p-label">Videos</div>
-        <div class="video-grid">
-          <!-- Add YouTube video tiles below. Replace VIDEO_ID with the actual YouTube video ID.
-               Example thumbnail URL: https://img.youtube.com/vi/VIDEO_ID/maxresdefault.jpg -->
-          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+        <div class="p-label">All Videos</div>
+        <div class="vgrid">
+
+          <a class="vtile" data-id="xafQDH1rF_o" href="https://www.youtube.com/watch?v=xafQDH1rF_o" target="_blank" rel="noopener noreferrer">
+            <div class="vtile-thumb">
+              <img src="https://img.youtube.com/vi/xafQDH1rF_o/maxresdefault.jpg" alt="Official Video" loading="lazy">
+              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
-            <div class="video-name">Add video title</div>
-            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+            <div class="vtile-info">
+              <div class="vtile-title">Official Video</div>
+              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Official</div>
+            </div>
           </a>
-          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+
+          <a class="vtile" data-id="ZmvONgjQeg0" href="https://www.youtube.com/watch?v=ZmvONgjQeg0" target="_blank" rel="noopener noreferrer">
+            <div class="vtile-thumb">
+              <img src="https://img.youtube.com/vi/ZmvONgjQeg0/maxresdefault.jpg" alt="Visualizer" loading="lazy">
+              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
-            <div class="video-name">Add video title</div>
-            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+            <div class="vtile-info">
+              <div class="vtile-title">Visualizer</div>
+              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Visual</div>
+            </div>
           </a>
-          <a class="video-tile" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
-            <div class="video-thumb">
-              <div class="video-thumb-play"><i class="fas fa-play"></i></div>
+
+          <a class="vtile" data-id="MYxM4NjVzes" href="https://www.youtube.com/watch?v=MYxM4NjVzes" target="_blank" rel="noopener noreferrer">
+            <div class="vtile-thumb">
+              <img src="https://img.youtube.com/vi/MYxM4NjVzes/maxresdefault.jpg" alt="Live Session" loading="lazy">
+              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
             </div>
-            <div class="video-name">Add video title</div>
-            <div class="video-meta">YouTube &nbsp;·&nbsp; 2026</div>
+            <div class="vtile-info">
+              <div class="vtile-title">Live Session</div>
+              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Session</div>
+            </div>
+          </a>
+
+          <a class="vtile" data-id="reAf570guMw" href="https://www.youtube.com/watch?v=reAf570guMw" target="_blank" rel="noopener noreferrer">
+            <div class="vtile-thumb">
+              <img src="https://img.youtube.com/vi/reAf570guMw/maxresdefault.jpg" alt="Music Video" loading="lazy">
+              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
+            </div>
+            <div class="vtile-info">
+              <div class="vtile-title">Music Video</div>
+              <div class="vtile-sub">YouTube &nbsp;·&nbsp; Official</div>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- ── Subscribe CTA ── -->
+      <section class="p-section">
+        <div class="sub-strip">
+          <div class="sub-strip-left">
+            <span class="sub-strip-label">YouTube</span>
+            <span class="sub-strip-handle">@envyderic</span>
+          </div>
+          <a class="sub-btn" href="https://youtube.com/@envyderic?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-youtube"></i> Subscribe
           </a>
         </div>
       </section>
 
     </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
+    <div class="lightbox-inner">
+      <button class="lightbox-close" id="lightboxClose">
+        <i class="fas fa-times"></i> Close
+      </button>
+      <div class="lightbox-embed">
+        <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    </div>
   </div>
 
   <!-- Footer -->
@@ -117,6 +463,7 @@
           <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
           <a href="https://tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
           <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
         </div>
         <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
       </div>
@@ -124,6 +471,40 @@
   </footer>
 
   <script src="/js/nav.js"></script>
+  <script>
+    (function () {
+      var lightbox = document.getElementById('lightbox');
+      var iframe   = document.getElementById('lightboxIframe');
+      var closeBtn = document.getElementById('lightboxClose');
+
+      // Click tile — open lightbox
+      document.querySelectorAll('.vtile').forEach(function (tile) {
+        tile.addEventListener('click', function (e) {
+          e.preventDefault();
+          var id = tile.dataset.id;
+          iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+          lightbox.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        iframe.src = '';
+        document.body.style.overflow = '';
+      }
+
+      closeBtn.addEventListener('click', closeLightbox);
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+      });
+    })();
+  </script>
 
 </body>
 </html>
