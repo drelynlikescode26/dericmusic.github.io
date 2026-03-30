@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Deric — Press / EPK</title>
-  <meta name="description" content="Press kit and booking info for Deric.">
+  <meta name="description" content="Press kit and media info for Deric — Atlanta R&B and melodic rap artist with 20M+ streams.">
   <meta property="og:title" content="Deric — Press / EPK">
-  <meta property="og:description" content="Press kit and booking info for Deric.">
+  <meta property="og:description" content="Atlanta-based R&B artist. 20M+ streams. Press inquiries: info@dericmusic.com">
   <meta property="og:image" content="/assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="/assets/hero/hero-poster.jpg">
@@ -15,6 +15,183 @@
   <link rel="stylesheet" href="/css/pages.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Press stats (same animated counter style as About) ── */
+    .press-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .press-stat {
+      background: var(--bg);
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
+
+    .press-stat-number {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .press-stat-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ── Highlight tags ── */
+    .highlight-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.9rem;
+      font-size: 0.92rem;
+      color: rgba(245, 241, 234, 0.75);
+      line-height: 1.55;
+    }
+
+    .highlight-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 0.45rem;
+    }
+
+    /* ── Press photo request card ── */
+    .photo-request-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 2rem 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      flex-wrap: wrap;
+    }
+
+    .photo-request-left {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .photo-request-title {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+
+    .photo-request-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .btn-gold {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 1.75rem;
+      background: var(--gold);
+      color: #0b0a0a;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .btn-gold:hover {
+      opacity: 0.85;
+      transform: translateY(-1px);
+    }
+
+    /* ── Contact row ── */
+    .press-contact-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .press-contact-card {
+      padding: 1.75rem 2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .press-contact-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .press-contact-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .press-contact-value a {
+      color: var(--gold);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201, 151, 76, 0.3);
+      transition: border-color 0.2s ease;
+    }
+
+    .press-contact-value a:hover {
+      border-color: var(--gold);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .press-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .press-contact-row {
+        grid-template-columns: 1fr;
+      }
+      .photo-request-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .press-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+      .photo-request-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,90 +223,160 @@
     <!-- Page Hero -->
     <header class="page-hero">
       <div class="page-hero-inner">
-        <div class="page-kicker">Deric</div>
+        <div class="page-kicker">Media Kit</div>
         <h1 class="page-title">Press&nbsp;/&nbsp;EPK</h1>
       </div>
     </header>
 
     <main class="page-main">
 
-      <!-- Positioning -->
+      <!-- ── Artist Statement ── -->
       <section class="p-section">
         <div class="p-label">Artist Statement</div>
-        <p class="p-body" style="font-size: 1.2rem; color: var(--text); max-width: 760px; line-height: 1.7;">
-          "Cinematic R&amp;B for people who feel things deeply — late-night music built from real experience."
+        <p class="p-body" style="font-size: 1.15rem; color: var(--text); max-width: 780px; line-height: 1.75;">
+          "The melodic voice of modern R&amp;B rap — emotion first, industry ready."
         </p>
       </section>
 
       <hr class="p-rule">
 
-      <!-- Stats -->
+      <!-- ── By the Numbers ── -->
       <section class="p-section">
         <div class="p-label">By the Numbers</div>
-        <div class="stats-row">
-          <div class="stat-item">
-            <div class="stat-value">—</div>
-            <div class="stat-label">Monthly Listeners</div>
+        <div class="press-stats" id="pressStats">
+
+          <div class="press-stat">
+            <div class="press-stat-number">
+              <span class="counter" data-target="20" data-suffix="M+">0</span>
+            </div>
+            <div class="press-stat-label">Total Streams</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">—</div>
-            <div class="stat-label">Total Streams</div>
+
+          <div class="press-stat">
+            <div class="press-stat-number">
+              <span class="counter" data-target="200" data-suffix="+">0</span>
+            </div>
+            <div class="press-stat-label">Verified Credits</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">—</div>
-            <div class="stat-label">Social Followers</div>
+
+          <div class="press-stat">
+            <div class="press-stat-number">5+</div>
+            <div class="press-stat-label">Years Active</div>
           </div>
-          <div class="stat-item">
-            <div class="stat-value">2026</div>
-            <div class="stat-label">Active Since</div>
+
+          <div class="press-stat">
+            <div class="press-stat-number">ATL</div>
+            <div class="press-stat-label">Based In</div>
+          </div>
+
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- ── Short Bio ── -->
+      <section class="p-section">
+        <div class="p-label">Short Bio</div>
+        <p class="p-body">
+          Deric (born Drelyn Walker) is an Atlanta-based recording artist and songwriter blending R&amp;B, melodic rap,
+          and emotional storytelling. Known for a vocal tone often compared to Don Toliver, Chris Brown, and PnB Rock,
+          Deric has amassed over 20 million streams independently across Spotify, Apple Music, and more — earning
+          editorial placements including Spotify's <em>Fresh Finds</em>. His catalog spans the
+          <em>Mood Swings &amp; Melodies</em> series alongside a growing collection of singles and collaborations
+          with artists and producers at the forefront of the industry. Operating as a fully independent artist,
+          Deric continues to build his sound, his brand, and his audience on his own terms.
+        </p>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- ── Career Highlights ── -->
+      <section class="p-section">
+        <div class="p-label">Career Highlights</div>
+        <div class="highlight-list">
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            20M+ total streams across Spotify, Apple Music, and other DSPs
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            200+ verified credits on Muso.ai
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            Featured on Spotify and Apple Music editorial playlists including <em>Fresh Finds</em>
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            Collaborated with PnB Rock, Fresco Trey, Hurricane Wisdom, and Jace (Iayze)
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            Worked with producers Taz Taylor &amp; Nick Mira (Internet Money) and CashMoneyAP
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            Sync placement for a commercial water brand campaign
+          </div>
+          <div class="highlight-item">
+            <div class="highlight-dot"></div>
+            Formerly signed; now fully independent with complete creative control
           </div>
         </div>
       </section>
 
       <hr class="p-rule">
 
-      <!-- Short Bio -->
-      <section class="p-section">
-        <div class="p-label">Short Bio (80 words)</div>
-        <p class="p-body">
-          Deric is a singer, songwriter, and producer crafting cinematic R&amp;B from the quiet side of midnight.
-          His music moves through late-night emotion and real-life stories — built for the moments that are hard
-          to put into words. His 2026 debut project, <em>Mood Swings &amp; Melodies III</em>, established his voice
-          as one of measured vulnerability and sonic depth. Based independently, Deric writes and produces everything
-          himself, releasing music on his own terms.
-        </p>
-      </section>
-
-      <hr class="p-rule">
-
-      <!-- Press Photos -->
+      <!-- ── Press Photos ── -->
       <section class="p-section">
         <div class="p-label">Press Photos</div>
-        <p class="p-body">High-resolution press photos available upon request.</p>
-        <div style="margin-top: 0.5rem;">
-          <a class="btn-outline" href="mailto:hello@dericmusic.com?subject=Press Photo Request">
-            <i class="fas fa-download"></i>
-            Request Photos
+        <div class="photo-request-card">
+          <div class="photo-request-left">
+            <div class="photo-request-title">High-Resolution Press Photos</div>
+            <div class="photo-request-sub">Available upon request — sent directly to your inbox.</div>
+          </div>
+          <a class="btn-gold"
+             href="mailto:info@dericmusic.com?subject=Press%20Photo%20Request&body=Hi%20Deric%2C%0A%0AI%20would%20like%20to%20request%20high-resolution%20press%20photos%20for%20the%20following%20purpose%3A%0A%0A%5BPlease%20describe%20your%20publication%20or%20project%5D%0A%0AThank%20you.">
+            <i class="fas fa-images"></i> Request Photos
           </a>
         </div>
       </section>
 
       <hr class="p-rule">
 
-      <!-- Contact -->
+      <!-- ── Contact ── -->
       <section class="p-section">
-        <div class="p-label">Booking &amp; Inquiries</div>
-        <div class="contact-info">
-          <div class="contact-info-item">
-            <div class="contact-info-label">General &amp; Booking</div>
-            <div class="contact-info-value">
-              <a href="mailto:hello@dericmusic.com">hello@dericmusic.com</a>
+        <div class="p-label">Press &amp; Booking</div>
+        <div class="press-contact-row">
+
+          <div class="press-contact-card">
+            <div class="press-contact-label">Press Inquiries</div>
+            <div class="press-contact-value">
+              <a href="mailto:info@dericmusic.com?subject=Press%20Inquiry">info@dericmusic.com</a>
             </div>
           </div>
-          <div class="contact-info-item">
-            <div class="contact-info-label">Management</div>
-            <div class="contact-info-value" style="color: var(--text-muted);">Independent</div>
+
+          <div class="press-contact-card">
+            <div class="press-contact-label">Booking &amp; Collaboration</div>
+            <div class="press-contact-value">
+              <a href="mailto:info@dericmusic.com?subject=Booking%20Inquiry">info@dericmusic.com</a>
+            </div>
           </div>
+
+          <div class="press-contact-card">
+            <div class="press-contact-label">Management</div>
+            <div class="press-contact-value" style="color: var(--text-muted); font-weight: 400;">
+              Independent
+            </div>
+          </div>
+
+          <div class="press-contact-card">
+            <div class="press-contact-label">Based In</div>
+            <div class="press-contact-value" style="color: var(--text-muted); font-weight: 400;">
+              Atlanta, GA
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -160,6 +407,44 @@
   </footer>
 
   <script src="/js/nav.js"></script>
+  <script>
+    (function () {
+      var counters = document.querySelectorAll('#pressStats .counter');
+      var started  = false;
+
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+
+      function animateCounter(el) {
+        var target   = parseInt(el.dataset.target, 10);
+        var suffix   = el.dataset.suffix || '';
+        var duration = 1800;
+        var start    = null;
+        function step(ts) {
+          if (!start) start = ts;
+          var p = Math.min((ts - start) / duration, 1);
+          el.textContent = Math.round(easeOut(p) * target) + suffix;
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+
+      function startAll() {
+        if (started) return;
+        started = true;
+        counters.forEach(function (el) { animateCounter(el); });
+      }
+
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          if (entries[0].isIntersecting) { startAll(); obs.disconnect(); }
+        }, { threshold: 0.3 });
+        var el = document.getElementById('pressStats');
+        if (el) obs.observe(el);
+      } else {
+        startAll();
+      }
+    })();
+  </script>
 
 </body>
 </html>
