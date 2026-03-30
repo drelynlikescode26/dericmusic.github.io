@@ -53,48 +53,87 @@
 
     <main class="page-main">
 
+      <style>
+        .form-status {
+          display: none;
+          padding: 1rem 1.25rem;
+          border-radius: 12px;
+          font-size: 0.85rem;
+          font-weight: 500;
+          margin-top: 0.5rem;
+        }
+        .form-status.success {
+          display: block;
+          background: rgba(29, 185, 84, 0.1);
+          border: 1px solid rgba(29, 185, 84, 0.25);
+          color: #1db954;
+        }
+        .form-status.error {
+          display: block;
+          background: rgba(255, 80, 80, 0.1);
+          border: 1px solid rgba(255, 80, 80, 0.25);
+          color: #ff6b6b;
+        }
+        .form-submit:disabled {
+          opacity: 0.55;
+          cursor: not-allowed;
+          transform: none !important;
+        }
+      </style>
+
       <section class="p-section">
         <div class="contact-cols">
 
           <!-- Fan Message -->
           <div>
             <span class="contact-col-label">Fan Message</span>
-            <form class="form" action="#" method="post">
+            <form class="form" id="fanForm">
+              <!-- Formspree hidden fields -->
+              <input type="hidden" name="access_key" value="FORMSPREE_ID_HERE">
+              <input type="hidden" name="_subject" value="Fan Message — dericmusic.com">
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
               <div class="form-row">
                 <div class="form-field">
                   <label for="fan-name">Name</label>
-                  <input type="text" id="fan-name" name="fan-name" placeholder="Your name" autocomplete="name">
+                  <input type="text" id="fan-name" name="name" placeholder="Your name" autocomplete="name" required>
                 </div>
                 <div class="form-field">
                   <label for="fan-email">Email</label>
-                  <input type="email" id="fan-email" name="fan-email" placeholder="your@email.com" autocomplete="email">
+                  <input type="email" id="fan-email" name="email" placeholder="your@email.com" autocomplete="email" required>
                 </div>
               </div>
               <div class="form-field">
                 <label for="fan-message">Message</label>
-                <textarea id="fan-message" name="fan-message" rows="5" placeholder="Say something..."></textarea>
+                <textarea id="fan-message" name="message" rows="5" placeholder="Say something..." required></textarea>
               </div>
-              <button type="submit" class="form-submit">Send Message</button>
+              <button type="submit" class="form-submit" id="fanSubmit">Send Message</button>
+              <div class="form-status" id="fanStatus"></div>
             </form>
           </div>
 
           <!-- Business / Booking -->
           <div>
             <span class="contact-col-label">Business &amp; Booking</span>
-            <form class="form" action="#" method="post">
+            <form class="form" id="bizForm">
+              <!-- Formspree hidden fields -->
+              <input type="hidden" name="access_key" value="FORMSPREE_ID_HERE">
+              <input type="hidden" name="_subject" value="Business Inquiry — dericmusic.com">
+              <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
               <div class="form-row">
                 <div class="form-field">
                   <label for="biz-name">Name</label>
-                  <input type="text" id="biz-name" name="biz-name" placeholder="Your name" autocomplete="name">
+                  <input type="text" id="biz-name" name="name" placeholder="Your name" autocomplete="name" required>
                 </div>
                 <div class="form-field">
                   <label for="biz-email">Email</label>
-                  <input type="email" id="biz-email" name="biz-email" placeholder="your@email.com" autocomplete="email">
+                  <input type="email" id="biz-email" name="email" placeholder="your@email.com" autocomplete="email" required>
                 </div>
               </div>
               <div class="form-field">
                 <label for="biz-type">Inquiry Type</label>
-                <select id="biz-type" name="biz-type">
+                <select id="biz-type" name="inquiry_type" required>
                   <option value="" disabled selected>Select inquiry type</option>
                   <option value="booking">Booking / Performance</option>
                   <option value="sync">Sync Licensing</option>
@@ -105,16 +144,17 @@
               </div>
               <div class="form-field">
                 <label for="biz-message">Details</label>
-                <textarea id="biz-message" name="biz-message" rows="5" placeholder="Tell me about the project or opportunity..."></textarea>
+                <textarea id="biz-message" name="message" rows="5" placeholder="Tell me about the project or opportunity..." required></textarea>
               </div>
-              <button type="submit" class="form-submit">Send Inquiry</button>
+              <button type="submit" class="form-submit" id="bizSubmit">Send Inquiry</button>
+              <div class="form-status" id="bizStatus"></div>
             </form>
 
             <div class="contact-info" style="margin-top: 2.5rem;">
               <div class="contact-info-item">
                 <div class="contact-info-label">Direct Email</div>
                 <div class="contact-info-value">
-                  <a href="mailto:hello@dericmusic.com">hello@dericmusic.com</a>
+                  <a href="mailto:info@dericmusic.com">info@dericmusic.com</a>
                 </div>
               </div>
             </div>
@@ -150,6 +190,52 @@
   </footer>
 
   <script src="/js/nav.js"></script>
+  <script>
+    // Submit a form via Formspree with fetch (no page redirect)
+    function setupForm(formId, btnId, statusId) {
+      var form   = document.getElementById(formId);
+      var btn    = document.getElementById(btnId);
+      var status = document.getElementById(statusId);
+
+      if (!form) return;
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        status.className = 'form-status';
+        status.textContent = '';
+
+        var data = new FormData(form);
+
+        fetch('https://formspree.io/f/' + data.get('access_key'), {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (res) {
+          if (res.ok) {
+            status.className = 'form-status success';
+            status.textContent = 'Sent! I\'ll get back to you soon.';
+            form.reset();
+          } else {
+            return res.json().then(function (json) { throw json; });
+          }
+        })
+        .catch(function () {
+          status.className = 'form-status error';
+          status.textContent = 'Something went wrong. Try emailing info@dericmusic.com directly.';
+        })
+        .finally(function () {
+          btn.disabled = false;
+          btn.textContent = formId === 'fanForm' ? 'Send Message' : 'Send Inquiry';
+        });
+      });
+    }
+
+    setupForm('fanForm', 'fanSubmit', 'fanStatus');
+    setupForm('bizForm', 'bizSubmit', 'bizStatus');
+  </script>
 
 </body>
 </html>
