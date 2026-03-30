@@ -88,8 +88,6 @@
           <div>
             <span class="contact-col-label">Fan Message</span>
             <form class="form" id="fanForm">
-              <!-- Formspree hidden fields -->
-              <input type="hidden" name="access_key" value="FORMSPREE_ID_HERE">
               <input type="hidden" name="_subject" value="Fan Message — dericmusic.com">
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
@@ -116,8 +114,6 @@
           <div>
             <span class="contact-col-label">Business &amp; Booking</span>
             <form class="form" id="bizForm">
-              <!-- Formspree hidden fields -->
-              <input type="hidden" name="access_key" value="FORMSPREE_ID_HERE">
               <input type="hidden" name="_subject" value="Business Inquiry — dericmusic.com">
               <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
 
@@ -191,8 +187,9 @@
 
   <script src="/js/nav.js"></script>
   <script>
-    // Submit a form via Formspree with fetch (no page redirect)
-    function setupForm(formId, btnId, statusId) {
+    var FORMSPREE = 'https://formspree.io/f/xjgpwpyv';
+
+    function setupForm(formId, btnId, statusId, btnLabel) {
       var form   = document.getElementById(formId);
       var btn    = document.getElementById(btnId);
       var status = document.getElementById(statusId);
@@ -206,11 +203,9 @@
         status.className = 'form-status';
         status.textContent = '';
 
-        var data = new FormData(form);
-
-        fetch('https://formspree.io/f/' + data.get('access_key'), {
+        fetch(FORMSPREE, {
           method: 'POST',
-          body: data,
+          body: new FormData(form),
           headers: { 'Accept': 'application/json' }
         })
         .then(function (res) {
@@ -219,22 +214,22 @@
             status.textContent = 'Sent! I\'ll get back to you soon.';
             form.reset();
           } else {
-            return res.json().then(function (json) { throw json; });
+            throw new Error();
           }
         })
         .catch(function () {
           status.className = 'form-status error';
-          status.textContent = 'Something went wrong. Try emailing info@dericmusic.com directly.';
+          status.textContent = 'Something went wrong. Email info@dericmusic.com directly.';
         })
         .finally(function () {
           btn.disabled = false;
-          btn.textContent = formId === 'fanForm' ? 'Send Message' : 'Send Inquiry';
+          btn.textContent = btnLabel;
         });
       });
     }
 
-    setupForm('fanForm', 'fanSubmit', 'fanStatus');
-    setupForm('bizForm', 'bizSubmit', 'bizStatus');
+    setupForm('fanForm', 'fanSubmit', 'fanStatus', 'Send Message');
+    setupForm('bizForm', 'bizSubmit', 'bizStatus', 'Send Inquiry');
   </script>
 
 </body>
