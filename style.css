@@ -385,3 +385,12 @@ footer {
     position: relative;
     padding-top: 2.5rem;
 }
+
+/* ── Social media brand icon colours ── */
+.fa-instagram  { color: #E4405F; }
+.fa-tiktok     { color: #ff0050; }
+.fa-youtube    { color: #FF0000; }
+.fa-spotify    { color: #1DB954; }
+.fa-soundcloud { color: #FF5500; }
+.fa-discord    { color: #5865F2; }
+.fa-apple      { color: #FC3C44; }
