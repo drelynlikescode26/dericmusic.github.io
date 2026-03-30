@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Deric — About</title>
-  <meta name="description" content="About Deric — singer, songwriter, and producer.">
+  <meta name="description" content="Deric is an Atlanta-based R&B and melodic rap artist with 20M+ streams. Singer, songwriter, and vocal powerhouse.">
   <meta property="og:title" content="Deric — About">
-  <meta property="og:description" content="Singer, songwriter, and producer crafting cinematic R&B.">
+  <meta property="og:description" content="Atlanta-based R&B and melodic rap artist. 20M+ streams across platforms.">
   <meta property="og:image" content="/assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="/assets/hero/hero-poster.jpg">
@@ -15,6 +15,197 @@
   <link rel="stylesheet" href="/css/pages.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ── Stats counter row ── */
+    .about-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .about-stat {
+      background: var(--bg);
+      padding: 2.5rem 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      position: relative;
+    }
+
+    .about-stat-number {
+      font-size: clamp(2.4rem, 6vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--text);
+    }
+
+    .about-stat-suffix {
+      color: var(--gold);
+    }
+
+    .about-stat-label {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .about-stat-sub {
+      font-size: 0.72rem;
+      color: rgba(245, 241, 234, 0.35);
+      margin-top: 0.1rem;
+    }
+
+    /* ── Bio ── */
+    .about-bio-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-photo {
+      aspect-ratio: 4 / 5;
+      border-radius: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      position: sticky;
+      top: calc(var(--nav-h) + 2rem);
+    }
+
+    .about-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top;
+      display: block;
+    }
+
+    .about-text {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .about-text p {
+      margin: 0;
+      color: rgba(245, 241, 234, 0.75);
+      line-height: 1.95;
+      font-size: 1.025rem;
+    }
+
+    .about-text em {
+      font-style: italic;
+      color: var(--text);
+    }
+
+    .about-text strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* ── Collab tag cloud ── */
+    .collab-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.25rem;
+    }
+
+    .collab-tag {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      background: var(--surface);
+      white-space: nowrap;
+    }
+
+    /* ── Sounds like row ── */
+    .sounds-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .sounds-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      flex-shrink: 0;
+    }
+
+    .sounds-names {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .sounds-name {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .sounds-sep {
+      color: var(--border);
+      font-size: 0.7rem;
+    }
+
+    /* ── Follow section ── */
+    .follow-grid {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .about-bio-layout {
+        grid-template-columns: 220px 1fr;
+        gap: 3rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .about-stats {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .about-stat {
+        padding: 1.75rem 1.25rem;
+      }
+
+      .about-bio-layout {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+
+      .about-photo {
+        max-width: 220px;
+        aspect-ratio: 1;
+        position: static;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .about-stats {
+        grid-template-columns: 1fr;
+        gap: 1px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -46,52 +237,120 @@
     <!-- Page Hero -->
     <header class="page-hero">
       <div class="page-hero-inner">
-        <div class="page-kicker">Deric</div>
-        <h1 class="page-title">About</h1>
+        <div class="page-kicker">Drelyn Walker</div>
+        <h1 class="page-title">Deric</h1>
       </div>
     </header>
 
     <main class="page-main">
 
-      <!-- Bio -->
+      <!-- ── Stream Stats ── -->
       <section class="p-section">
-        <div class="p-label">Bio</div>
-        <div class="bio-layout">
-          <div class="bio-photo">
-            <img src="/assets/gallery1.JPG" alt="Deric" loading="lazy">
-          </div>
-          <div class="bio-text">
-            <p>
-              Deric is a singer, songwriter, and producer crafting cinematic R&B from the quiet side of midnight.
-              His music moves through late-night emotion and real-life stories — built for the moments that are
-              hard to put into words.
-            </p>
-            <p>
-              His 2026 project, <em>Mood Swings &amp; Melodies III</em>, marked the arrival of a distinct artistic
-              identity: introspective lyricism layered over immersive soundscapes. Each release is a document of
-              a specific emotional state, crafted with the kind of patience that only comes from making music you
-              actually mean.
-            </p>
-            <p>
-              Deric writes, records, and produces on his own terms — choosing feeling over formula, atmosphere over
-              noise. The music follows no rules except honesty.
-            </p>
-            <div style="margin-top: 0.5rem;">
-              <a class="btn-outline" href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer">
-                <i class="fab fa-spotify"></i>
-                Listen on Spotify
-              </a>
+        <div class="p-label">By the numbers</div>
+        <div class="about-stats" id="aboutStats">
+
+          <div class="about-stat">
+            <div class="about-stat-number">
+              <span class="counter" data-target="20" data-suffix="M+">0</span>
             </div>
+            <div class="about-stat-label">Total Streams</div>
+            <div class="about-stat-sub">Spotify · Apple Music · and more</div>
           </div>
+
+          <div class="about-stat">
+            <div class="about-stat-number">
+              <span class="counter" data-target="200" data-suffix="+">0</span>
+            </div>
+            <div class="about-stat-label">Verified Credits</div>
+            <div class="about-stat-sub">Via Muso.ai</div>
+          </div>
+
+          <div class="about-stat">
+            <div class="about-stat-number">
+              <span class="counter" data-target="5" data-suffix="+">0</span>
+            </div>
+            <div class="about-stat-label">Years Creating</div>
+            <div class="about-stat-sub">Atlanta · Independent</div>
+          </div>
+
         </div>
       </section>
 
       <hr class="p-rule">
 
-      <!-- Connect -->
+      <!-- ── Bio ── -->
+      <section class="p-section">
+        <div class="p-label">Bio</div>
+        <div class="about-bio-layout">
+
+          <div class="about-photo">
+            <img src="/assets/gallery1.JPG" alt="Deric" loading="lazy">
+          </div>
+
+          <div class="about-text">
+            <p>
+              <strong>Deric</strong> — born Drelyn Walker — is an Atlanta-based recording artist and songwriter
+              known for his fusion of R&amp;B, melodic rap, and emotional storytelling. With a voice often
+              compared to <em>Don Toliver, Chris Brown, and PnB Rock</em>, Deric brings a cinematic, soulful
+              energy to every record — polished enough for radio, raw enough to feel personal.
+            </p>
+            <p>
+              His music lives at the intersection of real emotion and mainstream sound. From heartfelt rap verses
+              to smooth R&amp;B hooks, every song carries a feeling that's hard to fake — because it isn't.
+              Deric writes from life, channels it into melody, and delivers it with the kind of vocal control that
+              only comes from years of dedication.
+            </p>
+            <p>
+              Across his catalog — including the <em>Mood Swings &amp; Melodies</em> series — Deric has stacked
+              over 20 million streams independently, earned editorial playlist placements on Spotify and Apple Music
+              including <em>Fresh Finds</em>, and collaborated with artists and producers at the top of the game.
+            </p>
+
+            <!-- Sounds like -->
+            <div class="sounds-row">
+              <span class="sounds-label">Sounds like</span>
+              <div class="sounds-names">
+                <span class="sounds-name">Don Toliver</span>
+                <span class="sounds-sep">/</span>
+                <span class="sounds-name">Chris Brown</span>
+                <span class="sounds-sep">/</span>
+                <span class="sounds-name">PnB Rock</span>
+              </div>
+            </div>
+
+            <!-- Collabs -->
+            <div>
+              <div class="p-label" style="margin-bottom: 1rem;">Notable Collaborations</div>
+              <div class="collab-list">
+                <span class="collab-tag">PnB Rock</span>
+                <span class="collab-tag">Fresco Trey</span>
+                <span class="collab-tag">Hurricane Wisdom</span>
+                <span class="collab-tag">Jace (Iayze)</span>
+                <span class="collab-tag">Taz Taylor (Internet Money)</span>
+                <span class="collab-tag">Nick Mira (Internet Money)</span>
+                <span class="collab-tag">CashMoneyAP</span>
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+              <a class="btn-outline" href="/music/">
+                <i class="fas fa-headphones"></i> Listen
+              </a>
+              <a class="btn-outline" href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-spotify"></i> Spotify
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <hr class="p-rule">
+
+      <!-- ── Follow ── -->
       <section class="p-section">
         <div class="p-label">Follow</div>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div class="follow-grid">
           <a class="btn-outline" href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-instagram"></i> Instagram
           </a>
@@ -100,6 +359,12 @@
           </a>
           <a class="btn-outline" href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-youtube"></i> YouTube
+          </a>
+          <a class="btn-outline" href="https://on.soundcloud.com/QkBEypZEjKWjtqOwt4" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-soundcloud"></i> SoundCloud
+          </a>
+          <a class="btn-outline" href="https://discord.gg/EMBhkprCtp" target="_blank" rel="noopener noreferrer">
+            <i class="fab fa-discord"></i> Discord
           </a>
         </div>
       </section>
@@ -131,6 +396,59 @@
   </footer>
 
   <script src="/js/nav.js"></script>
+  <script>
+    // Animated counter — triggers once when stats row scrolls into view
+    (function () {
+      var counters = document.querySelectorAll('.counter');
+      var started  = false;
+
+      function easeOut(t) {
+        return 1 - Math.pow(1 - t, 3);
+      }
+
+      function animateCounter(el) {
+        var target   = parseInt(el.dataset.target, 10);
+        var suffix   = el.dataset.suffix || '';
+        var duration = 1800;
+        var start    = null;
+
+        function step(timestamp) {
+          if (!start) start = timestamp;
+          var elapsed  = timestamp - start;
+          var progress = Math.min(elapsed / duration, 1);
+          var current  = Math.round(easeOut(progress) * target);
+          el.textContent = current + suffix;
+          if (progress < 1) requestAnimationFrame(step);
+        }
+
+        requestAnimationFrame(step);
+      }
+
+      function startAll() {
+        if (started) return;
+        started = true;
+        counters.forEach(function (el) { animateCounter(el); });
+      }
+
+      // IntersectionObserver — fire when stats block hits the viewport
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              startAll();
+              obs.disconnect();
+            }
+          });
+        }, { threshold: 0.3 });
+
+        var statsEl = document.getElementById('aboutStats');
+        if (statsEl) obs.observe(statsEl);
+      } else {
+        // Fallback for old browsers
+        startAll();
+      }
+    })();
+  </script>
 
 </body>
 </html>
