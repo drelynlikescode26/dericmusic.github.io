@@ -14,10 +14,7 @@
   z-index: 0;
   pointer-events: none;
   overflow: hidden;
-  background: #000;
-  background-image: url("assets/hero/hero-poster.jpg");
-  background-size: cover;
-  background-position: center;
+  background: #000 url("/assets/hero/hero-poster.jpg") center/cover no-repeat;
 }
 
 .hero-video {
@@ -49,7 +46,7 @@
 
 /* Fallback when video fails */
 .hero.video-fallback {
-  background-image: url("assets/hero/hero-poster.jpg");
+  background-image: url("/assets/hero/hero-poster.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -64,7 +61,7 @@
     display: none;
   }
   .hero {
-    background-image: url("assets/hero/hero-poster.jpg");
+    background-image: url("/assets/hero/hero-poster.jpg");
     background-size: cover;
     background-position: center;
   }
