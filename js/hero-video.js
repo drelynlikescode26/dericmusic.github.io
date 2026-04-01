@@ -13,34 +13,26 @@
 
     if (!hero || !video) return;
 
-    // If reduced motion is preferred, skip attempting playback
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) {
+    // Reduced motion: hide video, poster will show via CSS background
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       hero.classList.add('video-fallback');
       return;
     }
 
-    const attemptPlay = async () => {
-      try {
-        const playPromise = video.play();
-        if (playPromise !== undefined) {
-          await playPromise;
-        }
-      } catch (err) {
-        hero.classList.add('video-fallback');
+    // Attempt play — if it fails (unsupported format, autoplay blocked),
+    // the <video poster> attribute handles the fallback natively.
+    // We do NOT add video-fallback here to avoid hiding the poster.
+    const tryPlay = () => {
+      const p = video.play();
+      if (p && typeof p.then === 'function') {
+        p.catch(() => { /* silent — browser shows poster */ });
       }
     };
 
-    // If video errors, fallback
-    video.addEventListener('error', () => {
-      hero.classList.add('video-fallback');
-    });
-
-    // Try to play once metadata is ready
     if (video.readyState >= 1) {
-      attemptPlay();
+      tryPlay();
     } else {
-      video.addEventListener('loadedmetadata', attemptPlay, { once: true });
+      video.addEventListener('canplay', tryPlay, { once: true });
     }
   }
 
