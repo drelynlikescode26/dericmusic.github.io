@@ -271,33 +271,19 @@
 
     <!-- Listen Portal Modal -->
     <div id="listen-portal" class="listen-portal-overlay" hidden>
-        <div class="listen-portal-card">
+        <div class="listen-portal-card listen-portal-card--embed">
             <button class="listen-portal-close" aria-label="Close" title="Close (ESC)">✕</button>
-            
-            <div class="listen-portal-cover">
-                <img id="portal-cover" src="" alt="Album Cover">
-            </div>
-            
-            <div class="listen-portal-info">
-                <div class="listen-portal-label">Latest Release</div>
-                <h2 id="portal-title" class="listen-portal-title">Loading...</h2>
-                <div id="portal-date" class="listen-portal-date"></div>
-            </div>
-            
-            <div class="listen-portal-buttons">
-                <a id="portal-btn-spotify" href="#" class="listen-portal-btn listen-portal-btn-spotify" target="_blank" rel="noopener" hidden>
-                    <span class="listen-portal-btn-icon"><i class="fab fa-spotify"></i></span>
-                    <span>Listen on Spotify</span>
-                </a>
-                <a id="portal-btn-apple" href="#" class="listen-portal-btn listen-portal-btn-apple" target="_blank" rel="noopener" hidden>
-                    <span class="listen-portal-btn-icon"><i class="fab fa-apple"></i></span>
-                    <span>Listen on Apple Music</span>
-                </a>
-                <a id="portal-btn-all" href="#" class="listen-portal-btn listen-portal-btn-all" target="_blank" rel="noopener" hidden>
-                    <span class="listen-portal-btn-icon">🎵</span>
-                    <span>All Platforms</span>
-                </a>
-            </div>
+            <p class="listen-portal-label" style="margin:0 0 1rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;color:#fff;">Latest Release</p>
+            <iframe
+                src="https://open.spotify.com/embed/track/29geA12P55ef324Nhxt5ad?utm_source=generator&theme=0"
+                width="100%"
+                height="352"
+                frameborder="0"
+                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                loading="eager"
+                title="Latest Release — Deric on Spotify">
+            </iframe>
+            <a href="/music/" class="listen-portal-all-link">Full discography →</a>
         </div>
     </div>
 

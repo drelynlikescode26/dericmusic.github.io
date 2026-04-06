@@ -299,8 +299,33 @@ body.portal-open {
     transition: none !important;
     animation: none !important;
   }
-  
+
   .listen-portal-close:hover {
     transform: none !important;
   }
+}
+
+/* Embed variant — tighter padding, just iframe + link */
+.listen-portal-card--embed {
+  padding: 3rem 1.5rem 1.5rem;
+  max-width: 420px;
+}
+
+.listen-portal-card--embed iframe {
+  border-radius: 12px;
+  display: block;
+}
+
+.listen-portal-all-link {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.listen-portal-all-link:hover {
+  color: #fff;
 }
