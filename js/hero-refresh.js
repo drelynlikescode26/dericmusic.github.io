@@ -131,7 +131,7 @@
       })
       .catch(() => {
         // Fallback: still show success locally so UX isn't broken
-        if (copy) copy.textContent = 'Something went wrong. Email musicderic@gmail.com directly.';
+        if (copy) copy.textContent = 'Something went wrong. Email contact@deric-music.com directly.';
       })
       .finally(() => {
         if (submitBtn) submitBtn.disabled = false;
