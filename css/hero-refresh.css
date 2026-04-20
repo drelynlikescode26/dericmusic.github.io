@@ -670,6 +670,14 @@
   font-size: 0.8rem;
 }
 
+.site-footer-minimal {
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.72rem;
+  color: rgba(245, 241, 234, 0.2);
+  letter-spacing: 0.08em;
+}
+
 /* ==================== HIDE OLD HUD PANEL ==================== */
 
 .hud-panel {
