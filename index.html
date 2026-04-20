@@ -143,28 +143,6 @@
     </div>
 
 
-        <script>
-        // Minimal inline script - most logic moved to external modules
-        document.addEventListener('DOMContentLoaded', function() {
-            // Subtle parallax on hero image (only if .hero-bg exists)
-            let ticking = false;
-            const heroBg = document.querySelector('.hero-bg');
-            
-            if (heroBg) {
-                window.addEventListener('scroll', function() {
-                  if (!ticking) {
-                    window.requestAnimationFrame(function() {
-                      const scrolled = window.pageYOffset;
-                      const parallax = scrolled * 0.15; // Very subtle movement
-                      heroBg.style.transform = `translateY(${parallax}px) scale(1.02)`;
-                      ticking = false;
-                    });
-                    ticking = true;
-                  }
-                });
-            }
-        });
-        </script>
 
     <!-- Watch Mode Overlay (kept for compatibility) -->
     <div class="watch-mode-overlay" id="watchModeOverlay" hidden>

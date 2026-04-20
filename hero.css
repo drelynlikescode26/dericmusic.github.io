@@ -537,12 +537,6 @@ window.addEventListener('scroll', function() {
         url('assets/gallery1.JPG') center 22% / cover no-repeat;
     /* No overlays, no artifacts, image is bright and clear */
     pointer-events: none;
-    animation: subtle-breathe 18s ease-in-out infinite;
-}
-
-@keyframes subtle-breathe {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.02); }
 }
 
 /* Minimal mode toggle */
@@ -666,15 +660,7 @@ window.addEventListener('scroll', function() {
         repeating-linear-gradient(0deg, transparent, transparent 1px, rgba(255,255,255,0.08) 1px, rgba(255,255,255,0.08) 2px),
         repeating-linear-gradient(90deg, transparent, transparent 1px, rgba(0,0,0,0.05) 1px, rgba(0,0,0,0.05) 2px);
     background-size: 3px 3px;
-    animation: grain-drift 10s ease-in-out infinite;
     mix-blend-mode: overlay;
-}
-
-@keyframes grain-drift {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.15; }
-    25% { transform: translate(-4px, -4px) rotate(0.5deg); opacity: 0.12; }
-    50% { transform: translate(3px, -3px) rotate(-0.5deg); opacity: 0.18; }
-    75% { transform: translate(-3px, 4px) rotate(0.3deg); opacity: 0.14; }
 }
 .hud-panel {
     position: fixed;
