@@ -3,8 +3,8 @@
 
 .hero {
   position: relative;
-  min-height: 100vh;
-  min-height: 100svh; /* Small viewport height for mobile (no address bar jump) */
+  height: 100vh;
+  height: 100svh;
   overflow: hidden;
 }
 

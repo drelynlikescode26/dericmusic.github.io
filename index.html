@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <style>html, body { overflow: hidden; height: 100%; }</style>
     <title>Deric — Official</title>
     <meta property="og:title" content="Deric — Official">
     <meta property="og:site_name" content="Deric">
@@ -124,83 +125,7 @@
         </div>
     </section>
 
-    <!-- Featured Release Section -->
-    <div class="featured-release" id="featuredRelease">
-        <div class="featured-release-card featured-release-embed">
-            <button class="featured-release-close" id="dismiss-featured-release" aria-label="Dismiss Latest Release">✕</button>
-            <iframe
-                id="featured-spotify-embed"
-                src=""
-                width="100%"
-                height="152"
-                frameborder="0"
-                allowtransparency="true"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="lazy"
-                style="border-radius:12px;"
-            ></iframe>
-        </div>
-    </div>
-
-
-
-    <!-- Watch Mode Overlay (kept for compatibility) -->
-    <div class="watch-mode-overlay" id="watchModeOverlay" hidden>
-        <button class="watch-mode-close" id="watchModeClose">✕</button>
-        <button class="watch-arrow watch-arrow-left" id="watchArrowLeft">‹</button>
-        <button class="watch-arrow watch-arrow-right" id="watchArrowRight">›</button>
-        <div class="watch-mode-content" id="watchModeContent">
-            <div class="watch-loading">Loading videos...</div>
-            <div class="watch-carousel" id="watchCarousel">
-                <!-- Videos will be injected here by JS -->
-            </div>
-        </div>
-    </div>
-
-    <script>
-    // Email capture form
-    const emailForm = document.getElementById('emailForm');
-    const emailInput = document.getElementById('emailInput');
-    if (emailForm && emailInput) {
-      emailForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const email = emailInput.value.trim();
-        if (email) {
-          // Store email (you can later integrate with Mailchimp, ConvertKit, etc.)
-          console.log('Email captured:', email);
-          // Show success feedback
-          emailInput.value = '';
-          emailInput.placeholder = 'You\'re in. ✓';
-          setTimeout(function() {
-            emailInput.placeholder = 'Stay tapped in.';
-          }, 3000);
-          // TODO: Send to your email service (Mailchimp, ConvertKit, etc.)
-        }
-      });
-    }
-    </script>
-
-    <script>
-    (function(){
-        const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if(prefersReduced){
-            document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
-            return;
-        }
-        const obs = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if(entry.isIntersecting){
-                    entry.target.classList.add('visible');
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-    })();
-    </script>
-
     <script src="js/nav.js"></script>
-    <script src="js/featuredRelease.js"></script>
     <script src="js/listen-portal.js"></script>
     <script src="js/watch-portal.js"></script>
     <script src="js/hero-refresh.js"></script>
@@ -224,7 +149,6 @@
         </div>
     </div>
 
-    <footer class="site-footer-minimal">© 2026 Deric</footer>
 
 </body>
 </html>
