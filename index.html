@@ -78,8 +78,8 @@
                 <div class="hero-floor">
                     <!-- Left: Identity + socials -->
                     <div class="hero-floor-left">
-                        <!-- New Single Drop Banner -->
-                        <a href="dogshit/index.html" class="new-drop-banner" aria-label="Listen to Dog Sh*t — New Single">
+                        <!-- New Single Drop Banner (shown by JS after midnight) -->
+                        <a href="dogshit/index.html" id="newDropBanner" class="new-drop-banner" aria-label="Listen to Dog Sh*t — New Single" style="display:none">
                             <span class="new-drop-badge">New Single</span>
                             <span class="new-drop-title">Dog Sh*t — Out Now</span>
                             <span class="new-drop-arrow">›</span>
@@ -125,6 +125,72 @@
     <script src="js/watch-portal.js"></script>
     <script src="js/hero-refresh.js"></script>
     <script src="js/hero-video.js"></script>
+
+    <!-- Dog Sh*t Drop Popup -->
+    <div id="dropPopup" class="drop-popup" hidden aria-modal="true" role="dialog" aria-label="Dog Sh*t — New Single Out Now">
+        <div class="drop-popup-card">
+            <button class="drop-popup-close" id="closeDropPopup" aria-label="Close">✕</button>
+            <div class="drop-popup-cover">
+                <img src="assets/releases/dogshit-cover.png" alt="Dog Sh*t — Deric">
+            </div>
+            <div class="drop-popup-eyebrow">New Single — Out Now</div>
+            <h2 class="drop-popup-title">Dog Sh*t</h2>
+            <p class="drop-popup-artist">Deric</p>
+            <a href="dogshit/index.html" class="drop-popup-btn">Listen Now →</a>
+        </div>
+    </div>
+
+    <!-- Time-gated drop logic -->
+    <script>
+    (function () {
+        // July 10 2026, midnight local time → July 17 2026 end of day
+        var RELEASE = new Date(2026, 6, 10, 0, 0, 0).getTime();
+        var EXPIRE  = new Date(2026, 6, 18, 0, 0, 0).getTime();
+        var POPUP_KEY = 'deric_drop_popup';
+        var POPUP_TTL = 24 * 60 * 60 * 1000; // show once per 24 h
+        var now = Date.now();
+
+        function inWindow() { return now >= RELEASE && now < EXPIRE; }
+
+        // Show banner pill only during drop window
+        var banner = document.getElementById('newDropBanner');
+        if (banner && inWindow()) banner.style.display = '';
+
+        // Popup
+        if (!inWindow()) return;
+        var lastSeen = localStorage.getItem(POPUP_KEY);
+        if (lastSeen && (now - parseInt(lastSeen, 10)) < POPUP_TTL) return;
+
+        function openPopup() {
+            var overlay = document.getElementById('dropPopup');
+            if (!overlay) return;
+            overlay.hidden = false;
+            document.body.classList.add('portal-open');
+        }
+
+        function closePopup() {
+            var overlay = document.getElementById('dropPopup');
+            if (!overlay) return;
+            overlay.hidden = true;
+            document.body.classList.remove('portal-open');
+            localStorage.setItem(POPUP_KEY, String(Date.now()));
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var closeBtn = document.getElementById('closeDropPopup');
+            var overlay  = document.getElementById('dropPopup');
+            if (closeBtn) closeBtn.addEventListener('click', closePopup);
+            if (overlay) overlay.addEventListener('click', function (e) {
+                if (e.target === overlay) closePopup();
+            });
+            setTimeout(openPopup, 900);
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closePopup();
+        });
+    })();
+    </script>
 
     <!-- Listen Portal Modal -->
     <div id="listen-portal" class="listen-portal-overlay" hidden>
