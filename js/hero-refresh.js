@@ -20,12 +20,10 @@
 
   function init() {
     setupPortalCards();
-    setupEmailCapture();
     setupFeaturedReleaseDismiss();
     setupMicroStory();
     preventHashNavigation();
     setupEscapeHandler();
-    setupAutoPopup();
   }
 
   function setupPortalCards() {
