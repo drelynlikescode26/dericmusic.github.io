@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dog Sh*t — Deric</title>
+    <meta property="og:title" content="Dog Sh*t — Deric">
+    <meta property="og:description" content="New single from Deric. Available now on all platforms.">
+    <meta property="og:image" content="../assets/releases/dogshit-cover.png">
+    <meta property="og:type" content="music.song">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Dog Sh*t — Deric">
+    <meta name="twitter:description" content="New single from Deric. Available now on all platforms.">
+    <meta name="twitter:image" content="../assets/releases/dogshit-cover.png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #0b0a0a;
+            --text: #f5f1ea;
+            --muted: rgba(245, 241, 234, 0.45);
+            --gold: #c9974c;
+            --border: rgba(255, 255, 255, 0.08);
+            --surface: rgba(255, 255, 255, 0.04);
+        }
+
+        html, body {
+            height: 100%;
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Poppins', system-ui, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        /* Back link */
+        .back-link {
+            position: fixed;
+            top: 1.5rem;
+            left: 1.5rem;
+            font-size: 0.68rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--muted);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.2s ease;
+            z-index: 10;
+        }
+
+        .back-link:hover { color: var(--text); }
+
+        /* Card */
+        .release-card {
+            width: 100%;
+            max-width: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        /* Cover */
+        .cover-wrap {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255,255,255,0.06);
+            margin-bottom: 2rem;
+        }
+
+        .cover-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Title block */
+        .release-label {
+            font-size: 0.6rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            text-align: center;
+        }
+
+        .release-title {
+            font-size: clamp(1.9rem, 8vw, 2.6rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+            line-height: 1.1;
+            margin-bottom: 0.35rem;
+        }
+
+        .release-artist {
+            font-size: 0.85rem;
+            font-weight: 400;
+            color: var(--muted);
+            text-align: center;
+            letter-spacing: 0.08em;
+            margin-bottom: 2.25rem;
+        }
+
+        /* Platform buttons */
+        .platform-list {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .platform-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 1rem 1.35rem;
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.88rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: background 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+            cursor: pointer;
+        }
+
+        .platform-btn:hover {
+            background: rgba(255, 255, 255, 0.07);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-1px);
+        }
+
+        .platform-btn.spotify  { --accent: #1db954; }
+        .platform-btn.apple    { --accent: #fc3c44; }
+        .platform-btn.youtube  { --accent: #ff0000; }
+        .platform-btn.tidal    { --accent: #00ffff; }
+        .platform-btn.soundcloud { --accent: #ff5500; }
+        .platform-btn.amazon   { --accent: #00a8e0; }
+
+        .platform-btn:hover { border-color: color-mix(in srgb, var(--accent, #fff) 35%, transparent); }
+
+        .platform-icon {
+            width: 34px;
+            height: 34px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.05rem;
+            color: var(--accent, #fff);
+            background: color-mix(in srgb, var(--accent, #fff) 12%, transparent);
+            flex-shrink: 0;
+        }
+
+        .platform-name {
+            flex: 1;
+        }
+
+        .platform-arrow {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+
+        /* Coming soon badge */
+        .coming-soon {
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            background: rgba(201, 151, 76, 0.1);
+            border: 1px solid rgba(201, 151, 76, 0.22);
+            border-radius: 999px;
+            padding: 0.15em 0.6em;
+            margin-left: auto;
+            margin-right: 0.5rem;
+            flex-shrink: 0;
+        }
+
+        /* Footer */
+        .release-footer {
+            margin-top: 2.5rem;
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: rgba(245, 241, 234, 0.2);
+            text-align: center;
+        }
+
+        .release-footer a {
+            color: rgba(245, 241, 234, 0.35);
+            text-decoration: none;
+        }
+
+        .release-footer a:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+    <a href="../index.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Deric
+    </a>
+
+    <div class="release-card">
+
+        <div class="cover-wrap">
+            <img src="../assets/releases/dogshit-cover.png" alt="Dog Sh*t — Deric Cover Art">
+        </div>
+
+        <div class="release-label">New Single</div>
+        <h1 class="release-title">Dog Sh*t</h1>
+        <p class="release-artist">Deric</p>
+
+        <div class="platform-list">
+
+            <a class="platform-btn spotify" href="#" id="btn-spotify" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fab fa-spotify"></i></span>
+                <span class="platform-name">Spotify</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+            <a class="platform-btn apple" href="#" id="btn-apple" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fab fa-apple"></i></span>
+                <span class="platform-name">Apple Music</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+            <a class="platform-btn youtube" href="#" id="btn-youtube" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fab fa-youtube"></i></span>
+                <span class="platform-name">YouTube Music</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+            <a class="platform-btn tidal" href="#" id="btn-tidal" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fas fa-water"></i></span>
+                <span class="platform-name">Tidal</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+            <a class="platform-btn amazon" href="#" id="btn-amazon" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fab fa-amazon"></i></span>
+                <span class="platform-name">Amazon Music</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+            <a class="platform-btn soundcloud" href="https://soundcloud.com/envyderic" id="btn-soundcloud" target="_blank" rel="noopener noreferrer">
+                <span class="platform-icon"><i class="fab fa-soundcloud"></i></span>
+                <span class="platform-name">SoundCloud</span>
+                <span class="platform-arrow">›</span>
+            </a>
+
+        </div>
+
+        <div class="release-footer">
+            &copy; 2026 Deric &mdash; <a href="../index.html">dericmusic.com</a>
+        </div>
+
+    </div>
+
+</body>
+</html>
