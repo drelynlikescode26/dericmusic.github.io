@@ -143,23 +143,27 @@
     <!-- Time-gated drop logic -->
     <script>
     (function () {
-        // July 10 2026, midnight local time → July 17 2026 end of day
-        var RELEASE = new Date(2026, 6, 10, 0, 0, 0).getTime();
-        var EXPIRE  = new Date(2026, 6, 18, 0, 0, 0).getTime();
+        var RELEASE   = new Date(2026, 6, 10, 0, 0, 0).getTime(); // Jul 10 — drop
+        var FORCE_END = new Date(2026, 6, 13, 0, 0, 0).getTime(); // Jul 13 — end of always-show
+        var EXPIRE    = new Date(2026, 6, 18, 0, 0, 0).getTime(); // Jul 18 — fully expires
         var POPUP_KEY = 'deric_drop_popup';
-        var POPUP_TTL = 24 * 60 * 60 * 1000; // show once per 24 h
+        var POPUP_TTL = 24 * 60 * 60 * 1000; // 24 h cooldown (days 4–7 only)
         var now = Date.now();
 
-        function inWindow() { return now >= RELEASE && now < EXPIRE; }
+        function inWindow()      { return now >= RELEASE && now < EXPIRE; }
+        function inForceWindow() { return now >= RELEASE && now < FORCE_END; }
 
-        // Show banner pill only during drop window
+        // Show banner pill for the full week
         var banner = document.getElementById('newDropBanner');
         if (banner && inWindow()) banner.style.display = '';
 
-        // Popup
         if (!inWindow()) return;
-        var lastSeen = localStorage.getItem(POPUP_KEY);
-        if (lastSeen && (now - parseInt(lastSeen, 10)) < POPUP_TTL) return;
+
+        // First 3 days: show every single visit — skip the cooldown check
+        if (!inForceWindow()) {
+            var lastSeen = localStorage.getItem(POPUP_KEY);
+            if (lastSeen && (now - parseInt(lastSeen, 10)) < POPUP_TTL) return;
+        }
 
         function openPopup() {
             var overlay = document.getElementById('dropPopup');
@@ -173,7 +177,10 @@
             if (!overlay) return;
             overlay.hidden = true;
             document.body.classList.remove('portal-open');
-            localStorage.setItem(POPUP_KEY, String(Date.now()));
+            // Only save timestamp during the 24h-cooldown window
+            if (!inForceWindow()) {
+                localStorage.setItem(POPUP_KEY, String(Date.now()));
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
