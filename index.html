@@ -181,6 +181,9 @@
             if (!inForceWindow()) {
                 localStorage.setItem(POPUP_KEY, String(Date.now()));
             }
+            // Resume hero video in case the overlay caused it to pause
+            var video = document.querySelector('.hero-video');
+            if (video && video.paused) video.play().catch(function () {});
         }
 
         document.addEventListener('DOMContentLoaded', function () {
