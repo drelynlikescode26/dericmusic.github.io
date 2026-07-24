@@ -1031,3 +1031,113 @@
   opacity: 0.85;
   transform: translateY(-1px);
 }
+
+/* ==================== DUAL RELEASE POPUP ==================== */
+
+.drop-popup-dual {
+  gap: 0;
+  padding: 1.75rem;
+  max-width: 360px;
+  align-items: flex-start;
+}
+
+.dual-header {
+  font-size: 0.58rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #c9974c;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  width: 100%;
+}
+
+.dual-release {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.85rem 0;
+  width: 100%;
+}
+
+.dual-cover {
+  width: 58px;
+  height: 58px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.dual-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.dual-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.dual-badge {
+  font-size: 0.52rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: #c9974c;
+  color: #0b0a0a;
+  border-radius: 999px;
+  padding: 0.15em 0.55em;
+  font-weight: 700;
+  display: inline-block;
+  align-self: flex-start;
+}
+
+.dual-title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: #f5f1ea;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dual-artist {
+  font-size: 0.7rem;
+  color: rgba(245, 241, 234, 0.4);
+  letter-spacing: 0.05em;
+}
+
+.dual-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #f5f1ea;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.dual-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.dual-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+}

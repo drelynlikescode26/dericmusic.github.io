@@ -129,17 +129,38 @@
     <script src="js/hero-refresh.js"></script>
     <script src="js/hero-video.js"></script>
 
-    <!-- Dank Drop Popup -->
-    <div id="dropPopup" class="drop-popup" hidden aria-modal="true" role="dialog" aria-label="Dank — New Single Out Now">
-        <div class="drop-popup-card">
+    <!-- Dual Drop Popup -->
+    <div id="dropPopup" class="drop-popup" hidden aria-modal="true" role="dialog" aria-label="New Singles Out Now">
+        <div class="drop-popup-card drop-popup-dual">
             <button class="drop-popup-close" id="closeDropPopup" aria-label="Close">✕</button>
-            <div class="drop-popup-cover">
-                <img src="assets/releases/dank-cover.png" alt="Dank — Deric">
+            <div class="dual-header">Out Now</div>
+
+            <!-- Dank — featured -->
+            <div class="dual-release">
+                <div class="dual-cover">
+                    <img src="assets/releases/dank-cover.png" alt="Dank">
+                </div>
+                <div class="dual-info">
+                    <span class="dual-badge">New</span>
+                    <div class="dual-title">Dank</div>
+                    <div class="dual-artist">Deric</div>
+                </div>
+                <a href="dank/index.html" class="dual-btn">Listen →</a>
             </div>
-            <div class="drop-popup-eyebrow">New Single — Out Now</div>
-            <h2 class="drop-popup-title">Dank</h2>
-            <p class="drop-popup-artist">Deric</p>
-            <a href="dank/index.html" class="drop-popup-btn">Listen Now →</a>
+
+            <div class="dual-divider"></div>
+
+            <!-- Dog Sh*t -->
+            <div class="dual-release">
+                <div class="dual-cover">
+                    <img src="assets/releases/dogshit-cover.png" alt="Dog Sh*t">
+                </div>
+                <div class="dual-info">
+                    <div class="dual-title">Dog Sh*t</div>
+                    <div class="dual-artist">Deric</div>
+                </div>
+                <a href="dogshit/index.html" class="dual-btn">Listen →</a>
+            </div>
         </div>
     </div>
 
