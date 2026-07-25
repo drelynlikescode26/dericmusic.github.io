@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Deric | Shop</title>
+  <meta name="description" content="Official merch and apparel from Deric. Coming soon.">
+  <meta property="og:title" content="Deric | Shop">
+  <meta property="og:description" content="Official merch and apparel from Deric. Coming soon.">
+  <meta property="og:image" content="/assets/hero/hero-poster.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="/assets/hero/hero-poster.jpg">
+  <link rel="canonical" href="https://dericmusic.com/merch/">
+  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link rel="stylesheet" href="/css/pages.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    .merch-coming {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 5rem 1.5rem;
+      gap: 1.5rem;
+    }
+
+    .merch-badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: rgba(201, 151, 76, 0.1);
+      border: 1px solid rgba(201, 151, 76, 0.22);
+      border-radius: 999px;
+      padding: 0.35em 1em;
+    }
+
+    .merch-title {
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+    }
+
+    .merch-sub {
+      font-size: 0.95rem;
+      color: var(--muted);
+      max-width: 360px;
+      line-height: 1.6;
+    }
+
+    .merch-notify-form {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 100%;
+      max-width: 420px;
+      margin-top: 0.5rem;
+    }
+
+    .merch-notify-form input[type="email"] {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.9rem 1.15rem;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.88rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .merch-notify-form input[type="email"]:focus {
+      border-color: rgba(201, 151, 76, 0.5);
+    }
+
+    .merch-notify-btn {
+      padding: 0.9rem 1.7rem;
+      border-radius: 14px;
+      border: none;
+      background: var(--gold);
+      color: #0b0a0a;
+      font-family: inherit;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .merch-notify-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+    .merch-notify-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .merch-notify-status {
+      font-size: 0.82rem;
+      margin-top: 0.5rem;
+      min-height: 1.2em;
+    }
+
+    .merch-socials {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.5rem;
+    }
+
+    .merch-socials a {
+      color: var(--muted);
+      font-size: 1.15rem;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+
+    .merch-socials a:hover { color: var(--text); }
+
+    .merch-grid-preview {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      width: 100%;
+      max-width: 560px;
+      margin-top: 1rem;
+    }
+
+    .merch-placeholder-card {
+      aspect-ratio: 1;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .merch-placeholder-card span {
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(245, 241, 234, 0.18);
+    }
+  </style>
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#0b0a0a">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
+    <a href="/" class="nav-logo">Deric</a>
+    <div class="nav-links">
+      <a href="/music/">Music</a>
+      <a href="/videos/">Videos</a>
+      <a href="/about/">About</a>
+      <a href="/press/">Press</a>
+      <a href="/contact/">Contact</a>
+      <a href="/merch/" aria-current="page">Shop</a>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+  <div class="nav-mobile" id="navMobile" aria-hidden="true">
+    <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">✕</button>
+    <a href="/music/">Music</a>
+    <a href="/videos/">Videos</a>
+    <a href="/about/">About</a>
+    <a href="/press/">Press</a>
+    <a href="/contact/">Contact</a>
+    <a href="/merch/" aria-current="page">Shop</a>
+  </div>
+
+  <div class="page-wrap">
+    <main class="page-main">
+      <div class="merch-coming">
+
+        <span class="merch-badge">Official Store</span>
+        <h1 class="merch-title">Dropping Soon</h1>
+        <p class="merch-sub">Merch is on the way. Drop your email and you'll be the first to know when it's live.</p>
+
+        <div class="merch-grid-preview">
+          <div class="merch-placeholder-card"><span>Soon</span></div>
+          <div class="merch-placeholder-card"><span>Soon</span></div>
+          <div class="merch-placeholder-card"><span>Soon</span></div>
+        </div>
+
+        <form class="merch-notify-form" id="merchForm">
+          <input type="hidden" name="_subject" value="Merch Notify — dericmusic.com">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <input type="email" name="email" id="merchEmail" required placeholder="your@email.com" autocomplete="email">
+          <button type="submit" class="merch-notify-btn" id="merchBtn">Notify Me</button>
+        </form>
+        <div class="merch-notify-status" id="merchStatus"></div>
+
+        <div class="merch-socials">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <div class="page-footer-inner">
+      <nav class="page-footer-nav" aria-label="Footer navigation">
+        <a href="/music/">Music</a>
+        <a href="/videos/">Videos</a>
+        <a href="/about/">About</a>
+        <a href="/press/">Press</a>
+        <a href="/contact/">Contact</a>
+        <a href="/merch/">Shop</a>
+        <a href="https://service.dericmusic.com" target="_blank" rel="noopener">Services</a>
+      </nav>
+      <div class="page-footer-right">
+        <div class="page-footer-social">
+          <a href="https://instagram.com/envyderic" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+          <a href="https://youtube.com/@envyderic" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+          <a href="https://open.spotify.com/artist/08nIFJLOyYWc5eWJCa4S8X" target="_blank" rel="noopener noreferrer" aria-label="Spotify"><i class="fab fa-spotify"></i></a>
+          <a href="https://on.soundcloud.com/QkBEypZEjKWjtqOwt4" target="_blank" rel="noopener noreferrer" aria-label="SoundCloud"><i class="fab fa-soundcloud"></i></a>
+          <a href="https://discord.gg/EMBhkprCtp" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        </div>
+        <div class="page-footer-copy">© 2026 Deric. All rights reserved.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/nav.js"></script>
+  <script>
+  (function () {
+    var ENDPOINT = 'https://formspree.io/f/xjgpwpyv';
+    var form   = document.getElementById('merchForm');
+    var btn    = document.getElementById('merchBtn');
+    var status = document.getElementById('merchStatus');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Adding you…';
+      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+        .then(function (r) {
+          if (r.ok) {
+            status.style.color = '#1db954';
+            status.textContent = "You're on the list. We'll hit you when it drops.";
+            form.reset();
+            btn.textContent = 'You\'re In ✓';
+          } else { throw new Error(); }
+        })
+        .catch(function () {
+          status.style.color = '#ff6b6b';
+          status.textContent = 'Something went wrong — try again or email info@dericmusic.com';
+          btn.disabled = false;
+          btn.textContent = 'Notify Me';
+        });
+    });
+  })();
+  </script>
+
+</body>
+</html>
