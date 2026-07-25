@@ -67,7 +67,7 @@
 
     <!-- Global Navigation -->
     <nav class="site-nav" id="siteNav" aria-label="Site navigation">
-      <a href="index.html" class="nav-logo">Deric</a>
+      <a href="/" class="nav-logo">Deric</a>
       <div class="nav-links">
         <a href="/music/">Music</a>
         <a href="/videos/">Videos</a>
@@ -116,7 +116,7 @@
                     <!-- Left: Identity + socials -->
                     <div class="hero-floor-left">
                         <!-- New Single Drop Banner (shown by JS after release) -->
-                        <a href="dank/index.html" id="newDropBanner" class="new-drop-banner" aria-label="Listen to Dank — New Single" style="display:none">
+                        <a href="dank/index.html" id="newDropBanner" class="new-drop-banner" aria-label="Listen to Dank — New Single">
                             <span class="new-drop-badge">New Single</span>
                             <span class="new-drop-title">Dank — Out Now</span>
                             <span class="new-drop-arrow">›</span>
@@ -198,67 +198,6 @@
         </div>
     </div>
 
-    <!-- Time-gated drop logic -->
-    <script>
-    (function () {
-        var RELEASE   = new Date(2026, 6, 17, 0, 0, 0).getTime(); // Jul 17 — Dank drop
-        var FORCE_END = new Date(2026, 6, 20, 0, 0, 0).getTime(); // Jul 20 — end of always-show
-        var EXPIRE    = new Date(2026, 6, 25, 0, 0, 0).getTime(); // Jul 25 — fully expires
-        var POPUP_KEY = 'deric_drop_popup_dank';
-        var POPUP_TTL = 24 * 60 * 60 * 1000; // 24 h cooldown (days 4–7 only)
-        var now = Date.now();
-
-        function inWindow()      { return now >= RELEASE && now < EXPIRE; }
-        function inForceWindow() { return now >= RELEASE && now < FORCE_END; }
-
-        // Show banner pill for the full week
-        var banner = document.getElementById('newDropBanner');
-        if (banner && inWindow()) banner.style.display = '';
-
-        if (!inWindow()) return;
-
-        // First 3 days: show every single visit — skip the cooldown check
-        if (!inForceWindow()) {
-            var lastSeen = localStorage.getItem(POPUP_KEY);
-            if (lastSeen && (now - parseInt(lastSeen, 10)) < POPUP_TTL) return;
-        }
-
-        function openPopup() {
-            var overlay = document.getElementById('dropPopup');
-            if (!overlay) return;
-            overlay.hidden = false;
-            document.body.classList.add('portal-open');
-        }
-
-        function closePopup() {
-            var overlay = document.getElementById('dropPopup');
-            if (!overlay) return;
-            overlay.hidden = true;
-            document.body.classList.remove('portal-open');
-            // Only save timestamp during the 24h-cooldown window
-            if (!inForceWindow()) {
-                localStorage.setItem(POPUP_KEY, String(Date.now()));
-            }
-            // Resume hero video in case the overlay caused it to pause
-            var video = document.querySelector('.hero-video');
-            if (video && video.paused) video.play().catch(function () {});
-        }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            var closeBtn = document.getElementById('closeDropPopup');
-            var overlay  = document.getElementById('dropPopup');
-            if (closeBtn) closeBtn.addEventListener('click', closePopup);
-            if (overlay) overlay.addEventListener('click', function (e) {
-                if (e.target === overlay) closePopup();
-            });
-            setTimeout(openPopup, 900);
-        });
-
-        document.addEventListener('keydown', function (e) {
-            if (e.key === 'Escape') closePopup();
-        });
-    })();
-    </script>
 
     <!-- Listen Portal Modal -->
     <div id="listen-portal" class="listen-portal-overlay" hidden>
@@ -266,13 +205,13 @@
             <button class="listen-portal-close" aria-label="Close" title="Close (ESC)">✕</button>
             <p class="listen-portal-label" style="margin:0 0 1rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;color:#fff;">Latest Release</p>
             <iframe
-                src="https://open.spotify.com/embed/track/29geA12P55ef324Nhxt5ad?utm_source=generator&theme=0"
+                src="https://open.spotify.com/embed/album/199GA1xpdEOrIub6we2XWO?utm_source=generator&theme=0"
                 width="100%"
                 height="352"
                 frameborder="0"
                 allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
                 loading="eager"
-                title="Latest Release — Deric on Spotify">
+                title="Dank — Deric on Spotify">
             </iframe>
             <a href="/music/" class="listen-portal-all-link">Full discography →</a>
         </div>
