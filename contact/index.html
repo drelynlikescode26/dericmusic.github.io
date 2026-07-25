@@ -17,7 +17,8 @@
   <link rel="stylesheet" href="/css/nav.css">
   <link rel="stylesheet" href="/css/pages.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">    <link rel="icon" href="/favicon.ico" sizes="any">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">    <link rel="canonical" href="https://dericmusic.com/contact/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -35,6 +36,7 @@
       <a href="/about/">About</a>
       <a href="/press/">Press</a>
       <a href="/contact/" aria-current="page">Contact</a>
+        <a href="/merch/">Shop</a>
     </div>
     <button class="nav-toggle" id="navToggle" aria-label="Open menu">
       <span></span><span></span><span></span>
@@ -47,6 +49,7 @@
     <a href="/about/">About</a>
     <a href="/press/">Press</a>
     <a href="/contact/" aria-current="page">Contact</a>
+      <a href="/merch/">Shop</a>
   </div>
 
   <div class="page-wrap">
@@ -60,6 +63,58 @@
     </header>
 
     <main class="page-main">
+
+      <!-- ── Newsletter Signup ── -->
+      <section class="p-section" style="padding-bottom:0">
+        <div style="background:rgba(201,151,76,0.06);border:1px solid rgba(201,151,76,0.18);border-radius:20px;padding:2.5rem 2rem;max-width:540px;margin:0 auto;text-align:center;">
+          <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">Stay Tapped In</div>
+          <h2 style="font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem;">New music. First.</h2>
+          <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;">Drop your email and be the first to know when something drops.</p>
+          <form id="newsletterForm" style="display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;">
+            <input type="hidden" name="_subject" value="Newsletter Signup — dericmusic.com">
+            <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+            <input type="email" name="email" id="nlEmail" required placeholder="your@email.com" autocomplete="email"
+              style="flex:1;min-width:200px;padding:0.85rem 1.1rem;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.05);color:var(--text);font-family:inherit;font-size:0.88rem;outline:none;">
+            <button type="submit" id="nlBtn"
+              style="padding:0.85rem 1.6rem;border-radius:12px;border:none;background:var(--gold);color:#0b0a0a;font-family:inherit;font-size:0.82rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:opacity 0.2s;">
+              Subscribe
+            </button>
+          </form>
+          <div id="nlStatus" style="margin-top:0.85rem;font-size:0.82rem;display:none;"></div>
+        </div>
+      </section>
+
+      <script>
+      (function () {
+        var ENDPOINT = 'https://formspree.io/f/xjgpwpyv';
+        var form = document.getElementById('newsletterForm');
+        var btn  = document.getElementById('nlBtn');
+        var status = document.getElementById('nlStatus');
+        if (!form) return;
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          btn.disabled = true;
+          btn.textContent = 'Subscribing…';
+          fetch(ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+            .then(function (r) {
+              if (r.ok) {
+                status.style.display = 'block';
+                status.style.color = '#1db954';
+                status.textContent = "You're in. New music comes to you first.";
+                form.reset();
+                btn.textContent = 'Subscribed ✓';
+              } else { throw new Error(); }
+            })
+            .catch(function () {
+              status.style.display = 'block';
+              status.style.color = '#ff6b6b';
+              status.textContent = 'Something went wrong — email info@dericmusic.com directly.';
+              btn.disabled = false;
+              btn.textContent = 'Subscribe';
+            });
+        });
+      })();
+      </script>
 
       <!-- Services Callout -->
       <section class="services-callout">
@@ -193,6 +248,7 @@
         <a href="/about/">About</a>
         <a href="/press/">Press</a>
         <a href="/contact/">Contact</a>
+        <a href="/merch/">Shop</a>
         <a href="https://service.dericmusic.com" target="_blank" rel="noopener">Services</a>
       </nav>
       <div class="page-footer-right">
