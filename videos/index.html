@@ -19,30 +19,76 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* ── Video page specific ── */
+    .videos-page .page-hero { padding-top: 4rem; padding-bottom: 3.5rem; }
+    .videos-page .page-main { padding-top: 3.5rem; gap: 3.75rem; }
+
+    .video-page-intro {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin: 1.5rem 0 0;
+    }
 
     .video-featured-wrap {
       display: flex;
       flex-direction: column;
-      gap: 1.75rem;
+      gap: 1.25rem;
     }
 
-    .video-featured-embed {
+    .video-featured-poster {
       position: relative;
+      display: block;
+      width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: 20px;
+      border-radius: 18px;
       overflow: hidden;
       background: #000;
       border: 1px solid var(--border);
+      padding: 0;
+      cursor: pointer;
+      text-align: left;
     }
 
-    .video-featured-embed iframe {
+    .video-featured-poster img {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      border: 0;
+      object-fit: cover;
+      filter: brightness(0.55);
     }
+
+    .video-featured-poster::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(0, 0, 0, 0.55), transparent 55%);
+    }
+
+    .video-featured-action {
+      position: absolute;
+      left: clamp(1.25rem, 5vw, 3rem);
+      bottom: clamp(1.25rem, 5vw, 3rem);
+      z-index: 1;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1.25rem;
+      background: var(--gold);
+      border-radius: 999px;
+      color: var(--bg);
+      font: 600 0.85rem 'Poppins', sans-serif;
+    }
+
+    .play-icon {
+      display: block;
+      width: 0;
+      height: 0;
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+      border-left: 9px solid currentColor;
+    }
+
+    .video-featured-action .play-icon { color: var(--bg); }
 
     .video-featured-meta {
       display: flex;
@@ -59,32 +105,51 @@
       margin: 0;
     }
 
-    /* ── Video grid ── */
-
     .vgrid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 2.25rem 1.5rem;
     }
 
     .vtile {
-      display: block;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: none;
+      color: var(--text);
+      font: inherit;
+      text-align: left;
       cursor: pointer;
-      user-select: none;
     }
 
     .vtile-thumb {
       aspect-ratio: 16 / 9;
-      border-radius: 14px;
+      border-radius: 12px;
       overflow: hidden;
-      background: #111;
+      background: radial-gradient(circle at 25% 25%, rgba(201, 151, 76, 0.27), transparent 55%), #171310;
       border: 1px solid var(--border);
       position: relative;
       transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1),
                   box-shadow 0.3s ease;
     }
 
-    .vtile:hover .vtile-thumb {
+    .vtile:nth-child(2) .vtile-thumb {
+      background: radial-gradient(circle at 75% 30%, rgba(83, 115, 108, 0.35), transparent 55%), #101716;
+    }
+
+    .vtile:nth-child(3) .vtile-thumb {
+      background: radial-gradient(circle at 30% 75%, rgba(110, 75, 95, 0.35), transparent 55%), #181116;
+    }
+
+    .vtile:nth-child(4) .vtile-thumb {
+      background: radial-gradient(circle at 70% 70%, rgba(94, 110, 133, 0.35), transparent 55%), #10141a;
+    }
+
+    .vtile:hover .vtile-thumb,
+    .vtile:focus-visible .vtile-thumb {
       transform: translateY(-4px);
       box-shadow: 0 20px 50px rgba(0,0,0,0.55);
     }
@@ -107,32 +172,46 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.3);
-      opacity: 0;
-      transition: opacity 0.25s ease;
-    }
-
-    .vtile:hover .vtile-overlay {
-      opacity: 1;
+      background: rgba(0,0,0,0.14);
     }
 
     .vtile-play {
-      width: 56px;
-      height: 56px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: #ff0000;
+      background: rgba(201, 151, 76, 0.94);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.1rem;
-      color: #fff;
-      transform: scale(0.85);
+      font-size: 0.95rem;
+      color: #0b0a0a;
       transition: transform 0.2s ease;
-      box-shadow: 0 4px 20px rgba(255,0,0,0.45);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
 
+    .vtile-play .play-icon { color: #0b0a0a; }
+
     .vtile:hover .vtile-play {
-      transform: scale(1);
+      transform: scale(1.08);
+    }
+
+    .vtile-caption {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .vtile-kicker {
+      color: var(--gold);
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .vtile-title {
+      color: var(--text);
+      font-size: 1rem;
+      font-weight: 600;
     }
 
     /* ── Lightbox ── */
@@ -240,8 +319,8 @@
       align-items: center;
       gap: 0.6rem;
       padding: 0.85rem 1.75rem;
-      background: #ff0000;
-      color: #fff;
+      background: var(--gold);
+      color: var(--bg);
       border-radius: 999px;
       text-decoration: none;
       font-size: 0.78rem;
@@ -257,11 +336,15 @@
       transform: translateY(-1px);
     }
 
+    .video-trigger:focus-visible,
+    .lightbox-close:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+    }
+
     @media (max-width: 768px) {
-      .vgrid {
-        grid-template-columns: 1fr 1fr;
-        gap: 1.25rem;
-      }
+      .videos-page .page-hero { padding-top: 3rem; padding-bottom: 2.5rem; }
+      .videos-page .page-main { padding-top: 2.5rem; }
       .sub-strip {
         padding: 1.5rem;
       }
@@ -278,7 +361,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .vtile-thumb, .vtile-thumb img, .vtile-overlay, .vtile-play { transition: none !important; transform: none !important; }
+      .vtile-thumb, .vtile-thumb img, .vtile-play { transition: none !important; transform: none !important; }
     }
   </style>    <link rel="canonical" href="https://dericmusic.com/videos/">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -288,7 +371,7 @@
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0b0a0a">
 </head>
-<body>
+<body class="videos-page">
 
   <!-- Navigation -->
   <nav class="site-nav solid" id="siteNav" aria-label="Site navigation">
@@ -322,26 +405,22 @@
       <div class="page-hero-inner">
         <div class="page-kicker">Deric</div>
         <h1 class="page-title">Videos</h1>
+        <p class="video-page-intro">Watch music videos, visualizers, and live sessions.</p>
       </div>
     </header>
 
     <main class="page-main">
 
-      <!-- ── Featured Video ── -->
+      <!-- Featured video -->
       <section class="p-section">
-        <div class="p-label">Featured</div>
+        <div class="p-label">Featured Video</div>
         <div class="video-featured-wrap">
-          <div class="video-featured-embed">
-            <iframe
-              src="https://www.youtube.com/embed/N6L9MmBm1LU?rel=0&modestbranding=1"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-              loading="lazy"
-              title="Deric — Official Video">
-            </iframe>
-          </div>
+          <button type="button" class="video-featured-poster video-trigger" data-id="N6L9MmBm1LU" data-title="Dog Sh*t official video" aria-label="Play Dog Sh*t official video">
+            <img src="/assets/releases/dogshit-cover.webp" alt="" fetchpriority="high">
+            <span class="video-featured-action"><span class="play-icon" aria-hidden="true"></span> Play video</span>
+          </button>
           <div class="video-featured-meta">
-            <h2 class="video-featured-title">Dog Sh*t — Official Video</h2>
+            <h2 class="video-featured-title">Dog Sh*t</h2>
             <a class="btn-outline" href="https://youtu.be/N6L9MmBm1LU" target="_blank" rel="noopener noreferrer">
               <i class="fab fa-youtube"></i> Watch on YouTube
             </a>
@@ -351,50 +430,49 @@
 
       <hr class="p-rule">
 
-      <!-- ── Video Grid ──
-           To add a new video:
-           1. Copy one <a class="vtile"> block below
-           2. Replace VIDEO_ID with the YouTube video ID (the part after ?v= in the URL)
-           3. Update the title and category text
-      -->
+      <!-- Video collection -->
       <section class="p-section">
-        <div class="p-label">All Videos</div>
+        <div class="p-label">More Videos</div>
         <div class="vgrid">
 
-          <div class="vtile" data-id="N6L9MmBm1LU" role="button" tabindex="0" aria-label="Watch Dog Sh*t">
+          <button type="button" class="vtile video-trigger" data-id="xafQDH1rF_o" data-title="Official video" aria-label="Play official video">
             <div class="vtile-thumb">
-              <img src="https://img.youtube.com/vi/N6L9MmBm1LU/hqdefault.jpg" alt="Dog Sh*t — Deric" loading="lazy">
-              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
+              <img src="https://i.ytimg.com/vi/xafQDH1rF_o/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-          </div>
+            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Official video</span></span>
+          </button>
 
-          <div class="vtile" data-id="ZmvONgjQeg0" role="button" tabindex="0" aria-label="Watch video">
+          <button type="button" class="vtile video-trigger" data-id="ZmvONgjQeg0" data-title="Visualizer" aria-label="Play visualizer">
             <div class="vtile-thumb">
-              <img src="https://img.youtube.com/vi/ZmvONgjQeg0/hqdefault.jpg" alt="Deric — Music Video" loading="lazy">
-              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
+              <img src="https://i.ytimg.com/vi/ZmvONgjQeg0/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-          </div>
+            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Visualizer</span></span>
+          </button>
 
-          <div class="vtile" data-id="MYxM4NjVzes" role="button" tabindex="0" aria-label="Watch video">
+          <button type="button" class="vtile video-trigger" data-id="MYxM4NjVzes" data-title="Live session" aria-label="Play live session">
             <div class="vtile-thumb">
-              <img src="https://img.youtube.com/vi/MYxM4NjVzes/hqdefault.jpg" alt="Deric — Music Video" loading="lazy">
-              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
+              <img src="https://i.ytimg.com/vi/MYxM4NjVzes/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-          </div>
+            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Live session</span></span>
+          </button>
 
-          <div class="vtile" data-id="reAf570guMw" role="button" tabindex="0" aria-label="Watch video">
+          <button type="button" class="vtile video-trigger" data-id="reAf570guMw" data-title="Music video" aria-label="Play music video">
             <div class="vtile-thumb">
-              <img src="https://img.youtube.com/vi/reAf570guMw/hqdefault.jpg" alt="Deric — Music Video" loading="lazy">
-              <div class="vtile-overlay"><div class="vtile-play"><i class="fas fa-play"></i></div></div>
+              <img src="https://i.ytimg.com/vi/reAf570guMw/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
+              <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-          </div>
+            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Music video</span></span>
+          </button>
 
         </div>
       </section>
 
       <hr class="p-rule">
 
-      <!-- ── Subscribe CTA ── -->
+      <!-- YouTube -->
       <section class="p-section">
         <div class="sub-strip">
           <div class="sub-strip-left">
@@ -413,11 +491,11 @@
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Video player">
     <div class="lightbox-inner">
-      <button class="lightbox-close" id="lightboxClose">
+      <button type="button" class="lightbox-close" id="lightboxClose" aria-label="Close video player">
         <i class="fas fa-times"></i> Close
       </button>
       <div class="lightbox-embed">
-        <iframe id="lightboxIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        <iframe id="lightboxIframe" src="" title="Video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -454,30 +532,26 @@
       var lightbox = document.getElementById('lightbox');
       var iframe   = document.getElementById('lightboxIframe');
       var closeBtn = document.getElementById('lightboxClose');
+      var previousFocus = null;
 
-      // Click or keyboard — open lightbox
-      function openVideo(id) {
-        iframe.src = 'https://www.youtube.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1';
+      function openVideo(trigger) {
+        previousFocus = trigger;
+        iframe.title = trigger.dataset.title + ' by Deric';
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + trigger.dataset.id + '?autoplay=1&rel=0';
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
+        closeBtn.focus();
       }
 
-      document.querySelectorAll('.vtile').forEach(function (tile) {
-        tile.addEventListener('click', function () {
-          openVideo(tile.dataset.id);
-        });
-        tile.addEventListener('keydown', function (e) {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            openVideo(tile.dataset.id);
-          }
-        });
+      document.querySelectorAll('.video-trigger').forEach(function (trigger) {
+        trigger.addEventListener('click', function () { openVideo(trigger); });
       });
 
       function closeLightbox() {
         lightbox.classList.remove('open');
         iframe.src = '';
         document.body.style.overflow = '';
+        if (previousFocus) previousFocus.focus();
       }
 
       closeBtn.addEventListener('click', closeLightbox);

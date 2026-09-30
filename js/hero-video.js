@@ -19,20 +19,17 @@
       return;
     }
 
-    // Attempt play — if it fails (unsupported format, autoplay blocked),
-    // the <video poster> attribute handles the fallback natively.
-    // We do NOT add video-fallback here to avoid hiding the poster.
-    const tryPlay = () => {
-      const p = video.play();
-      if (p && typeof p.then === 'function') {
-        p.catch(() => { /* silent — browser shows poster */ });
-      }
-    };
+    // Keep the poster on data-saving and very slow mobile connections.
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    if (connection?.saveData || /(^|-)2g$/.test(connection?.effectiveType || '')) {
+      hero.classList.add('video-fallback');
+      return;
+    }
 
-    if (video.readyState >= 1) {
-      tryPlay();
-    } else {
-      video.addEventListener('canplay', tryPlay, { once: true });
+    // Calling play() starts loading only after this check; preload stays disabled.
+    const p = video.play();
+    if (p && typeof p.then === 'function') {
+      p.catch(() => { /* silent — browser shows the poster */ });
     }
   }
 

@@ -10,12 +10,12 @@
       html, body { height: 100%; overflow: hidden; }
     </style>
     <title>Deric | Official</title>
-    <meta name="description" content="Official music and merch hub for Deric. Stream new singles, watch videos, and stay connected.">
+    <meta name="description" content="The official site for Deric. Listen to the music, watch videos, and get updates.">
     <meta property="og:title" content="Deric | Official">
     <meta property="og:site_name" content="Deric">
     <meta name="twitter:title" content="Deric | Official">
-    <meta property="og:description" content="Official music and merch hub for Deric. Stream new singles, watch videos, and stay connected.">
-    <meta name="twitter:description" content="Official music and merch hub for Deric. Stream new singles, watch videos, and stay connected.">
+    <meta property="og:description" content="Listen to Deric's music, watch videos, and get updates.">
+    <meta name="twitter:description" content="Listen to Deric's music, watch videos, and get updates.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta property="og:image" content="assets/hero/hero-poster.jpg">
@@ -52,8 +52,6 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="hero.css">
     <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/listen-portal.css">
-    <link rel="stylesheet" href="css/watch-portal.css">
     <link rel="stylesheet" href="css/hero-refresh.css">
     <link rel="stylesheet" href="css/hero-video.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -95,36 +93,24 @@
         <div class="hero-media">
             <video
                 class="hero-video"
-                autoplay
                 muted
                 loop
                 playsinline
-                preload="auto"
+                preload="none"
                 poster="assets/hero/hero-poster.jpg"
             >
-                <source src="assets/hero/glass%208%20sec%20loop.mov" type="video/mp4" />
+                <source src="assets/hero/glass%208%20sec%20loop.webm" type="video/webm" />
+                <source src="assets/hero/glass%208%20sec%20loop.mp4" type="video/mp4" />
             </video>
             <div class="hero-overlay"></div>
         </div>
         <div class="grain-overlay"></div>
         <div class="hero-content">
             <div class="hero-refresh">
-                <!-- Hidden: keeps micro-story JS working -->
-                <div class="micro-story" id="microStory" data-lines="Cinematic R&B with a heartbeat.|Late-night melodies, real life stories.|Songs for the after-hours.|Built for the quiet hours." style="display:none">
-                    <span class="micro-story-line is-visible">Cinematic R&B with a heartbeat.</span>
-                </div>
-
                 <!-- Cinematic floor layout -->
                 <div class="hero-floor">
                     <!-- Left: Identity + socials -->
                     <div class="hero-floor-left">
-                        <!-- New Single Drop Banner (shown by JS after release) -->
-                        <a href="dank/index.html" id="newDropBanner" class="new-drop-banner" aria-label="Listen to Dank — New Single">
-                            <span class="new-drop-badge">New Single</span>
-                            <span class="new-drop-title">Dank — Out Now</span>
-                            <span class="new-drop-arrow">›</span>
-                        </a>
-
                         <h1 class="hero-name">DERIC</h1>
                         <div class="hero-subline">Singer · Songwriter · Artist</div>
                         <div class="hero-social-row">
@@ -151,9 +137,9 @@
 
                     <!-- Right: CTAs -->
                     <div class="hero-floor-right">
-                        <a href="mailto:info@dericmusic.com" class="hero-btn-email">
+                        <button type="button" id="open-email" class="hero-btn-email" aria-haspopup="dialog" aria-controls="emailModal">
                             Stay tapped in
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -161,62 +147,22 @@
     </section>
 
     <script src="js/nav.js"></script>
-    <script src="js/listen-portal.js"></script>
-    <script src="js/watch-portal.js"></script>
     <script src="js/hero-refresh.js"></script>
     <script src="js/hero-video.js"></script>
 
-    <!-- Dual Drop Popup -->
-    <div id="dropPopup" class="drop-popup" hidden aria-modal="true" role="dialog" aria-label="New Singles Out Now">
-        <div class="drop-popup-card drop-popup-dual">
-            <button class="drop-popup-close" id="closeDropPopup" aria-label="Close">✕</button>
-            <div class="dual-header">Out Now</div>
-
-            <!-- Dank — featured -->
-            <div class="dual-release">
-                <div class="dual-cover">
-                    <img src="assets/releases/dank-cover.png" alt="Dank">
-                </div>
-                <div class="dual-info">
-                    <span class="dual-badge">New</span>
-                    <div class="dual-title">Dank</div>
-                    <div class="dual-artist">Deric</div>
-                </div>
-                <a href="dank/index.html" class="dual-btn">Listen →</a>
-            </div>
-
-            <div class="dual-divider"></div>
-
-            <!-- Dog Sh*t -->
-            <div class="dual-release">
-                <div class="dual-cover">
-                    <img src="assets/releases/dogshit-cover.png" alt="Dog Sh*t">
-                </div>
-                <div class="dual-info">
-                    <div class="dual-title">Dog Sh*t</div>
-                    <div class="dual-artist">Deric</div>
-                </div>
-                <a href="dogshit/index.html" class="dual-btn">Listen →</a>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- Listen Portal Modal -->
-    <div id="listen-portal" class="listen-portal-overlay" hidden>
-        <div class="listen-portal-card listen-portal-card--embed">
-            <button class="listen-portal-close" aria-label="Close" title="Close (ESC)">✕</button>
-            <p class="listen-portal-label" style="margin:0 0 1rem;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;opacity:.55;color:#fff;">Latest Release</p>
-            <iframe
-                src="https://open.spotify.com/embed/album/199GA1xpdEOrIub6we2XWO?utm_source=generator&theme=0"
-                width="100%"
-                height="352"
-                frameborder="0"
-                allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                loading="eager"
-                title="Dank — Deric on Spotify">
-            </iframe>
-            <a href="/music/" class="listen-portal-all-link">Full discography →</a>
+    <div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emailTitle" hidden>
+        <div class="email-card">
+            <button type="button" class="email-close" id="close-email" aria-label="Close signup form">✕</button>
+            <h2 class="email-title" id="emailTitle">Stay tapped in</h2>
+            <p class="email-copy">Get an email when Deric has new music or show news to share.</p>
+            <form class="email-form" id="heroEmailForm" action="https://formspree.io/f/xjgpwpyv" method="POST">
+                <input type="hidden" name="_subject" value="Website signup: dericmusic.com">
+                <input type="text" name="_gotcha" class="signup-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                <label class="visually-hidden" for="heroEmailInput">Email address</label>
+                <input class="email-input" type="email" id="heroEmailInput" name="email" placeholder="Email address" autocomplete="email" required>
+                <button class="email-submit" type="submit" aria-label="Join email list">Join</button>
+            </form>
+            <p class="email-status" id="emailStatus" role="status" aria-live="polite"></p>
         </div>
     </div>
 

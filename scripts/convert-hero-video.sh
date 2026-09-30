@@ -50,7 +50,7 @@ ffmpeg -i "$SOURCE_MOV" \
     -r 30 \
     -c:v libx264 \
     -profile:v baseline \
-    -level 3.0 \
+    -level 3.1 \
     -pix_fmt yuv420p \
     -movflags +faststart \
     -an \

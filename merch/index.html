@@ -189,7 +189,7 @@
 
         <span class="merch-badge">Official Store</span>
         <h1 class="merch-title">Dropping Soon</h1>
-        <p class="merch-sub">Merch is on the way. Drop your email and you'll be the first to know when it's live.</p>
+        <p class="merch-sub">Merch is on the way. Sign up for an email when the store opens.</p>
 
         <div class="merch-grid-preview">
           <div class="merch-placeholder-card"><span>Soon</span></div>
@@ -197,8 +197,8 @@
           <div class="merch-placeholder-card"><span>Soon</span></div>
         </div>
 
-        <form class="merch-notify-form" id="merchForm">
-          <input type="hidden" name="_subject" value="Merch Notify — dericmusic.com">
+        <form class="merch-notify-form" id="merchForm" action="https://formspree.io/f/xjgpwpyv" method="POST">
+          <input type="hidden" name="_subject" value="Merch updates: dericmusic.com">
           <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
           <input type="email" name="email" id="merchEmail" required placeholder="your@email.com" autocomplete="email">
           <button type="submit" class="merch-notify-btn" id="merchBtn">Notify Me</button>
@@ -244,7 +244,6 @@
   <script src="/js/nav.js"></script>
   <script>
   (function () {
-    var ENDPOINT = 'https://formspree.io/f/xjgpwpyv';
     var form   = document.getElementById('merchForm');
     var btn    = document.getElementById('merchBtn');
     var status = document.getElementById('merchStatus');
@@ -253,18 +252,18 @@
       e.preventDefault();
       btn.disabled = true;
       btn.textContent = 'Adding you…';
-      fetch(ENDPOINT, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
+      fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
         .then(function (r) {
           if (r.ok) {
             status.style.color = '#1db954';
-            status.textContent = "You're on the list. We'll hit you when it drops.";
+            status.textContent = 'Thanks. We received your email.';
             form.reset();
             btn.textContent = 'You\'re In ✓';
           } else { throw new Error(); }
         })
         .catch(function () {
           status.style.color = '#ff6b6b';
-          status.textContent = 'Something went wrong — try again or email info@dericmusic.com';
+          status.textContent = 'Could not send your email. Please try again.';
           btn.disabled = false;
           btn.textContent = 'Notify Me';
         });
