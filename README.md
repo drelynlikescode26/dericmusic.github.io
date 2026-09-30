@@ -125,6 +125,14 @@ const ARTIST_ID = '08nIFJLOyYWc5eWJCa4S8X';  // Change this
 
 ## Development
 
+### Email list setup
+
+The homepage and Contact signup forms currently send to Formspree. Formspree receives the addresses, but it is not the campaign mailing list. Fan, booking, and merch forms share the same Formspree endpoint and should not be imported as general newsletter subscribers.
+
+To set up MailerLite, create and verify a Free account. Add a MailerLite API token as the `MAILERLITE_API_TOKEN` secret in the cloud environment, then run `node scripts/create-mailerlite-group.mjs` from this repository. The script creates the `Deric Updates` group if it does not already exist and prints its ID. Never put the API token in website code or GitHub Pages files.
+
+Create the embedded signup form in MailerLite's account editor and attach it to the `Deric Updates` group. The published API can list and update forms, but cannot create them. Connect the public form code to the homepage and Contact signup areas only after a real test address reaches the group and its confirmation message arrives. Keep fan and booking inquiries on Formspree. Check the Free plan limits shown in the account before switching the live forms, since pricing and caps can change.
+
 ### Local Testing
 
 To test the Spotify fetch script locally:
