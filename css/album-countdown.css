@@ -33,19 +33,6 @@
   .album-release-copy { text-align: center; }
 }
 
-/* Keep the countdown and existing signup reachable on short/mobile screens. */
-.hero { height: auto; min-height: 100svh; }
-.hero .hero-content { position: relative !important; inset: auto !important; }
-.hero-refresh { position: relative; inset: auto; min-height: 100svh; display: flex; flex-direction: column; padding: 0; }
-.hero-floor { position: relative; margin-top: auto; padding-top: 3rem; }
-.album-release--text { grid-template-columns: minmax(0, 1fr); width: min(620px, calc(100% - 3rem)); }
-.album-release--text .album-release-copy { text-align: center; }
-.album-release--text .album-countdown { max-width: 420px; margin-inline: auto; }
-@media (max-width: 600px) {
-  .album-release--text { width: calc(100% - 2rem); padding: 1.25rem 1rem; }
-  .hero-floor { padding-top: 2rem; }
-}
-
 .album-presave { display: flex; width: fit-content; max-width: 100%; justify-content: center; align-items: center; min-height: 44px; margin: 1.25rem auto .5rem; padding: .75rem 1.25rem; border-radius: 999px; background: #c9974c; color: #0b0a0a; font-size: .85rem; font-weight: 700; text-decoration: none; }
 .album-presave[hidden] { display: none; }
 .album-presave:focus-visible { outline: 2px solid #f5f1ea; outline-offset: 4px; }
@@ -53,3 +40,56 @@
 .album-calendar { display: flex; width: fit-content; align-items: center; min-height: 44px; margin: 0 auto; padding: .5rem 1.25rem; color: #f5f1ea; font-size: .85rem; text-underline-offset: .25em; }
 .album-calendar[hidden] { display: none; }
 .album-calendar:focus-visible { outline: 2px solid #c9974c; outline-offset: 3px; }
+
+/* The homepage remains a single fixed viewport, including short orientations. */
+.hero { height: 100svh; min-height: 0; }
+.hero .hero-content { position: absolute !important; inset: 0 !important; }
+.hero-refresh {
+  position: absolute; inset: 0; min-height: 0; padding: 76px 24px max(16px, env(safe-area-inset-bottom));
+  display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 12px;
+}
+.album-release--text { grid-template-columns: minmax(0, 1fr); width: min(620px, 100%); margin: 0 auto; padding: clamp(12px, 2.5vh, 24px); align-self: start; gap: 0; }
+.album-release--text .album-release-copy { text-align: center; }
+.album-release h2 { font-size: clamp(1.2rem, 3.6vw, 2rem); margin: .4rem 0 .65rem; }
+.album-release-date { font-size: .78rem; line-height: 1.4; }
+.album-release--text .album-countdown { max-width: 420px; margin: 1rem auto; }
+.album-countdown dd { font-size: clamp(1.5rem, 4vh, 2.4rem); }
+.album-actions { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0 8px; max-width: 400px; margin: 0 auto; }
+.album-presave { grid-column: 1 / -1; margin: 0 auto; padding: .6rem 1rem; }
+.album-calendar, .album-release-link { justify-content: center; margin: 0; padding: .4rem 0; font-size: .78rem; }
+.hero-floor { position: relative; inset: auto; padding: 0; gap: 12px; background: none; }
+.hero-floor-left { gap: .5rem; }
+.hero-name { font-size: clamp(1.6rem, 5vh, 3rem) !important; }
+.hero-subline { font-size: .65rem; }
+.hero-social-row { gap: 1rem; }
+.hero-social-row a { font-size: 1rem; min-width: 16px; min-height: 24px; }
+.hero-btn-email { min-height: 44px; }
+.email-card { overscroll-behavior: contain; }
+@media (max-width: 540px) and (min-height: 501px) {
+  .hero-refresh { padding: 72px 16px max(12px, env(safe-area-inset-bottom)); gap: 8px; }
+  .hero-floor { flex-direction: column; align-items: center; gap: 8px; }
+  .hero-floor-left { align-items: center; gap: .35rem; }
+  .hero-floor-right { align-items: center; }
+  .album-release--text { padding: 12px; }
+  .album-release h2 { margin: .35rem 0 .5rem; }
+  .album-release--text .album-countdown { margin: .75rem auto; }
+}
+@media (max-height: 500px) and (min-width: 500px) {
+  .site-nav { height: 52px; }
+  .hero-refresh { padding: 60px 20px max(10px, env(safe-area-inset-bottom)); grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); gap: 20px; align-items: center; }
+  .album-release--text { align-self: center; padding: 10px; }
+  .album-release-kicker { font-size: .6rem; }
+  .album-release h2 { font-size: 1.2rem; margin: .2rem 0; }
+  .album-release-date { font-size: .7rem; }
+  .album-release--text .album-countdown { margin: .5rem auto; }
+  .album-countdown dd { font-size: 1.5rem; }
+  .album-countdown dt { font-size: .55rem; }
+  .album-countdown > div { gap: .2rem; }
+  .album-presave { font-size: .75rem; padding: .4rem .75rem; }
+  .album-calendar, .album-release-link { font-size: .7rem; }
+  .hero-floor { flex-direction: column; align-items: center; gap: 12px; }
+  .hero-floor-left { align-items: center; text-align: center; }
+  .hero-floor-right { align-items: center; }
+  .hero-subline { font-size: .55rem; }
+  .hero-social-row { gap: .7rem; }
+}
