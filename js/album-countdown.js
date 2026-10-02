@@ -22,6 +22,8 @@
   if (!section) return;
   const clock = section.querySelector('[data-countdown-clock]');
   const status = section.querySelector('[data-release-status]');
+  const presave = section.querySelector('[data-album-presave]');
+  const calendar = section.querySelector('[data-album-calendar]');
   let interval;
   function update() {
     const state = remaining(Date.now());
@@ -29,6 +31,8 @@
       section.querySelector(`[data-countdown-${unit}]`).textContent = String(state[unit]).padStart(2, '0');
     }
     clock.hidden = state.released;
+    if (presave) presave.hidden = state.released;
+    if (calendar) calendar.hidden = state.released;
     if (state.released) {
       status.textContent = 'Release day is here.';
       clearInterval(interval);

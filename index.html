@@ -7,7 +7,7 @@
     <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <style>
-      html, body { height: 100%; overflow: hidden; }
+      html, body { min-height: 100%; overflow-x: hidden; }
     </style>
     <title>Deric | Official</title>
     <meta name="description" content="The official site for Deric. Listen to the music, watch videos, and get updates.">
@@ -63,6 +63,8 @@
     <meta name="theme-color" content="#0b0a0a">
     <link rel="stylesheet" href="/css/newsletter.css">
     <script src="/js/newsletter.js" defer></script>
+    <link rel="stylesheet" href="/css/album-countdown.css">
+    <script src="/js/album-countdown.js" defer></script>
 </head>
 <body>
 
@@ -109,6 +111,23 @@
         <div class="grain-overlay"></div>
         <div class="hero-content">
             <div class="hero-refresh">
+                <section class="album-release album-release--text" data-album-countdown aria-labelledby="album-title">
+                    <div class="album-release-copy">
+                        <p class="album-release-kicker">The new album · Deric</p>
+                        <h2 id="album-title">#PLUGGAINTDEAD 2</h2>
+                        <p class="album-release-date"><time datetime="2026-10-09T00:00:00-04:00">October 9, 2026 · 12:00 AM Eastern (EDT)</time></p>
+                        <dl class="album-countdown" data-countdown-clock role="timer" aria-live="off" aria-label="Time until the album release" hidden>
+                            <div><dt>Days</dt><dd data-countdown-days>—</dd></div>
+                            <div><dt>Hours</dt><dd data-countdown-hours>—</dd></div>
+                            <div><dt>Minutes</dt><dd data-countdown-minutes>—</dd></div>
+                            <div><dt>Seconds</dt><dd data-countdown-seconds>—</dd></div>
+                        </dl>
+                        <p class="album-release-status" data-release-status role="status" aria-live="polite"></p>
+                        <a class="album-presave" data-album-presave href="https://hypeddit.com/nrihmk" target="_blank" rel="noopener noreferrer">Pre-save #PLUGGAINTDEAD 2</a>
+                        <a class="album-calendar" data-album-calendar href="/assets/releases/pluggaintdead-2-release.ics" download>Save the date</a>
+                        <a class="album-release-link" href="/music/">Explore Deric’s music</a>
+                    </div>
+                </section>
                 <!-- Cinematic floor layout -->
                 <div class="hero-floor">
                     <!-- Left: Identity + socials -->

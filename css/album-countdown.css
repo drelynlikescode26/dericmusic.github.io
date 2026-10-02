@@ -32,3 +32,24 @@
   .album-release-cover { max-width: 280px; margin-inline: auto; }
   .album-release-copy { text-align: center; }
 }
+
+/* Keep the countdown and existing signup reachable on short/mobile screens. */
+.hero { height: auto; min-height: 100svh; }
+.hero .hero-content { position: relative !important; inset: auto !important; }
+.hero-refresh { position: relative; inset: auto; min-height: 100svh; display: flex; flex-direction: column; padding: 0; }
+.hero-floor { position: relative; margin-top: auto; padding-top: 3rem; }
+.album-release--text { grid-template-columns: minmax(0, 1fr); width: min(620px, calc(100% - 3rem)); }
+.album-release--text .album-release-copy { text-align: center; }
+.album-release--text .album-countdown { max-width: 420px; margin-inline: auto; }
+@media (max-width: 600px) {
+  .album-release--text { width: calc(100% - 2rem); padding: 1.25rem 1rem; }
+  .hero-floor { padding-top: 2rem; }
+}
+
+.album-presave { display: flex; width: fit-content; max-width: 100%; justify-content: center; align-items: center; min-height: 44px; margin: 1.25rem auto .5rem; padding: .75rem 1.25rem; border-radius: 999px; background: #c9974c; color: #0b0a0a; font-size: .85rem; font-weight: 700; text-decoration: none; }
+.album-presave[hidden] { display: none; }
+.album-presave:focus-visible { outline: 2px solid #f5f1ea; outline-offset: 4px; }
+
+.album-calendar { display: flex; width: fit-content; align-items: center; min-height: 44px; margin: 0 auto; padding: .5rem 1.25rem; color: #f5f1ea; font-size: .85rem; text-underline-offset: .25em; }
+.album-calendar[hidden] { display: none; }
+.album-calendar:focus-visible { outline: 2px solid #c9974c; outline-offset: 3px; }
