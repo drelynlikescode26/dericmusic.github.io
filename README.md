@@ -127,11 +127,32 @@ const ARTIST_ID = '08nIFJLOyYWc5eWJCa4S8X';  // Change this
 
 ### Email list setup
 
-The homepage and Contact signup forms currently send to Formspree. Formspree receives the addresses, but it is not the campaign mailing list. Fan, booking, and merch forms share the same Formspree endpoint and should not be imported as general newsletter subscribers.
+The homepage and Contact newsletter areas use the public MailerLite embed (`account: 2674520`, `data-form: ZEx5pV`). The account owner selected `Deric Updates`. Each page loads the universal script once via `js/newsletter.js`; MailerLite owns validation, submission, and confirmation. Styling is scoped in `css/newsletter.css`. The fallback stays open until form markup exists and the template’s required Groot script emits its native load event. A script error or timeout keeps the request form available; a visitor already using it keeps it open even after a delayed load. Script loading alone does not verify email delivery. A clearly labeled Formspree request form remains available if the embed fails or the visitor chooses it. Formspree receives addresses, but it is not the campaign mailing list. Fan, booking, and merch forms share the same Formspree endpoint and should not be imported as general newsletter subscribers.
 
-To set up MailerLite, create and verify a Free account. Add a MailerLite API token as the `MAILERLITE_API_TOKEN` secret in the cloud environment, then run `node scripts/create-mailerlite-group.mjs` from this repository. The script creates the `Deric Updates` group if it does not already exist and prints its ID. Never put the API token in website code or GitHub Pages files.
+No API token is needed for this embed. For future replacement or account changes:
 
-Create the embedded signup form in MailerLite's account editor and attach it to the `Deric Updates` group. The published API can list and update forms, but cannot create them. Connect the public form code to the homepage and Contact signup areas only after a real test address reaches the group and its confirmation message arrives. Keep fan and booking inquiries on Formspree. Check the Free plan limits shown in the account before switching the live forms, since pricing and caps can change.
+1. Sign in to MailerLite. Under **Subscribers → Groups**, create `Deric Updates` if it is missing.
+2. Under **Forms → Embedded forms**, create or open a website signup form and select `Deric Updates` as its subscriber group. Finish the editor and save.
+3. From the form overview, copy the **public website embed code** (both the universal snippet and the individual form snippet). This public code can be shared with the website maintainer; never share passwords or API tokens in chat.
+4. Integrate that actual code into a local preview of the homepage and Contact newsletter area. Do not guess account IDs, form IDs, or submission endpoints. The homepage modal dynamically includes the embed controls in its focus trap; its existing JSON submit handler remains attached only to the Formspree fallback. Do not attach that handler to MailerLite.
+5. With an explicitly consented test address, verify signup, the confirmation email, and membership in `Deric Updates`. Check mobile display, keyboard navigation, success/error behavior, and the account's current plan limits. Only then consider switching the live signup areas in a separately authorized deployment. Keep fan, booking, and merch inquiries on Formspree; do not import those contacts.
+
+Official instructions: [create an embedded form](https://www.mailerlite.com/help/how-to-create-an-embedded-form) and [install it on a website](https://www.mailerlite.com/help/how-to-add-a-form-to-your-website).
+
+For optional API-assisted setup, the account owner must add `MAILERLITE_API_TOKEN` through the saved cloud environment's secure secret settings and start a session where it is injected. Never put it in website code, shell commands, or GitHub Pages files. Merely saving a secret name does not supply a value to a running session.
+
+```bash
+# Read-only: lists the target group and embedded-form metadata; no subscribers fetched.
+node scripts/create-mailerlite-group.mjs --check
+
+# Explicit setup: creates Deric Updates only if absent; no campaigns or subscribers touched.
+node scripts/create-mailerlite-group.mjs
+
+# Offline regression tests; no real account requests.
+node --test scripts/create-mailerlite-group.test.mjs
+```
+
+The read-only check does not prove the form's group assignment or email delivery. Confirm those in the account and a consented end-to-end test. The published REST forms API lists and updates forms but does not document form creation; the account editor is the supported route used here.
 
 ### Local Testing
 
@@ -170,3 +191,9 @@ dericmusic.github.io/
 ## License
 
 © 2026 Deric. All rights reserved.
+
+### MailerLite verification (2026-10-02)
+
+The public embed is wired locally. No real signup has been submitted; the account owner will test receipt and group membership after publication. Local browser checks cover simulated embed rendering at mobile and desktop widths, single-loader behavior, focus trapping, invalid email prevention, and blocked-script/no-JavaScript fallback, including markup present with a failed or delayed Groot script. These simulations do not prove the external vendor's actual markup or end-to-end delivery. This recovered environment starts successfully: the public site and GitHub API root return HTTP 200, and the MailerLite universal script and form template load from assets.mailerlite.com. The actual template requires groot.mailerlite.com/js/w/webforms.min.js; the Groot domain is blocked by the network proxy (Tunnel connection failed: 403 Forbidden). Real browser verification and publication remain pending. Repository-specific remote and Pages API checks have not yet been repeated. Do not claim the integration is live until those checks succeed.
+
+To rerun browser regression checks in this environment, serve the repository on `127.0.0.1:8765` and run `node scripts/test-newsletter.cjs`. Requires Playwright and Chromium (`CHROMIUM_PATH` can override `/usr/bin/chromium`). External requests are blocked or simulated, including all subscription POSTs. Screenshots are written to `/tmp/deric-ml-*.png`.

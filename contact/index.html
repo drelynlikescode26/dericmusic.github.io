@@ -24,6 +24,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0b0a0a">
+    <link rel="stylesheet" href="/css/newsletter.css">
+    <script src="/js/newsletter.js" defer></script>
 </head>
 <body>
 
@@ -70,7 +72,13 @@
           <div style="font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;">Stay Tapped In</div>
           <h2 style="font-size:1.4rem;font-weight:700;letter-spacing:-0.02em;margin-bottom:0.5rem;">Get updates by email</h2>
           <p style="font-size:0.85rem;color:var(--muted);margin-bottom:1.5rem;">Hear about new music and shows when there is news to share.</p>
-          <form id="newsletterForm" action="https://formspree.io/f/xjgpwpyv" method="POST" style="display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;">
+          <div data-newsletter>
+              <div class="ml-embedded" data-form="ZEx5pV"></div>
+              <p data-newsletter-status role="status" aria-live="polite"></p>
+              <details data-newsletter-fallback open>
+                <summary>Use the email request form instead</summary>
+                <p>This sends your address to Deric. It does not automatically subscribe you to the mailing list.</p>
+                <form id="newsletterForm" action="https://formspree.io/f/xjgpwpyv" method="POST" style="display:flex;gap:0.6rem;flex-wrap:wrap;justify-content:center;">
             <input type="hidden" name="_subject" value="Website signup: dericmusic.com">
             <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
             <label for="nlEmail" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;">Email address</label>
@@ -78,10 +86,12 @@
               style="flex:1;min-width:200px;padding:0.85rem 1.1rem;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.05);color:var(--text);font-family:inherit;font-size:0.88rem;outline:none;">
             <button type="submit" id="nlBtn"
               style="padding:0.85rem 1.6rem;border-radius:12px;border:none;background:var(--gold);color:#0b0a0a;font-family:inherit;font-size:0.82rem;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;white-space:nowrap;transition:opacity 0.2s;">
-              Subscribe
+              Send request
             </button>
           </form>
           <div id="nlStatus" role="status" aria-live="polite" style="margin-top:0.85rem;font-size:0.82rem;display:none;"></div>
+              </details>
+            </div>
         </div>
       </section>
 
@@ -93,8 +103,9 @@
         if (!form) return;
         form.addEventListener('submit', function (e) {
           e.preventDefault();
+          if (!form.reportValidity()) return;
           btn.disabled = true;
-          btn.textContent = 'Subscribing…';
+          btn.textContent = 'Sending…';
           fetch(form.action, { method: 'POST', body: new FormData(form), headers: { 'Accept': 'application/json' } })
             .then(function (r) {
               if (r.ok) {
@@ -102,7 +113,7 @@
                 status.style.color = '#1db954';
                 status.textContent = 'Thanks. We received your email.';
                 form.reset();
-                btn.textContent = 'Subscribed ✓';
+                btn.textContent = 'Request received ✓';
               } else { throw new Error(); }
             })
             .catch(function () {
@@ -110,7 +121,7 @@
               status.style.color = '#ff6b6b';
               status.textContent = 'Could not send your email. Please try again.';
               btn.disabled = false;
-              btn.textContent = 'Subscribe';
+              btn.textContent = 'Send request';
             });
         });
       })();

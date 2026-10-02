@@ -13,6 +13,15 @@
 
     let previousFocus = null;
 
+    function focusableControls() {
+      return Array.from(modal.querySelectorAll('button, input, select, textarea, a[href], summary, [tabindex]'))
+        .filter((element) => !element.disabled && element.tabIndex >= 0 && element.getClientRects().length)
+        .filter((element) => {
+          const details = element.closest('details:not([open])');
+          return (!details || element === details.querySelector('summary')) && getComputedStyle(element).visibility !== 'hidden';
+        });
+    }
+
     function open() {
       previousFocus = document.activeElement;
       status.textContent = '';
@@ -20,7 +29,8 @@
       modal.hidden = false;
       modal.classList.add('is-open');
       document.body.classList.add('portal-open');
-      input.focus();
+      const firstInput = focusableControls().find((element) => element.matches('input[type="email"]'));
+      (firstInput || closeButton).focus();
     }
 
     function close() {
@@ -40,11 +50,12 @@
       if (event.key === 'Escape') close();
       if (event.key !== 'Tab') return;
 
-      const focusable = [closeButton, input, form.querySelector('button[type="submit"]')];
+      const focusable = focusableControls();
+      const last = focusable[focusable.length - 1];
       if (event.shiftKey && document.activeElement === focusable[0]) {
         event.preventDefault();
-        focusable[2].focus();
-      } else if (!event.shiftKey && document.activeElement === focusable[2]) {
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
         event.preventDefault();
         focusable[0].focus();
       }

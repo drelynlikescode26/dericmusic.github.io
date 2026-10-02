@@ -61,6 +61,8 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0b0a0a">
+    <link rel="stylesheet" href="/css/newsletter.css">
+    <script src="/js/newsletter.js" defer></script>
 </head>
 <body>
 
@@ -140,6 +142,7 @@
                         <button type="button" id="open-email" class="hero-btn-email" aria-haspopup="dialog" aria-controls="emailModal">
                             Stay tapped in
                         </button>
+                        <noscript><a href="/contact/#newsletter">Get email updates</a></noscript>
                     </div>
                 </div>
             </div>
@@ -155,7 +158,13 @@
             <button type="button" class="email-close" id="close-email" aria-label="Close signup form">✕</button>
             <h2 class="email-title" id="emailTitle">Stay tapped in</h2>
             <p class="email-copy">Get an email when Deric has new music or show news to share.</p>
-            <form class="email-form" id="heroEmailForm" action="https://formspree.io/f/xjgpwpyv" method="POST">
+            <div data-newsletter>
+              <div class="ml-embedded" data-form="ZEx5pV"></div>
+              <p data-newsletter-status role="status" aria-live="polite"></p>
+              <details data-newsletter-fallback open>
+                <summary>Use the email request form instead</summary>
+                <p>This sends your address to Deric. It does not automatically subscribe you to the mailing list.</p>
+                <form class="email-form" id="heroEmailForm" action="https://formspree.io/f/xjgpwpyv" method="POST">
                 <input type="hidden" name="_subject" value="Website signup: dericmusic.com">
                 <input type="text" name="_gotcha" class="signup-honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
                 <label class="visually-hidden" for="heroEmailInput">Email address</label>
@@ -163,6 +172,8 @@
                 <button class="email-submit" type="submit" aria-label="Join email list">Join</button>
             </form>
             <p class="email-status" id="emailStatus" role="status" aria-live="polite"></p>
+              </details>
+            </div>
         </div>
     </div>
 
