@@ -10,7 +10,7 @@
     clock.hidden = total === 0;
     released.hidden = total > 0;
     if (total === 0) {
-      button.firstChild.textContent = 'Open the tape ';
+      button.querySelector('.button-label').textContent = 'OPEN THE TAPE';
       document.querySelector('.handoff').textContent = 'Continue to Hypeddit for the release.';
       return;
     }
