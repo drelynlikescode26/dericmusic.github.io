@@ -13,9 +13,9 @@
   <meta property="og:image" content="/assets/hero/hero-poster.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="/assets/hero/hero-poster.jpg">
-  <link rel="stylesheet" href="/style.css?v=20261002-cover">
-  <link rel="stylesheet" href="/css/nav.css?v=20261002-cover">
-  <link rel="stylesheet" href="/css/pages.css?v=20261002-cover">
+  <link rel="stylesheet" href="/style.css?v=20261002-polish">
+  <link rel="stylesheet" href="/css/nav.css?v=20261002-polish">
+  <link rel="stylesheet" href="/css/pages.css?v=20261002-polish">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -105,114 +105,25 @@
       margin: 0;
     }
 
-    .vgrid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 2.25rem 1.5rem;
+    .vgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+    .vtile { display: grid; grid-template-columns: minmax(0, 42%) minmax(0, 1fr); align-items: center; gap: 20px; width: 100%; padding: 20px 0; border: 0; border-bottom: 1px solid var(--border); background: transparent; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+    .vtile-thumb { display: block; aspect-ratio: 16 / 9; border-radius: 4px; overflow: hidden; background: #16161a; position: relative; }
+    .vtile-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .2s ease; }
+    .vtile-overlay { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-start; padding: 8px; background: linear-gradient(0deg,rgba(0,0,0,.35),transparent 65%); }
+    .vtile-play { display: grid; place-items: center; width: 28px; height: 24px; border-radius: 3px; background: rgba(10,10,13,.8); color: #fff; border: 1px solid rgba(255,255,255,.3); transition: background .2s ease; }
+    .vtile-play .play-icon { border-top-width: 4px; border-bottom-width: 4px; border-left-width: 6px; }
+    .vtile-caption { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+    .vtile-kicker { color: var(--accent); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+    .vtile-title { color: var(--text); font-size: clamp(14px,1.5vw,18px); line-height: 1.4; font-weight: 600; }
+    .vtile-caption::after { content: 'Watch video ↗'; color: var(--text-muted); font-size: 11px; margin-top: 3px; }
+    .vtile:hover .vtile-play, .vtile:focus-visible .vtile-play { background: #d92538; }
+    .vtile:hover .vtile-thumb img { opacity: .8; }
+    @media (max-width: 700px) {
+      .vgrid { grid-template-columns: 1fr; }
+      .vtile { grid-template-columns: 120px minmax(0,1fr); gap: 16px; padding: 16px 0; }
+      .vtile-caption { gap: 4px; }
     }
-
-    .vtile {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      width: 100%;
-      padding: 0;
-      border: 0;
-      background: none;
-      color: var(--text);
-      font: inherit;
-      text-align: left;
-      cursor: pointer;
-    }
-
-    .vtile-thumb {
-      aspect-ratio: 16 / 9;
-      border-radius: 12px;
-      overflow: hidden;
-      background: radial-gradient(circle at 25% 25%, rgba(239, 51, 64, 0.27), transparent 55%), #16161a;
-      border: 1px solid var(--border);
-      position: relative;
-      transition: transform 0.3s cubic-bezier(0.2, 0.9, 0.2, 1),
-                  box-shadow 0.3s ease;
-    }
-
-    .vtile:nth-child(2) .vtile-thumb {
-      background: radial-gradient(circle at 75% 30%, rgba(83, 115, 108, 0.35), transparent 55%), #101716;
-    }
-
-    .vtile:nth-child(3) .vtile-thumb {
-      background: radial-gradient(circle at 30% 75%, rgba(110, 75, 95, 0.35), transparent 55%), #181116;
-    }
-
-    .vtile:nth-child(4) .vtile-thumb {
-      background: radial-gradient(circle at 70% 70%, rgba(94, 110, 133, 0.35), transparent 55%), #10141a;
-    }
-
-    .vtile:hover .vtile-thumb,
-    .vtile:focus-visible .vtile-thumb {
-      transform: translateY(-4px);
-      box-shadow: 0 20px 50px rgba(0,0,0,0.55);
-    }
-
-    .vtile-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .vtile:hover .vtile-thumb img {
-      transform: scale(1.04);
-    }
-
-    .vtile-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(0,0,0,0.14);
-    }
-
-    .vtile-play {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: rgba(239, 51, 64, 0.94);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.95rem;
-      color: #0b0a0a;
-      transition: transform 0.2s ease;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-    }
-
-    .vtile-play .play-icon { color: #0b0a0a; }
-
-    .vtile:hover .vtile-play {
-      transform: scale(1.08);
-    }
-
-    .vtile-caption {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-
-    .vtile-kicker {
-      color: var(--accent);
-      font-size: 0.62rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
-
-    .vtile-title {
-      color: var(--text);
-      font-size: 1rem;
-      font-weight: 600;
-    }
+    @media (max-width: 360px) { .vtile { grid-template-columns: 100px minmax(0,1fr); gap: 12px; } }
 
     /* ── Lightbox ── */
 
@@ -435,36 +346,36 @@
         <div class="p-label">More Videos</div>
         <div class="vgrid">
 
-          <button type="button" class="vtile video-trigger" data-id="xafQDH1rF_o" data-title="Official video" aria-label="Play official video">
+          <button type="button" class="vtile video-trigger" data-id="xafQDH1rF_o" data-title="Glass" aria-label="Play Glass">
             <div class="vtile-thumb">
               <img src="https://i.ytimg.com/vi/xafQDH1rF_o/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
               <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Official video</span></span>
+            <span class="vtile-caption"><span class="vtile-kicker">Music video</span><span class="vtile-title">Glass</span></span>
           </button>
 
-          <button type="button" class="vtile video-trigger" data-id="ZmvONgjQeg0" data-title="Visualizer" aria-label="Play visualizer">
+          <button type="button" class="vtile video-trigger" data-id="ZmvONgjQeg0" data-title="No Matter What I Do" aria-label="Play No Matter What I Do">
             <div class="vtile-thumb">
               <img src="https://i.ytimg.com/vi/ZmvONgjQeg0/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
               <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Visualizer</span></span>
+            <span class="vtile-caption"><span class="vtile-kicker">Visualizer</span><span class="vtile-title">No Matter What I Do</span></span>
           </button>
 
-          <button type="button" class="vtile video-trigger" data-id="MYxM4NjVzes" data-title="Live session" aria-label="Play live session">
+          <button type="button" class="vtile video-trigger" data-id="MYxM4NjVzes" data-title="As Long As You Know" aria-label="Play As Long As You Know">
             <div class="vtile-thumb">
               <img src="https://i.ytimg.com/vi/MYxM4NjVzes/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
               <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Live session</span></span>
+            <span class="vtile-caption"><span class="vtile-kicker">Music video</span><span class="vtile-title">As Long As You Know</span></span>
           </button>
 
-          <button type="button" class="vtile video-trigger" data-id="reAf570guMw" data-title="Music video" aria-label="Play music video">
+          <button type="button" class="vtile video-trigger" data-id="reAf570guMw" data-title="Big Drop" aria-label="Play Big Drop">
             <div class="vtile-thumb">
               <img src="https://i.ytimg.com/vi/reAf570guMw/hqdefault.jpg" alt="" loading="lazy" onerror="this.style.display='none'">
               <span class="vtile-overlay"><span class="vtile-play" aria-hidden="true"><span class="play-icon"></span></span></span>
             </div>
-            <span class="vtile-caption"><span class="vtile-kicker">Deric</span><span class="vtile-title">Music video</span></span>
+            <span class="vtile-caption"><span class="vtile-kicker">Music video</span><span class="vtile-title">Big Drop</span></span>
           </button>
 
         </div>
@@ -526,7 +437,7 @@
     </div>
   </footer>
 
-  <script src="/js/nav.js?v=20261002-cover"></script>
+  <script src="/js/nav.js?v=20261002-polish"></script>
   <script>
     (function () {
       var lightbox = document.getElementById('lightbox');

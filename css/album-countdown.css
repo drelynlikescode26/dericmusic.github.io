@@ -1,5 +1,5 @@
 /* Cover-led release card, fitted to the homepage's single viewport. */
-.hero { height: 100svh; min-height: 0; }
+.hero { position: absolute; inset: 0; height: 100%; min-height: 0; }
 .hero .hero-content { position: absolute !important; inset: 0 !important; }
 .hero-refresh { position: absolute; inset: 0; min-height: 0; padding: 88px clamp(20px,4vw,64px) max(20px,env(safe-area-inset-bottom)); display: grid; grid-template-rows: minmax(0,1fr) auto; gap: 20px; }
 .album-release { display: grid; grid-template-columns: minmax(0,310px) minmax(0,1fr); align-items: center; gap: clamp(24px,4vw,48px); align-self: center; width: min(840px,100%); margin: 0 auto; padding: 22px; border: 1px solid rgba(239,51,64,.28); border-radius: 20px; background: rgba(9,9,12,.84); box-shadow: 0 24px 70px rgba(0,0,0,.3); color: #f5f5f5; text-align: left; }
@@ -37,7 +37,7 @@
 @media (max-width: 600px) {
   .hero-refresh { padding: 72px 16px max(12px,env(safe-area-inset-bottom)); gap: 12px; }
   .album-release { grid-template-columns: minmax(0,1fr); padding: 14px; gap: 14px; width: min(390px,100%); }
-  .album-release-cover { width: min(220px,max(110px,calc(100svh - 440px))); margin: auto; }
+  .album-release-cover { width: min(220px,max(110px,calc(100dvh - 440px))); margin: auto; }
   .album-release-copy { text-align: center; }
   .album-release h2 { font-size: 23px; margin-bottom: 6px; }
   .album-countdown { max-width: 260px; margin: 16px auto; }
@@ -56,7 +56,7 @@
 @media (max-height: 620px) and (max-width: 600px) and (orientation: portrait) {
   .hero-refresh { gap: 8px; padding-top: 66px; }
   .album-release { padding: 12px; gap: 10px; }
-  .album-release-cover { width: min(128px,max(96px,calc(100svh - 440px))); }
+  .album-release-cover { width: min(128px,max(96px,calc(100dvh - 440px))); }
   .album-release h2 { font-size: 20px; }
   .album-countdown { margin: 12px auto; }
 }

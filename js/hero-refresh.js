@@ -12,6 +12,26 @@
     if (!openButton || !modal || !closeButton || !form || !input || !status) return;
 
     let previousFocus = null;
+    let restoreTimer;
+
+    function restoreViewport() {
+      if (!modal.hidden) return;
+      // Safari can retain the keyboard's document offset after the field blurs.
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
+    function scheduleRestore() {
+      if (!modal.hidden) return;
+      requestAnimationFrame(restoreViewport);
+      clearTimeout(restoreTimer);
+      restoreTimer = setTimeout(restoreViewport, 350);
+    }
+    window.addEventListener('resize', scheduleRestore, { passive: true });
+    window.addEventListener('pageshow', scheduleRestore);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', scheduleRestore, { passive: true });
+    }
 
     function focusableControls() {
       return Array.from(modal.querySelectorAll('button, input, select, textarea, a[href], summary, [tabindex]'))
@@ -39,6 +59,7 @@
       modal.hidden = true;
       document.body.classList.remove('portal-open');
       if (previousFocus) previousFocus.focus({ preventScroll: true });
+      scheduleRestore();
     }
 
     openButton.addEventListener('click', open);
