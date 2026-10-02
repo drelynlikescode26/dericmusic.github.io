@@ -4,8 +4,10 @@ const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const embed=`<div id="mlb2-46624565" class="ml-form-embedContainer"><div class="ml-form-embedWrapper"><div class="ml-form-embedBody"><div class="ml-form-embedContent"><h4>Newsletter</h4><p>Signup for news and special offers!</p></div><form action="https://assets.mailerlite.com/jsonp/2674520/forms/200179939677307921/subscribe" method="post" target="_blank"><div class="ml-form-fieldRow"><label for="testEmail">Email address</label><input id="testEmail" type="email" name="fields[email]" required placeholder="Email"></div><input type="hidden" name="ml-submit" value="1"><input type="hidden" name="anticsrf" value="true"><div class="ml-form-embedSubmit"><button type="submit">Subscribe</button></div></form></div></div></div>`;
 const vendorURL='https://groot.mailerlite.com/js/w/webforms.min.js?test-fixture';
+const downstreamURLs=['https://assets.mlcdn.com/ml/ajax/libs/jquery/3.7.1/jquery.min.js','https://static.mailerlite.com/js/w/ml_jQuery.inputmask.bundle.min.js?v3.3.1'];
 const renderFixture=`document.querySelector('.ml-embedded').innerHTML=${JSON.stringify(embed)};
- const script=document.createElement('script');script.src=${JSON.stringify(vendorURL)};document.head.appendChild(script);`;
+ const script=document.createElement('script');script.src=${JSON.stringify(vendorURL)};document.head.appendChild(script);
+ for(const url of ${JSON.stringify(downstreamURLs)}){const dependency=document.createElement('script');dependency.src=url;document.head.appendChild(dependency);}`;
 (async()=>{
  const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH || '/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  let count=0;
@@ -19,7 +21,7 @@ const renderFixture=`document.querySelector('.ml-embedded').innerHTML=${JSON.str
     loaders++;
     return route.fulfill({contentType:'application/javascript',body:renderFixture});
    }
-   if(req.url()===vendorURL)return route.fulfill({contentType:'application/javascript',body:'/* successful vendor load fixture */'});
+   if(req.url()===vendorURL||downstreamURLs.includes(req.url()))return route.fulfill({contentType:'application/javascript',body:'/* successful vendor load fixture */'});
    return req.url().startsWith('http://127.0.0.1:8765')?route.continue():route.abort();
   });
   await page.goto('http://127.0.0.1:8765'+path);
@@ -54,7 +56,7 @@ const renderFixture=`document.querySelector('.ml-embedded').innerHTML=${JSON.str
   await page.screenshot({path:`/tmp/deric-ml-${path==='/'?'home':'contact'}-${width}.png`});
   await page.close(); count++;
  }
- for(const path of ['/','/contact/']) for(const mode of ['vendor-blocked','vendor-delayed','vendor-delayed-active-fallback']) {
+ for(const path of ['/','/contact/']) for(const mode of ['vendor-blocked','jquery-blocked','inputmask-blocked','vendor-delayed','vendor-delayed-active-fallback']) {
   const page=await browser.newPage({viewport:{width:390,height:844}});
   let releaseVendor;
   const vendorGate=new Promise(resolve=>{releaseVendor=resolve;});
@@ -63,8 +65,11 @@ const renderFixture=`document.querySelector('.ml-embedded').innerHTML=${JSON.str
    const req=route.request();
    if(/\/subscribe(?:\?|$)/.test(req.url())||req.method()==='POST'){submits++;return route.abort();}
    if(req.url()==='https://assets.mailerlite.com/js/universal.js')return route.fulfill({contentType:'application/javascript',body:renderFixture});
+   if((mode==='jquery-blocked'&&req.url()===downstreamURLs[0])||(mode==='inputmask-blocked'&&req.url()===downstreamURLs[1]))return route.abort();
+   if(downstreamURLs.includes(req.url()))return route.fulfill({contentType:'application/javascript',body:'/* downstream vendor load fixture */'});
    if(req.url()===vendorURL){
     if(mode==='vendor-blocked')return route.abort();
+    if(mode.endsWith('-blocked'))return route.fulfill({contentType:'application/javascript',body:'/* vendor load fixture */'});
     await vendorGate;
     return route.fulfill({contentType:'application/javascript',body:'/* successful delayed vendor load fixture */'});
    }
@@ -75,7 +80,7 @@ const renderFixture=`document.querySelector('.ml-embedded').innerHTML=${JSON.str
   if(path==='/')await page.locator('#open-email').click();
   assert.equal(await page.locator('[data-newsletter-fallback]').evaluate(e=>e.open),true);
   assert.equal(await page.locator('[data-newsletter-fallback] form').isVisible(),true);
-  if(mode==='vendor-blocked'){
+  if(mode.endsWith('-blocked')){
    await page.waitForFunction(()=>document.querySelector('[data-newsletter-status]').textContent.includes('could not load'));
    assert.equal(await page.locator('[data-newsletter-fallback]').evaluate(e=>e.open),true);
   }else{

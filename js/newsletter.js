@@ -7,7 +7,12 @@
   const fallback = signup.querySelector('[data-newsletter-fallback]');
   const status = signup.querySelector('[data-newsletter-status]');
   let ready = false;
-  let vendorLoaded = false;
+  const requiredScripts = new Set([
+    'https://groot.mailerlite.com/js/w/webforms.min.js',
+    'https://assets.mlcdn.com/ml/ajax/libs/jquery/3.7.1/jquery.min.js',
+    'https://static.mailerlite.com/js/w/ml_jQuery.inputmask.bundle.min.js'
+  ]);
+  const loadedScripts = new Set();
   let vendorFailed = false;
   const watchedScripts = new WeakSet();
   let timer;
@@ -18,7 +23,7 @@
     fallback.open = true;
   }
   function checkReady() {
-    if (!vendorLoaded || vendorFailed || !embed.querySelector('form')) return;
+    if (loadedScripts.size !== requiredScripts.size || vendorFailed || !embed.querySelector('form')) return;
     ready = true;
     clearTimeout(timer);
     observer.disconnect();
@@ -30,14 +35,15 @@
     }
   }
   function watchVendorScript() {
-    // The official template adds this dependency to document.head. Observe its
+    // The official template and its scripts add dependencies to document.head. Observe
     // native load/error events without interfering with MailerLite submission.
     for (const script of document.head.querySelectorAll('script[src]')) {
       const url = new URL(script.src, document.baseURI);
-      if (url.origin !== 'https://groot.mailerlite.com' || url.pathname !== '/js/w/webforms.min.js' || watchedScripts.has(script)) continue;
+      const asset = url.origin + url.pathname;
+      if (!requiredScripts.has(asset) || watchedScripts.has(script)) continue;
       watchedScripts.add(script);
       script.addEventListener('load', function () {
-        vendorLoaded = true;
+        loadedScripts.add(asset);
         checkReady();
       }, { once: true });
       script.addEventListener('error', function () {
