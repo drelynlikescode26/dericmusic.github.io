@@ -1,0 +1,34 @@
+/* Release section: dark glass, warm type, and the site's existing gold accent. */
+.album-release {
+  width: min(920px, calc(100% - 3rem));
+  margin: 6.5rem auto 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  display: grid;
+  grid-template-columns: minmax(0, 280px) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.25rem, 4vw, 3rem);
+  color: #f5f1ea;
+  background: rgba(11, 10, 10, .88);
+  border: 1px solid rgba(201, 151, 76, .3);
+  border-radius: 18px;
+  text-align: left;
+}
+.album-release-cover { display: block; width: 100%; height: auto; object-fit: contain; }
+.album-release-copy { min-width: 0; }
+.album-release-kicker { color: #c9974c; font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; }
+.album-release h2 { margin: .65rem 0 1rem; font-size: clamp(1.3rem, 3vw, 2.2rem); line-height: 1.15; overflow-wrap: anywhere; }
+.album-release-date { color: #d4ccc2; font-size: .85rem; line-height: 1.6; }
+.album-countdown { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .5rem; margin: 1.5rem 0; }
+.album-countdown[hidden] { display: none; }
+.album-countdown > div { display: flex; flex-direction: column-reverse; gap: .4rem; }
+.album-countdown dt { font-size: .62rem; letter-spacing: .07em; text-transform: uppercase; color: #d4ccc2; }
+.album-countdown dd { margin: 0; font-size: clamp(1.7rem, 4vw, 2.7rem); font-variant-numeric: tabular-nums; line-height: 1; }
+.album-release-status { font-size: 1rem; color: #c9974c; }
+.album-release-status:empty { display: none; }
+.album-release-link { display: inline-flex; align-items: center; min-height: 44px; color: #f5f1ea; text-underline-offset: .25em; }
+.album-release-link:focus-visible { outline: 2px solid #c9974c; outline-offset: 4px; }
+@media (max-width: 600px) {
+  .album-release { grid-template-columns: minmax(0, 1fr); width: calc(100% - 2rem); margin-top: 5.5rem; gap: 1.25rem; }
+  .album-release-cover { max-width: 280px; margin-inline: auto; }
+  .album-release-copy { text-align: center; }
+}
