@@ -25,7 +25,10 @@
   object-fit: cover;
   object-position: center;
   transform: scale(1.08);
+  opacity: 0;
 }
+
+.hero.video-playing .hero-video { opacity: 1; }
 
 .hero-overlay {
   position: absolute;

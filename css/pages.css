@@ -2,9 +2,9 @@
 
 :root {
   --bg:          #0b0a0a;
-  --text:        #f5f1ea;
-  --text-muted:  rgba(245, 241, 234, 0.5);
-  --gold:        #c9974c;
+  --text:        #f5f5f5;
+  --text-muted:  rgba(245, 245, 245, 0.5);
+  --accent:        #ff4d59;
   --border:      rgba(255, 255, 255, 0.07);
   --surface:     rgba(255, 255, 255, 0.04);
   --nav-h:       64px;
@@ -47,7 +47,7 @@ a { color: inherit; }
   font-size: 0.65rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 1.25rem;
   font-weight: 400;
 }
@@ -97,7 +97,7 @@ a { color: inherit; }
 }
 
 .p-body {
-  color: rgba(245, 241, 234, 0.72);
+  color: rgba(245, 245, 245, 0.72);
   line-height: 1.85;
   margin: 0;
   font-size: 1rem;
@@ -220,18 +220,18 @@ a { color: inherit; }
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(245, 241, 234, 0.1);
-  border: 1px solid rgba(245, 241, 234, 0.18);
+  background: rgba(245, 245, 245, 0.1);
+  border: 1px solid rgba(245, 245, 245, 0.18);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  color: rgba(245, 241, 234, 0.65);
+  color: rgba(245, 245, 245, 0.65);
   transition: background 0.2s ease, color 0.2s ease;
 }
 
 .video-tile:hover .video-thumb-play {
-  background: rgba(245, 241, 234, 0.18);
+  background: rgba(245, 245, 245, 0.18);
   color: var(--text);
 }
 
@@ -330,7 +330,7 @@ a { color: inherit; }
 
 .bio-text p {
   margin: 0;
-  color: rgba(245, 241, 234, 0.78);
+  color: rgba(245, 245, 245, 0.78);
   line-height: 1.9;
   font-size: 1.025rem;
 }
@@ -352,7 +352,7 @@ a { color: inherit; }
   font-size: 0.65rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   margin-bottom: 2rem;
   display: block;
 }
@@ -403,12 +403,12 @@ a { color: inherit; }
 .form-field input:focus,
 .form-field textarea:focus,
 .form-field select:focus {
-  border-color: rgba(201, 151, 76, 0.5);
+  border-color: rgba(239, 51, 64, 0.5);
 }
 
 .form-field input::placeholder,
 .form-field textarea::placeholder {
-  color: rgba(245, 241, 234, 0.22);
+  color: rgba(245, 245, 245, 0.22);
 }
 
 .form-submit {
@@ -452,8 +452,8 @@ a { color: inherit; }
 }
 
 .btn-outline:hover {
-  border-color: rgba(201, 151, 76, 0.45);
-  background: rgba(201, 151, 76, 0.06);
+  border-color: rgba(239, 51, 64, 0.45);
+  background: rgba(239, 51, 64, 0.06);
 }
 
 /* ==================== CONTACT INFO ==================== */
@@ -484,14 +484,14 @@ a { color: inherit; }
 }
 
 .contact-info-value a {
-  color: var(--gold);
+  color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid rgba(201, 151, 76, 0.25);
+  border-bottom: 1px solid rgba(239, 51, 64, 0.25);
   transition: border-color 0.2s ease;
 }
 
 .contact-info-value a:hover {
-  border-color: var(--gold);
+  border-color: var(--accent);
 }
 
 /* ==================== PAGE FOOTER ==================== */
@@ -555,7 +555,7 @@ a { color: inherit; }
 
 .page-footer-copy {
   font-size: 0.7rem;
-  color: rgba(245, 241, 234, 0.22);
+  color: rgba(245, 245, 245, 0.22);
 }
 
 /* ==================== RESPONSIVE ==================== */

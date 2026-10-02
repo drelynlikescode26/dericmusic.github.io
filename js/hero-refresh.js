@@ -29,15 +29,16 @@
       modal.hidden = false;
       modal.classList.add('is-open');
       document.body.classList.add('portal-open');
-      const firstInput = focusableControls().find((element) => element.matches('input[type="email"]'));
-      (firstInput || closeButton).focus();
+      // Focus a control without opening the iOS keyboard or triggering input zoom.
+      closeButton.focus({ preventScroll: true });
     }
 
     function close() {
+      if (modal.contains(document.activeElement)) document.activeElement.blur();
       modal.classList.remove('is-open');
       modal.hidden = true;
       document.body.classList.remove('portal-open');
-      if (previousFocus) previousFocus.focus();
+      if (previousFocus) previousFocus.focus({ preventScroll: true });
     }
 
     openButton.addEventListener('click', open);

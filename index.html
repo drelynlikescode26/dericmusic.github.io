@@ -18,8 +18,8 @@
     <meta name="twitter:description" content="Listen to Deric's music, watch videos, and get updates.">
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
-    <meta property="og:image" content="assets/hero/hero-poster.jpg">
-    <meta name="twitter:image" content="assets/hero/hero-poster.jpg">
+    <meta property="og:image" content="https://dericmusic.com/assets/releases/pluggaintdead-2-cover.jpg">
+    <meta name="twitter:image" content="https://dericmusic.com/assets/releases/pluggaintdead-2-cover.jpg">
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -49,11 +49,11 @@
     }
     </script>
     <link rel="canonical" href="https://dericmusic.com/">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="hero.css">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/hero-refresh.css">
-    <link rel="stylesheet" href="css/hero-video.css">
+    <link rel="stylesheet" href="style.css?v=20261002-cover">
+    <link rel="stylesheet" href="hero.css?v=20261002-cover">
+    <link rel="stylesheet" href="css/nav.css?v=20261002-cover">
+    <link rel="stylesheet" href="css/hero-refresh.css?v=20261002-cover">
+    <link rel="stylesheet" href="css/hero-video.css?v=20261002-cover">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -61,10 +61,10 @@
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="manifest" href="/site.webmanifest">
     <meta name="theme-color" content="#0b0a0a">
-    <link rel="stylesheet" href="/css/newsletter.css">
-    <script src="/js/newsletter.js" defer></script>
-    <link rel="stylesheet" href="/css/album-countdown.css">
-    <script src="/js/album-countdown.js" defer></script>
+    <link rel="stylesheet" href="/css/newsletter.css?v=20261002-cover">
+    <script src="/js/newsletter.js?v=20261002-cover" defer></script>
+    <link rel="stylesheet" href="/css/album-countdown.css?v=20261002-cover">
+    <script src="/js/album-countdown.js?v=20261002-cover" defer></script>
 </head>
 <body>
 
@@ -100,22 +100,23 @@
                 muted
                 loop
                 playsinline
-                preload="none"
+                autoplay
+                preload="auto"
                 poster="assets/hero/hero-poster.jpg"
             >
-                <source src="assets/hero/glass%208%20sec%20loop.webm" type="video/webm" />
                 <source src="assets/hero/glass%208%20sec%20loop.mp4" type="video/mp4" />
+                <source src="assets/hero/glass%208%20sec%20loop.webm" type="video/webm" />
             </video>
             <div class="hero-overlay"></div>
         </div>
         <div class="grain-overlay"></div>
         <div class="hero-content">
             <div class="hero-refresh">
-                <section class="album-release album-release--text" data-album-countdown aria-labelledby="album-title">
+                <section class="album-release" data-album-countdown aria-labelledby="album-title">
+                    <img class="album-release-cover" src="/assets/releases/pluggaintdead-2-cover.jpg" width="1254" height="1254" alt="#PLUGGAINTDEAD 2 mixtape cover" fetchpriority="high" decoding="async">
                     <div class="album-release-copy">
-                        <p class="album-release-kicker">The new album · Deric</p>
                         <h2 id="album-title">#PLUGGAINTDEAD 2</h2>
-                        <p class="album-release-date"><time datetime="2026-10-09T00:00:00-04:00">October 9, 2026 · 12:00 AM Eastern (EDT)</time></p>
+                        <p class="album-release-date"><time datetime="2026-10-09T00:00:00-04:00">October 9, 2026 · Midnight ET</time></p>
                         <dl class="album-countdown" data-countdown-clock role="timer" aria-live="off" aria-label="Time until the album release" hidden>
                             <div><dt>Days</dt><dd data-countdown-days>—</dd></div>
                             <div><dt>Hours</dt><dd data-countdown-hours>—</dd></div>
@@ -124,9 +125,9 @@
                         </dl>
                         <p class="album-release-status" data-release-status role="status" aria-live="polite"></p>
                         <div class="album-actions">
-                        <a class="album-presave" data-album-presave href="https://hypeddit.com/nrihmk" target="_blank" rel="noopener noreferrer">Pre-save #PLUGGAINTDEAD 2</a>
-                        <a class="album-calendar" data-album-calendar href="/assets/releases/pluggaintdead-2-release.ics" download>Save the date</a>
-                        <a class="album-release-link" href="/music/">Explore Deric’s music</a>
+                        <a class="album-presave" data-album-presave href="https://hypeddit.com/nrihmk" target="_blank" rel="noopener noreferrer">Pre-save the tape <span aria-hidden="true">↗</span></a>
+                        <a class="album-calendar" data-album-calendar href="/assets/releases/pluggaintdead-2-release.ics" download><i class="fa-regular fa-calendar" aria-hidden="true"></i> Save the date</a>
+                        <a class="album-release-link" href="/music/">Explore music <span aria-hidden="true">↗</span></a>
                         </div>
                     </div>
                 </section>
@@ -161,7 +162,7 @@
                     <!-- Right: CTAs -->
                     <div class="hero-floor-right">
                         <button type="button" id="open-email" class="hero-btn-email" aria-haspopup="dialog" aria-controls="emailModal">
-                            Stay tapped in
+                            <span class="signup-dot" aria-hidden="true"></span> Stay tapped in
                         </button>
                         <noscript><a href="/contact/#newsletter">Get email updates</a></noscript>
                     </div>
@@ -170,9 +171,9 @@
         </div>
     </section>
 
-    <script src="js/nav.js"></script>
-    <script src="js/hero-refresh.js"></script>
-    <script src="js/hero-video.js"></script>
+    <script src="js/nav.js?v=20261002-cover"></script>
+    <script src="js/hero-refresh.js?v=20261002-cover"></script>
+    <script src="js/hero-video.js?v=20261002-cover"></script>
 
     <div class="email-modal" id="emailModal" role="dialog" aria-modal="true" aria-labelledby="emailTitle" hidden>
         <div class="email-card">

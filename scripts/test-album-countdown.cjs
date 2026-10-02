@@ -3,7 +3,7 @@ const {chromium}=require('playwright');
 const assert=require('node:assert/strict');
 const release=Date.parse('2026-10-09T04:00:00Z');
 (async()=>{
- const browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+ const browser=await chromium.launch({executablePath:process.env.CHROMIUM_PATH || '/usr/bin/chromium',headless:true,args:['--no-sandbox']});
  for(const [width,height] of [[320,568],[375,667],[390,844],[430,932],[568,320],[667,375],[844,390],[768,1024],[1024,768],[1440,900]]){
   const page=await browser.newPage({viewport:{width,height},reducedMotion:'reduce'});
   await page.route('**/*',route=>route.request().url().startsWith('http://127.0.0.1:8765')&&route.request().method()==='GET'?route.continue():route.abort());
@@ -16,7 +16,7 @@ const release=Date.parse('2026-10-09T04:00:00Z');
   await page.evaluate(()=>window.scrollTo(100,100));
   await page.mouse.wheel(100,100);
   assert.deepEqual(await page.evaluate(()=>[scrollX,scrollY]),[0,0]);
-  for(const selector of ['[data-album-countdown]','[data-album-presave]','[data-album-calendar]','.album-release-link','#open-email','.hero-social-row']){
+  for(const selector of ['[data-album-countdown]','[data-album-presave]','[data-album-calendar]','.album-release-link','.album-release-cover','#open-email','.hero-social-row']){
    const box=await page.locator(selector).boundingBox();
    assert.ok(box.x>=0 && box.y>=0 && box.x+box.width<=width+1 && box.y+box.height<=height+1,`${selector} must fit ${width}x${height}`);
   }
@@ -33,6 +33,8 @@ const release=Date.parse('2026-10-09T04:00:00Z');
   await page.screenshot({path:`/tmp/deric-countdown-${width}.png`,fullPage:true});
   await page.locator('#open-email').click();
   assert.equal(await page.locator('#emailModal').isVisible(),true);
+  assert.equal(await page.evaluate(()=>document.activeElement.id),'close-email');
+  assert.equal(await page.locator('#heroEmailInput').evaluate(e=>getComputedStyle(e).fontSize),'16px');
   assert.equal(await page.locator('.ml-embedded').getAttribute('data-form'),'ZEx5pV');
   await page.locator('.ml-embedded').evaluate(e=>{const tall=document.createElement('div');tall.style.height='600px';e.appendChild(tall);});
   assert.equal(await page.locator('.email-card').evaluate(e=>e.scrollHeight>e.clientHeight && getComputedStyle(e).overflowY==='auto'),true);
@@ -57,7 +59,7 @@ const release=Date.parse('2026-10-09T04:00:00Z');
  const page=await browser.newPage({javaScriptEnabled:false,viewport:{width:320,height:568}});
  await page.route('**/*',route=>route.request().url().startsWith('http://127.0.0.1:8765')?route.continue():route.abort());
  await page.goto('http://127.0.0.1:8765/');
- assert.match(await page.locator('.album-release-date').innerText(),/October 9, 2026.*12:00 AM Eastern \(EDT\)/);
+ assert.match(await page.locator('.album-release-date').innerText(),/October 9, 2026.*Midnight ET/);
  assert.equal(await page.locator('[data-countdown-clock]').isVisible(),false);
  assert.equal(await page.locator('[data-album-presave]').isVisible(),true);
  await browser.close();

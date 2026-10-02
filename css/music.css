@@ -34,7 +34,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 500;
 }
 
@@ -54,7 +54,7 @@
 
 .music-featured-desc {
   font-size: 0.95rem;
-  color: rgba(245, 241, 234, 0.65);
+  color: rgba(245, 245, 245, 0.65);
   line-height: 1.8;
   margin: 0;
 }
@@ -104,7 +104,7 @@
 }
 
 .music-btn-secondary:hover {
-  border-color: rgba(245, 241, 234, 0.3);
+  border-color: rgba(245, 245, 245, 0.3);
   background: rgba(255, 255, 255, 0.06);
 }
 
@@ -154,7 +154,7 @@
 
 .catalog-filter-btn:hover {
   color: var(--text);
-  border-color: rgba(245, 241, 234, 0.25);
+  border-color: rgba(245, 245, 245, 0.25);
 }
 
 .catalog-filter-btn.active {
@@ -252,7 +252,7 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  background: linear-gradient(135deg, rgba(201,151,76,0.08) 0%, rgba(255,255,255,0.02) 100%);
+  background: linear-gradient(135deg, rgba(239, 51, 64,0.08) 0%, rgba(255,255,255,0.02) 100%);
   color: var(--text-muted);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
@@ -317,7 +317,7 @@
 }
 
 .stream-tile:hover {
-  border-color: rgba(245, 241, 234, 0.2);
+  border-color: rgba(245, 245, 245, 0.2);
   background: rgba(255, 255, 255, 0.06);
   transform: translateY(-2px);
 }
@@ -370,7 +370,7 @@
 }
 
 .project-embed-card:hover {
-  border-color: rgba(245, 241, 234, 0.18);
+  border-color: rgba(245, 245, 245, 0.18);
 }
 
 .project-embed-card iframe {
@@ -398,7 +398,7 @@
   font-size: 0.62rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--accent);
   font-weight: 500;
 }
 
@@ -407,7 +407,7 @@
   display: block;
   width: 32px;
   height: 1px;
-  background: var(--gold);
+  background: var(--accent);
   opacity: 0.4;
 }
 
