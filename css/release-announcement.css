@@ -11,3 +11,7 @@
 .release-announcement-later{display:block;width:100%;min-height:44px;margin-top:6px;border:0;background:transparent;color:#cbb9bf;font:inherit;font-size:12px;cursor:pointer}
 .release-announcement button:focus-visible,.release-announcement a:focus-visible{outline:2px solid #ff96a5;outline-offset:3px}
 @media(max-height:550px){.release-announcement-art{height:25dvh}.release-announcement-copy{padding:16px}#releaseAnnouncementDescription{margin:10px 0}}
+
+/* The release popup is the homepage promotion; leave the video unobstructed. */
+.homepage .hero-refresh{display:flex;flex-direction:column;justify-content:flex-end}
+.homepage .hero-floor{width:100%}
