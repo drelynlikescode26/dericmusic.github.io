@@ -16,4 +16,10 @@
 .homepage .hero-refresh{display:flex;flex-direction:column;justify-content:flex-end}
 .homepage .hero-floor{width:100%}
 
-.hero-tape-shortcut{display:inline-flex;align-items:center;gap:6px;color:#f8f3f4;font-size:12px;text-decoration:none;padding:8px 0}.hero-tape-shortcut span{color:#ff526b;font-size:9px}.hero-tape-shortcut:hover{color:#ff96a5}.hero-tape-shortcut:focus-visible{outline:2px solid #ff96a5;outline-offset:3px}@media(max-width:600px){.hero-tape-shortcut{font-size:10px}}
+/* Compact, equal-sized listening and signup controls. */
+.homepage .hero-floor-right{flex-direction:row;align-items:center;gap:10px}
+.homepage .hero-action-icon{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;width:48px;height:48px;min-height:48px;padding:0;border:1px solid #ffffff35;border-radius:14px;background:#100d11d9;color:#fff;font-size:18px;line-height:1;text-decoration:none;box-shadow:0 4px 16px #0003;touch-action:manipulation}
+.homepage .hero-action-listen{background:linear-gradient(120deg,#b70c2a,#e72a44);border-color:#ff637a;font-size:16px}
+.homepage .hero-action-icon:hover{background:#38101c;border-color:#ff637a}
+.homepage .hero-action-listen:hover{background:#eb304b}
+.homepage .hero-action-icon:focus-visible{outline:2px solid #ff96a5;outline-offset:4px}
