@@ -15,3 +15,5 @@
 /* The release popup is the homepage promotion; leave the video unobstructed. */
 .homepage .hero-refresh{display:flex;flex-direction:column;justify-content:flex-end}
 .homepage .hero-floor{width:100%}
+
+.hero-tape-shortcut{display:inline-flex;align-items:center;gap:6px;color:#f8f3f4;font-size:12px;text-decoration:none;padding:8px 0}.hero-tape-shortcut span{color:#ff526b;font-size:9px}.hero-tape-shortcut:hover{color:#ff96a5}.hero-tape-shortcut:focus-visible{outline:2px solid #ff96a5;outline-offset:3px}@media(max-width:600px){.hero-tape-shortcut{font-size:10px}}

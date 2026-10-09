@@ -486,3 +486,5 @@
     transform: none !important;
   }
 }
+
+.tape-cover{display:block;max-width:500px}.tape-cover img{display:block;width:100%;height:auto;border-radius:14px;border:1px solid #ffffff20}.tape-listen{background:var(--accent);color:#fff}.tape-featured .music-featured-info{gap:1.2rem;min-width:0}.tape-featured .music-featured-title{overflow-wrap:anywhere}@media(max-width:900px){.tape-cover{max-width:360px}.tape-featured{gap:1.5rem}}

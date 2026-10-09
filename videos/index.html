@@ -125,6 +125,8 @@
     }
     @media (max-width: 360px) { .vtile { grid-template-columns: 100px minmax(0,1fr); gap: 12px; } }
 
+    .tape-playlist-poster img { object-fit: contain; filter: brightness(.8); }
+
     /* ── Lightbox ── */
 
     .lightbox {
@@ -322,7 +324,24 @@
 
     <main class="page-main">
 
-      <!-- Featured video -->
+
+      <section class="p-section" aria-labelledby="tape-playlist-title">
+        <div class="p-label">Latest drop · Full tape playlist</div>
+        <div class="video-featured-wrap">
+          <button type="button" class="video-featured-poster tape-playlist-poster video-trigger" data-id="aUvMe_kBQ3M" data-playlist="OLAK5uy_nXaYcpFYPDyFLE0HaSjwj1cUQX3W9PV94" data-title="#PLUGGAINTDEAD 2 full tape playlist" aria-label="Play the full #PLUGGAINTDEAD 2 playlist">
+            <img src="/assets/releases/pluggaintdead-2-cover.jpg" alt="#PLUGGAINTDEAD 2 official cover art" fetchpriority="high">
+            <span class="video-featured-action"><span class="play-icon" aria-hidden="true"></span> Play the tape · 13 tracks</span>
+          </button>
+          <div class="video-featured-meta">
+            <h2 class="video-featured-title" id="tape-playlist-title">#PLUGGAINTDEAD 2</h2>
+            <a class="btn-outline" href="https://www.youtube.com/playlist?list=OLAK5uy_nXaYcpFYPDyFLE0HaSjwj1cUQX3W9PV94" target="_blank" rel="noopener noreferrer"><i class="fab fa-youtube" aria-hidden="true"></i> Open full playlist</a>
+            <a class="btn-outline" href="/pluggaintdead2/?from=videos">Listen on your platform</a>
+          </div>
+        </div>
+      </section>
+      <hr class="p-rule">
+
+      <!-- Featured music video -->
       <section class="p-section">
         <div class="p-label">Featured Video</div>
         <div class="video-featured-wrap">
@@ -448,7 +467,7 @@
       function openVideo(trigger) {
         previousFocus = trigger;
         iframe.title = trigger.dataset.title + ' by Deric';
-        iframe.src = 'https://www.youtube-nocookie.com/embed/' + trigger.dataset.id + '?autoplay=1&rel=0';
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + trigger.dataset.id + '?autoplay=1&rel=0' + (trigger.dataset.playlist ? '&list=' + encodeURIComponent(trigger.dataset.playlist) : '');
         lightbox.classList.add('open');
         document.body.style.overflow = 'hidden';
         closeBtn.focus();
