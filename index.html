@@ -65,7 +65,8 @@
     <link rel="stylesheet" href="/css/newsletter.css?v=20261002-polish">
     <script src="/js/newsletter.js?v=20261002-polish" defer></script>
     <link rel="stylesheet" href="/css/album-countdown.css?v=20261002-polish">
-    <script src="/js/album-countdown.js?v=20261002-polish" defer></script>
+    <link rel="stylesheet" href="/css/release-announcement.css?v=20261009">
+    <script src="/js/release-announcement.js?v=20261009" defer></script>
 </head>
 <body class="homepage">
 
@@ -113,22 +114,15 @@
         <div class="grain-overlay"></div>
         <div class="hero-content">
             <div class="hero-refresh">
-                <section class="album-release" data-album-countdown aria-labelledby="album-title">
+                <section class="album-release" aria-labelledby="album-title">
                     <img class="album-release-cover" src="/assets/releases/pluggaintdead-2-cover.jpg" width="1254" height="1254" alt="#PLUGGAINTDEAD 2 mixtape cover" fetchpriority="high" decoding="async">
                     <div class="album-release-copy">
                         <h2 id="album-title">#PLUGGAINTDEAD 2</h2>
-                        <p class="album-release-date"><time datetime="2026-10-09T00:00:00-04:00">October 9, 2026 · Midnight ET</time></p>
-                        <dl class="album-countdown" data-countdown-clock role="timer" aria-live="off" aria-label="Time until the album release" hidden>
-                            <div><dt>Days</dt><dd data-countdown-days>—</dd></div>
-                            <div><dt>Hours</dt><dd data-countdown-hours>—</dd></div>
-                            <div><dt>Minutes</dt><dd data-countdown-minutes>—</dd></div>
-                            <div><dt>Seconds</dt><dd data-countdown-seconds>—</dd></div>
-                        </dl>
-                        <p class="album-release-status" data-release-status role="status" aria-live="polite"></p>
+                        <p class="album-release-date">OUT NOW · 13 TRACKS</p>
+                        <p class="album-release-status">Same heart. Deeper story.</p>
                         <div class="album-actions">
-                        <a class="album-presave" data-album-presave href="https://hypeddit.com/nrihmk" target="_blank" rel="noopener noreferrer">Pre-save the tape <span aria-hidden="true">↗</span></a>
-                        <a class="album-calendar" data-album-calendar href="/assets/releases/pluggaintdead-2-release.ics" download><i class="fa-regular fa-calendar" aria-hidden="true"></i> Save the date</a>
-                        <a class="album-release-link" href="/music/">Explore music <span aria-hidden="true">↗</span></a>
+                        <a class="album-presave" href="/pluggaintdead2/">Listen to the tape <i class="fa-solid fa-play" aria-hidden="true"></i></a>
+                        <a class="album-release-link" style="grid-column:1 / -1" href="/music/">Explore music <span aria-hidden="true">↗</span></a>
                         </div>
                     </div>
                 </section>
@@ -200,6 +194,19 @@
         </div>
     </div>
 
+
+
+    <dialog class="release-announcement" id="releaseAnnouncement" aria-labelledby="releaseAnnouncementTitle" aria-describedby="releaseAnnouncementDescription">
+      <button class="release-announcement-close" type="button" aria-label="Close release announcement" autofocus>×</button>
+      <img class="release-announcement-art" src="/assets/releases/pluggaintdead-2-cover.jpg" width="1254" height="1254" alt="#PLUGGAINTDEAD 2 official cover art">
+      <div class="release-announcement-copy">
+        <p class="release-announcement-eyebrow">THE TAPE IS OUT NOW</p>
+        <h2 id="releaseAnnouncementTitle">#PLUGGAINTDEAD 2</h2>
+        <p id="releaseAnnouncementDescription">Same heart. Deeper story.<br>13 tracks. Run it from the top.</p>
+        <a class="release-announcement-listen" href="/pluggaintdead2/">Listen to the tape <i class="fa-solid fa-play" aria-hidden="true"></i></a>
+        <button class="release-announcement-later" type="button">Keep exploring</button>
+      </div>
+    </dialog>
 
 </body>
 </html>
